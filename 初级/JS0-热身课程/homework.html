@@ -5,56 +5,141 @@
 <title>无标题文档</title>
 <style>
 div, p, input {margin: 0; padding: 0; border: 0;}
-input {outline: none;}
-input:focus {border: 1px solid black; background: #ef9400; display: none;}
+input:focus {display: none; background: #ef9400; border: 1px solid black;}
 
-#box {width: 736px; height: 420px; background: #efefef; position: relative; overflow: hidden;}
-#box_mark {width: 736px; height: 420px; top: 0; left: 0; position: absolute; background: black; float: left; z-index: 2; opacity: 0.4; filter: alpha(opacity=40); display: none;}
+.box {
+  position: relative;
+  width: 736px; 
+  height: 420px; 
+  background: #efefef;  
+  overflow: hidden;
+}
 
-#title {width: 380px; height: 40px; top: 25px; left: 25px; position: absolute; z-index: 0;}
-#title_tip {width: 280px; height: 40px; float: left; line-height: 40px; text-align: center; font-size: 22px; font-weight: bold;}
-#title_btn {width: 100px; height: 40px; background: #FF0000; float: right; color: #fff;}
+.box-mark {
+  position: absolute; 
+  top: 0; 
+  left: 0;
+  z-index: 2;
+  float: left;
+  display: none;
+  width: 736px; 
+  height: 420px; 
+  background: black;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
 
-#div {width: 100px; height: 100px; border: 4px solid #393129; background: #ffffff; top: 80px; left: 25px; position: absolute;}
+.title {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  z-index: 0;
+  width: 380px;
+  height: 40px;
+}
 
-#set_dlg {width: 300px; height: 200px; border: 20px solid #9c949c; background: #ffffff; top: 150px; right: 25px; position: absolute; z-index: 3; display: none;}
-#set_dlg .select_line {width: 236px; height: 32px; margin: 16px 32px 12px 32px; }
-#set_dlg .select_tip {width: 110px; height: 32px; float: left; line-height: 32px; text-align: center; font-size: 14px;}
-#set_dlg .select_btn {width: 36px; height: 32px; background: #efefef; float: right; margin-left: 6px;}
-#set_dlg .set_btn {width: 60px; height: 30px; background: #002952; color: #fff;}
+.title-tip {
+  float: left;
+  width: 280px;
+  height: 40px;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 40px; 
+  text-align: center;
+}
+
+.title-btn {
+  float: right;
+  width: 100px;
+  height: 40px;
+  color: #fff;
+  background: #FF0000;
+}
+
+.be-set-div {
+  position: absolute;
+  top: 80px; 
+  left: 25px; 
+  width: 100px;
+  height: 100px;
+  background: #ffffff;
+  border: 4px solid #393129;
+}
+
+.set-dlg {
+  position: absolute;
+  top: 150px;
+  right: 25px;
+  z-index: 3;
+  display: none;
+  width: 300px;
+  height: 200px;
+  background: #ffffff;
+  border: 20px solid #9c949c;
+}
+
+.set-dlg .select-line {
+  width: 236px;
+  height: 32px;
+  margin: 16px 32px 12px 32px;
+}
+
+.set-dlg .select-tip {
+  float: left;
+  width: 110px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.set-dlg .select-btn {
+  float: right;
+  width: 36px;
+  height: 32px;
+  margin-left: 6px;
+  background: #efefef;
+}
+
+.set-dlg .set-btn {
+  width: 60px;
+  height: 30px;
+  color: #fff;
+  background: #002952;
+}
 
 </style>
 </head>
 
 <body>
-<div id="box">
-  <div id="box_mark"></div>
-  <div id="title">
-    <p id="title_tip">请为下面的DIV设置样式 :</p>
-    <input id="title_btn" type="button" value="点击设置" />
+<div class="box">
+  <div id="boxMark" class="box-mark"></div>
+  <div class="title">
+    <p class="title-tip">请为下面的DIV设置样式 :</p>
+    <input id="titleBtn" class="title-btn" type="button" value="点击设置" />
   </div>
-  <div id="div"></div>
-  <div id="set_dlg">
-    <div id="set_bg" class="select_line">
-      <p class="select_tip">请选择背景色 ：</p>
-      <input class="select_btn" type="button" style="background: blue" value="蓝" name="select_color" onClick="selectBtnOnClick(this)"/>
-      <input class="select_btn" type="button" style="background: yellow" value="黄" name="select_color" onClick="selectBtnOnClick(this)"/>
-      <input class="select_btn" type="button" style="background: red" value="红" name="select_color" onClick="selectBtnOnClick(this)"/>
+  <div id="div" class="be-set-div"></div>
+  <div id="setDlg" class="set-dlg">
+    <div id="setBg" class="select-line">
+      <p class="select-tip">请选择背景色 ：</p>
+      <input class="select-btn" type="button" style="background: blue" value="蓝" name="select_color" onClick="selectBtnOnClick(this)"/>
+      <input class="select-btn" type="button" style="background: yellow" value="黄" name="select_color" onClick="selectBtnOnClick(this)"/>
+      <input class="select-btn" type="button" style="background: red" value="红" name="select_color" onClick="selectBtnOnClick(this)"/>
     </div>
-    <div id="set_width" class="select_line" style="margin-top: 12px;">
-      <p class="select_tip">请选择宽(px) ：</p>
-      <input class="select_btn" type="button" value="400" name="select_width" onClick="selectBtnOnClick(this)"/>
-      <input class="select_btn" type="button" value="300" name="select_width" onClick="selectBtnOnClick(this)"/>
-      <input class="select_btn" type="button" value="200" name="select_width" onClick="selectBtnOnClick(this)"/>
+    <div id="setWidth" class="select-line" style="margin-top: 12px;">
+      <p class="select-tip">请选择宽(px) ：</p>
+      <input class="select-btn" type="button" value="400" name="select_width" onClick="selectBtnOnClick(this)"/>
+      <input class="select-btn" type="button" value="300" name="select_width" onClick="selectBtnOnClick(this)"/>
+      <input class="select-btn" type="button" value="200" name="select_width" onClick="selectBtnOnClick(this)"/>
     </div>
-    <div id="set_hight" class="select_line" style="margin-top: 12px;">
-      <p class="select_tip">请选择高(px) ：</p>
-      <input class="select_btn" type="button" value="400" name="select_height" onClick="selectBtnOnClick(this)"/>
-      <input class="select_btn" type="button" value="300" name="select_height" onClick="selectBtnOnClick(this)"/>
-      <input class="select_btn" type="button" value="200" name="select_height" onClick="selectBtnOnClick(this)"/>
+    <div id="setHight" class="select-line" style="margin-top: 12px;">
+      <p class="select-tip">请选择高(px) ：</p>
+      <input class="select-btn" type="button" value="400" name="select_height" onClick="selectBtnOnClick(this)"/>
+      <input class="select-btn" type="button" value="300" name="select_height" onClick="selectBtnOnClick(this)"/>
+      <input class="select-btn" type="button" value="200" name="select_height" onClick="selectBtnOnClick(this)"/>
     </div>
-    <input class="set_btn" type="button" style="margin: 0 0 20px 86px;" value="恢复" name="set_resume" onClick="setBtnOnClick(this)"/>
-    <input class="set_btn" type="button" style="margin: 0 86px 20px 0;" value="确定" name="set_sure" onClick="setBtnOnClick(this)"/>
+    <input class="set-btn" type="button" style="margin: 0 0 20px 86px;" value="恢复" name="set_resume" onClick="setBtnOnClick(this)"/>
+    <input class="set-btn" type="button" style="margin: 0 86px 20px 0;" value="确定" name="set_sure" onClick="setBtnOnClick(this)"/>
   </div>
 </div>
 
@@ -74,31 +159,28 @@ function selectBtnOnClick(self) {
 
 function setBtnOnClick(self) {
   var div = document.getElementById('div');
-  var set_dlg = document.getElementById('set_dlg');
-  var box_mark = document.getElementById('box_mark');
+  var setDlg = document.getElementById('setDlg');
+  var boxMark = document.getElementById('boxMark');
   
   if (self.name == 'set_resume') {
     div.style.width = '100px';
     div.style.height = '100px';
     div.style.background = '#ffffff';
   } else if (self.name == 'set_sure') {
-    set_dlg.style.display = 'none';
-    box_mark.style.display = 'none';
+    setDlg.style.display = 'none';
+    boxMark.style.display = 'none';
   }
 }
 
 window.onload = function () {
-  var box = document.getElementById('box');
-  var box_mark = document.getElementById('box_mark');
-  var title_btn = document.getElementById('title_btn');
-  var set_dlg = document.getElementById('set_dlg');
-  var select_btns = document.getElementsByClassName('select_btn');
-  
-  title_btn.onmousedown = function () {
-    set_dlg.style.display = 'block';
-    box_mark.style.display = 'block';
-  }
-}
+  var boxMark = document.getElementById('boxMark');
+  var setDlg = document.getElementById('setDlg');
+    
+  titleBtn.onmousedown = function () {
+    setDlg.style.display = 'block';
+    boxMark.style.display = 'block';
+  };
+};
 
 </script>
 </body>
