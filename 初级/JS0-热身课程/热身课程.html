@@ -16,17 +16,18 @@ li {list-style: none;}
 
 <body>
 <div id="weibo">
-	<a id="weibo_link" href="#">微博</a>
+  <a id="weibo_link" href="#">微博</a>
     <div id="weibo_list">
-       	<ul>
-        	<li>私信</li>
-            <li>评论</li>
-            <li>@我</li>   
-        </ul> 
+      <ul>
+        <li>私信</li>
+        <li>评论</li>
+        <li>@我</li>   
+      </ul> 
     </div>
 </div>
 
 <script>
+
 window.onload = function () {
   var wb_link = document.getElementById("weibo_link");
   var wb_list = document.getElementById("weibo_list");
@@ -34,14 +35,16 @@ window.onload = function () {
   
   weibo.onmouseover = function () {
     wb_link.style.background = "#edeef0";
-	wb_list.style.display = "block";
-	wb_list.style.background = "#ffffff";
+    wb_list.style.display = "block";
+    wb_list.style.background = "#ffffff";
   }
+  
   weibo.onmouseout = function () {
-	wb_link.style.background = "#fcfcfc";
-	wb_list.style.display = "none";
+    wb_link.style.background = "#fcfcfc";
+    wb_list.style.display = "none";
   }
 }
+
 </script>
 
 </body>
