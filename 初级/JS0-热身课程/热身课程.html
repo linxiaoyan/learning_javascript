@@ -18,26 +18,30 @@ li {list-style: none;}
 <div id="weibo">
 	<a id="weibo_link" href="#">微博</a>
     <div id="weibo_list">
-    	<ul>
+       	<ul>
         	<li>私信</li>
             <li>评论</li>
-            <li>@我</li>
-        </ul>
+            <li>@我</li>   
+        </ul> 
     </div>
 </div>
 
 <script>
-	document.getElementById("weibo").onmouseover = show;
-	document.getElementById("weibo").onmouseout = hide;
-	function show() {
-		document.getElementById("weibo_link").style.background = "#edeef0";
-		document.getElementById("weibo_list").style.display = "block";
-		document.getElementById("weibo_list").style.background = "#ffffff";
-	}
-		function hide() {
-		document.getElementById("weibo_link").style.background = "#fcfcfc";
-		document.getElementById("weibo_list").style.display = "none";
-	}
+window.onload = function () {
+  var wb_link = document.getElementById("weibo_link");
+  var wb_list = document.getElementById("weibo_list");
+  var weibo = document.getElementById("weibo");
+  
+  weibo.onmouseover = function () {
+    wb_link.style.background = "#edeef0";
+	wb_list.style.display = "block";
+	wb_list.style.background = "#ffffff";
+  }
+  weibo.onmouseout = function () {
+	wb_link.style.background = "#fcfcfc";
+	wb_list.style.display = "none";
+  }
+}
 </script>
 
 </body>
