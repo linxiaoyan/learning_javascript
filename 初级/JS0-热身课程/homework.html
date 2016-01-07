@@ -28,35 +28,34 @@ input:focus {border: 1px solid black; background: #ef9400; display: none;}
 
 <body>
 <div id="box">
-    <div id="box_mark"></div>
-	<div id="title">
-    	<p id="title_tip">请为下面的DIV设置样式 :</p>
-        <input id="title_btn" type="button" value="点击设置" />
+  <div id="box_mark"></div>
+  <div id="title">
+    <p id="title_tip">请为下面的DIV设置样式 :</p>
+    <input id="title_btn" type="button" value="点击设置" />
+  </div>
+  <div id="div"></div>
+  <div id="set_dlg">
+    <div id="set_bg" class="select_line">
+      <p class="select_tip">请选择背景色 ：</p>
+      <input class="select_btn" type="button" style="background: blue" value="蓝" name="select_color" onClick="selectBtnOnClick(this)"/>
+      <input class="select_btn" type="button" style="background: yellow" value="黄" name="select_color" onClick="selectBtnOnClick(this)"/>
+      <input class="select_btn" type="button" style="background: red" value="红" name="select_color" onClick="selectBtnOnClick(this)"/>
     </div>
-    <div id="div">
+    <div id="set_width" class="select_line" style="margin-top: 12px;">
+      <p class="select_tip">请选择宽(px) ：</p>
+      <input class="select_btn" type="button" value="400" name="select_width" onClick="selectBtnOnClick(this)"/>
+      <input class="select_btn" type="button" value="300" name="select_width" onClick="selectBtnOnClick(this)"/>
+      <input class="select_btn" type="button" value="200" name="select_width" onClick="selectBtnOnClick(this)"/>
     </div>
-    <div id="set_dlg">
-		<div id="set_bg" class="select_line">
-    		<p class="select_tip">请选择背景色 ：</p>
-        	<input class="select_btn" type="button" style="background: blue" value="蓝" name="select_color" onClick="selectBtnOnClick(this)"/>
-            <input class="select_btn" type="button" style="background: yellow" value="黄" name="select_color" onClick="selectBtnOnClick(this)"/>
-            <input class="select_btn" type="button" style="background: red" value="红" name="select_color" onClick="selectBtnOnClick(this)"/>
-    	</div>
-        <div id="set_width" class="select_line" style="margin-top: 12px;">
-    		<p class="select_tip">请选择宽(px) ：</p>
-        	<input class="select_btn" type="button" value="400" name="select_width" onClick="selectBtnOnClick(this)"/>
-            <input class="select_btn" type="button" value="300" name="select_width" onClick="selectBtnOnClick(this)"/>
-            <input class="select_btn" type="button" value="200" name="select_width" onClick="selectBtnOnClick(this)"/>
-    	</div>
-    	<div id="set_hight" class="select_line" style="margin-top: 12px;">
-    		<p class="select_tip">请选择高(px) ：</p>
-        	<input class="select_btn" type="button" value="400" name="select_height" onClick="selectBtnOnClick(this)"/>
-            <input class="select_btn" type="button" value="300" name="select_height" onClick="selectBtnOnClick(this)"/>
-            <input class="select_btn" type="button" value="200" name="select_height" onClick="selectBtnOnClick(this)"/>
-    	</div>
-        <input class="set_btn" type="button" style="margin: 0 0 20px 86px;" value="恢复" name="set_resume" onClick="setBtnOnClick(this)"/>
-        <input class="set_btn" type="button" style="margin: 0 86px 20px 0;" value="确定" name="set_sure" onClick="setBtnOnClick(this)"/>
+    <div id="set_hight" class="select_line" style="margin-top: 12px;">
+      <p class="select_tip">请选择高(px) ：</p>
+      <input class="select_btn" type="button" value="400" name="select_height" onClick="selectBtnOnClick(this)"/>
+      <input class="select_btn" type="button" value="300" name="select_height" onClick="selectBtnOnClick(this)"/>
+      <input class="select_btn" type="button" value="200" name="select_height" onClick="selectBtnOnClick(this)"/>
     </div>
+    <input class="set_btn" type="button" style="margin: 0 0 20px 86px;" value="恢复" name="set_resume" onClick="setBtnOnClick(this)"/>
+    <input class="set_btn" type="button" style="margin: 0 86px 20px 0;" value="确定" name="set_sure" onClick="setBtnOnClick(this)"/>
+  </div>
 </div>
 
 <script>
@@ -66,9 +65,9 @@ function selectBtnOnClick(self) {
   
   if (self.name == 'select_color') {
     div.style.background = self.style.background;
-  }else if (self.name == 'select_width') {
-  	div.style.width = self.value + 'px';
-  }else if (self.name == 'select_height') {
+  } else if (self.name == 'select_width') {
+    div.style.width = self.value + 'px';
+  } else if (self.name == 'select_height') {
     div.style.height = self.value + 'px';
   }
 }
@@ -80,11 +79,11 @@ function setBtnOnClick(self) {
   
   if (self.name == 'set_resume') {
     div.style.width = '100px';
-	div.style.height = '100px';
-	div.style.background = '#ffffff';
+    div.style.height = '100px';
+    div.style.background = '#ffffff';
   } else if (self.name == 'set_sure') {
     set_dlg.style.display = 'none';
-	box_mark.style.display = 'none';
+    box_mark.style.display = 'none';
   }
 }
 
@@ -97,9 +96,8 @@ window.onload = function () {
   
   title_btn.onmousedown = function () {
     set_dlg.style.display = 'block';
-	box_mark.style.display = 'block';
+    box_mark.style.display = 'block';
   }
-  
 }
 
 </script>
