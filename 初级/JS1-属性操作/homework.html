@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<style>
+#content {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin: 40px auto 0;
+  border: 10px solid #ccc;
+}
+
+#content a {
+  top: 175px;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  text-decoration: none;
+  line-height: 40px;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 30px;
+  background: #000;
+  border: 5px solid #fff;
+  filter: alpha(opacity: 40);
+  opacity: 0.4;
+}
+
+#content a:hover {
+  filter: alpha(opacity: 90);
+  opacity: 0.9;
+}
+
+#prev {
+  left: 10px;
+}
+
+#next {
+  right: 10px;  
+}
+
+#text1, #span1 {
+  position: absolute;
+  left: 0;
+  width: 400px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: #fff;
+  background: #000;
+  filter: alpha(opacity: 50);
+  opacity: 0.5;
+}
+
+#text1 {
+  margin: 0;
+  bottom: 0;
+}
+
+#span1 {
+  top: 0;
+}
+
+#img1 {
+  width: 400px;
+  height: 400px;
+}
+
+</style>
+<body>
+<div id="content">
+  <a id="prev" href="javascript: ;"><</a>
+  <a id="next" href="javascript: ;">></a>
+  <span id="span1">图片数量加载中...</span>
+  <img id="img1" src=""/>
+  <p id="text1">图片文字加载中...</p>
+</div>
+
+
+<script>
+window.onload = function () {
+  var oPrev = document.getElementById('prev');
+  var oNext = document.getElementById('next');
+  var oText1 = document.getElementById('text1');
+  var oSpan1 = document.getElementById('span1');
+  var oImg1 = document.getElementById('img1');
+  var num = 0;
+  var arrUrl = ['imgs/buffon.jpg', 'imgs/nesta.jpg', 'imgs/vieri.jpg', 'imgs/totti.jpg'];
+  var arrText = ['布冯', '内斯塔', '维埃里', '托蒂'];
+  var arrLen = arrUrl.length;
+
+  function showPic() {
+    oImg1.src = arrUrl[num];
+	oText1.innerHTML = arrText[num];
+	oSpan1.innerHTML = (num + 1) + '/' + arrUrl.length;
+  }
+  
+  showPic();
+  
+  oPrev.onclick = function () {
+	num--;
+	if (-1 == num) {
+	  num = 0;
+	} else {
+	  showPic();
+	}
+  }
+  
+  oNext.onclick = function () {
+	num++;
+	if (arrLen == num) {
+	  num = arrLen - 1;
+	} else {
+      showPic();
+	}
+  }
+}
+</script>
+
+
+</body>
+</html>
