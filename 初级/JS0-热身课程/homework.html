@@ -122,21 +122,21 @@ input:focus {display: none; background: #ef9400; border: 1px solid black;}
   <div id="setDlg" class="set-dlg">
     <div id="setBg" class="select-line">
       <p class="select-tip">请选择背景色 ：</p>
-      <input class="select-btn" type="button" style="background: blue" value="蓝" name="select_color" onClick="selectBtnOnClick(this)"/>
-      <input class="select-btn" type="button" style="background: yellow" value="黄" name="select_color" onClick="selectBtnOnClick(this)"/>
-      <input class="select-btn" type="button" style="background: red" value="红" name="select_color" onClick="selectBtnOnClick(this)"/>
+      <input class="select-btn" type="button" style="background: blue" value="蓝" name="background" onClick="selectBtnOnClick(this)"/>
+      <input class="select-btn" type="button" style="background: yellow" value="黄" name="background" onClick="selectBtnOnClick(this)"/>
+      <input class="select-btn" type="button" style="background: red" value="红" name="background" onClick="selectBtnOnClick(this)"/>
     </div>
     <div id="setWidth" class="select-line" style="margin-top: 12px;">
       <p class="select-tip">请选择宽(px) ：</p>
-      <input class="select-btn" type="button" value="400" name="select_width" onClick="selectBtnOnClick(this)"/>
-      <input class="select-btn" type="button" value="300" name="select_width" onClick="selectBtnOnClick(this)"/>
-      <input class="select-btn" type="button" value="200" name="select_width" onClick="selectBtnOnClick(this)"/>
+      <input class="select-btn" type="button" value="400" name="width" onClick="selectBtnOnClick(this)"/>
+      <input class="select-btn" type="button" value="300" name="width" onClick="selectBtnOnClick(this)"/>
+      <input class="select-btn" type="button" value="200" name="width" onClick="selectBtnOnClick(this)"/>
     </div>
     <div id="setHight" class="select-line" style="margin-top: 12px;">
       <p class="select-tip">请选择高(px) ：</p>
-      <input class="select-btn" type="button" value="400" name="select_height" onClick="selectBtnOnClick(this)"/>
-      <input class="select-btn" type="button" value="300" name="select_height" onClick="selectBtnOnClick(this)"/>
-      <input class="select-btn" type="button" value="200" name="select_height" onClick="selectBtnOnClick(this)"/>
+      <input class="select-btn" type="button" value="400" name="height" onClick="selectBtnOnClick(this)"/>
+      <input class="select-btn" type="button" value="300" name="height" onClick="selectBtnOnClick(this)"/>
+      <input class="select-btn" type="button" value="200" name="height" onClick="selectBtnOnClick(this)"/>
     </div>
     <input class="set-btn" type="button" style="margin: 0 0 20px 86px;" value="恢复" name="set_resume" onClick="setBtnOnClick(this)"/>
     <input class="set-btn" type="button" style="margin: 0 86px 20px 0;" value="确定" name="set_sure" onClick="setBtnOnClick(this)"/>
@@ -146,39 +146,37 @@ input:focus {display: none; background: #ef9400; border: 1px solid black;}
 <script>
 
 function selectBtnOnClick(self) {
-  var div = document.getElementById('div');
+  var oDiv = document.getElementById('div');
   
-  if (self.name == 'select_color') {
-    div.style.background = self.style.background;
-  } else if (self.name == 'select_width') {
-    div.style.width = self.value + 'px';
-  } else if (self.name == 'select_height') {
-    div.style.height = self.value + 'px';
+  if (self.name == 'background') {
+    oDiv.style[self.name] = self.style[self.name];
+  } else {
+    oDiv.style[self.name] = self.value + 'px';
   }
 }
 
 function setBtnOnClick(self) {
-  var div = document.getElementById('div');
-  var setDlg = document.getElementById('setDlg');
-  var boxMark = document.getElementById('boxMark');
+  var oDiv = document.getElementById('div');
+  var oSetDlg = document.getElementById('setDlg');
+  var oBoxMark = document.getElementById('boxMark');
   
   if (self.name == 'set_resume') {
-    div.style.width = '100px';
-    div.style.height = '100px';
-    div.style.background = '#ffffff';
+    oDiv.style.width = '100px';
+    oDiv.style.height = '100px';
+    oDiv.style.background = '#ffffff';
   } else if (self.name == 'set_sure') {
-    setDlg.style.display = 'none';
-    boxMark.style.display = 'none';
+    oSetDlg.style.display = 'none';
+    oBoxMark.style.display = 'none';
   }
 }
 
 window.onload = function () {
-  var boxMark = document.getElementById('boxMark');
-  var setDlg = document.getElementById('setDlg');
+  var oBoxMark = document.getElementById('boxMark');
+  var oSetDlg = document.getElementById('setDlg');
     
   titleBtn.onmousedown = function () {
-    setDlg.style.display = 'block';
-    boxMark.style.display = 'block';
+    oSetDlg.style.display = 'block';
+    oBoxMark.style.display = 'block';
   };
 };
 
