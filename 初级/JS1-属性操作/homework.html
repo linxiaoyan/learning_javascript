@@ -5,12 +5,44 @@
 <title>无标题文档</title>
 </head>
 <style>
+
+div, p {margin: 0; padding: 0;}
+
 #content {
   position: relative;
   width: 400px;
   height: 400px;
-  margin: 40px auto 0;
   border: 10px solid #ccc;
+}
+
+#switch {
+  postion: relative;
+  width: 420px;
+  height: 80px;
+  border-top: 1px solid black;
+}
+
+#switch .circle-btn {
+  float: left;
+  margin-top: 10px;
+  margin-left: 135px;
+}
+
+#switch .order-btn {
+  float: right;
+  margin-top: 10px;
+  margin-right: 135px;
+}
+
+#title {
+  position: absolute;
+  top: 55px;
+  width: 400px;
+  height: 30px;
+  margin: 0;
+  line-height: 30px;
+  text-align: center;
+  color: black;
 }
 
 #content a {
@@ -72,17 +104,24 @@
 
 </style>
 <body>
+<div id="switch">
+  <div class="circle-btn"><input id="circle" type="button" value="循环切换" /></div>
+  <div class="order-btn"><input id="order" type="button" value="顺序切换" /></div>
+  <p id="title"></p>
+</div>
 <div id="content">
-  <a id="prev" href="javascript: ;"><</a>
-  <a id="next" href="javascript: ;">></a>
-  <span id="span1">图片数量加载中...</span>
-  <img id="img1" src=""/>
+  <a id="prev" href="javascript: ;">&lt;</a>
+  <a id="next" href="javascript: ;">&gt;</a>
+  <span id="span1">1/4</span>
+  <img id="img1">
   <p id="text1">图片文字加载中...</p>
 </div>
 
-
 <script>
 window.onload = function () {
+  var oCircle = document.getElementById('circle');
+  var oOrder = document.getElementById('order');
+  var oTitle = document.getElementById('title');
   var oPrev = document.getElementById('prev');
   var oNext = document.getElementById('next');
   var oText1 = document.getElementById('text1');
@@ -92,8 +131,20 @@ window.onload = function () {
   var arrUrl = ['imgs/buffon.jpg', 'imgs/nesta.jpg', 'imgs/vieri.jpg', 'imgs/totti.jpg'];
   var arrText = ['布冯', '内斯塔', '维埃里', '托蒂'];
   var arrLen = arrUrl.length;
+  var circleFlag = true;
 
+  oCircle.onclick = function () {
+    circleFlag = true;
+	oTitle.innerHTML = '图片可从最后一张跳转到第一张循环切换';
+  }
+  
+  oOrder.onclick = function () {
+    circleFlag = false;
+	oTitle.innerHTML = '图片只能到最后一张或只能到第一张切换';
+  }
+  
   function showPic() {
+	oTitle.innerHTML = '图片可从最后一张跳转到第一张循环切换';
     oImg1.src = arrUrl[num];
 	oText1.innerHTML = arrText[num];
 	oSpan1.innerHTML = (num + 1) + '/' + arrUrl.length;
@@ -104,23 +155,19 @@ window.onload = function () {
   oPrev.onclick = function () {
 	num--;
 	if (-1 == num) {
-	  num = 0;
-	} else {
-	  showPic();
+	  num = circleFlag ? arrLen - 1 : 0;
 	}
+	showPic();
   }
   
   oNext.onclick = function () {
 	num++;
 	if (arrLen == num) {
-	  num = arrLen - 1;
-	} else {
-      showPic();
-	}
+	  num = circleFlag ? 0 : arrLen - 1;
+    }
+	showPic();
   }
 }
 </script>
-
-
 </body>
 </html>
