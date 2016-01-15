@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+ul {margin: 0; padding: 0;}
+
+li {
+  display: block; 
+  float: left; 
+  width: 50px; 
+  height: 50px; 
+  margin-top: 10px; 
+  margin-right: 10px;
+  text-align: center;
+  line-height: 50px;
+  font-size: 30px;
+  border: 1px solid black;
+  list-style: none;
+}
+
+</style>
+
+
+</head>
+
+<body>
+<input id="btn" type="button" value="自动生成100个LI"/>
+<div style="width: 620px;">
+  <ul id="list"></ul>
+</div>
+</body>
+
+<script>
+window.onload = function () {
+  var oBtn = document.getElementById('btn');
+  var oUl = document.getElementById('list');
+  var oLi = document.createElement('li');
+  var aColor = ['red', 'yellow', 'blue', 'green'];
+  var len = aColor.length;
+  var row = 10;
+  var coloum = 10;
+  var clicked = false;
+  
+  oBtn.onclick = function () {
+	if (!clicked) {
+	  for (var i = 0; i < row; i++) {
+	    for (var j = 0; j < coloum; j++) {
+		  var index = i * coloum + j;
+	      oLi = document.createElement('li');
+          oLi.innerHTML = index;
+		  oLi.style.background = aColor[index % len];
+	      oUl.appendChild(oLi);
+		}
+	  }
+	  clicked = true;
+    }
+  }
+}
+</script>
+</body>
+</html>

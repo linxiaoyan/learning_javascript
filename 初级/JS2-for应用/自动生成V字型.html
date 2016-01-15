@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+.div1 {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  text-align: center;
+  line-height: 50px;
+  background: blue;  
+  display: none;  
+}
+</style>
+</head>
+
+<body>
+<input id="btn" type="button" value="按钮" />
+
+<script>
+
+function changePosition(aDiv) {
+  alert(aDiv.length);
+}
+
+window.onload = function () {
+  var oBtn = document.getElementById('btn');
+  //var aDiv = document.getElementsByTagName('div');    
+  var divNum = 5;  
+  var middle = Math.floor(divNum / 2);
+  var divTop = 40;   
+  var divWidth = 50;
+  var divHeight = 50;
+  var clickTimes = 0;
+  var changeNum = 4;
+  
+  for (var i = 0; i < divNum; i++) {
+    var oDiv = document.createElement('div');
+	oDiv.setAttribute('class', 'div1');
+	oDiv.innerHTML = i;
+	document.body.appendChild(oDiv);
+	
+	//下面的方法是个坑，导致onclik回调里面无法获取aDiv
+	//document.body.innerHTML += '<div class="div1">' + i + '</div>';
+  }
+  
+  oBtn.onclick = function () {
+	var aDiv = document.getElementsByTagName('div');    
+	
+	switch (clickTimes++ % changeNum) {
+	case 0:
+	  midDivTop = divTop;
+	  midDivLeft = middle * divWidth;
+	  
+	  aDiv[middle].style.left = midDivLeft + 'px';
+      aDiv[middle].style.top = midDivTop + 'px';
+	  aDiv[middle].style.display = 'block';
+	
+	  for (var i = 1; i <= middle; i++) {
+        aDiv[middle - i].style.left = (midDivLeft - divWidth * i) + 'px';
+	    aDiv[middle - i].style.top = (midDivTop + divHeight * i) + 'px';
+        aDiv[middle - i].style.display = 'block';
+	    aDiv[middle + i].style.left = (midDivLeft + divWidth * i) + 'px';
+        aDiv[middle + i].style.top = (midDivTop + divHeight * i) + 'px';
+	    aDiv[middle + i].style.display = 'block';
+      }
+	  
+	  break;
+	case 1:
+	  midDivTop = middle * divHeight + divTop;
+	  midDivLeft = middle * divWidth;
+	  
+	  aDiv[middle].style.left = midDivLeft + 'px';
+      aDiv[middle].style.top = midDivTop + 'px';
+	  aDiv[middle].style.display = 'block';
+	
+	  for (var i = 1; i <= middle; i++) {
+        aDiv[middle - i].style.left = (midDivLeft - divWidth * i) + 'px';
+	    aDiv[middle - i].style.top = (midDivTop - divHeight * i) + 'px';
+        aDiv[middle - i].style.display = 'block';
+	    aDiv[middle + i].style.left = (midDivLeft - divWidth * i) + 'px';
+        aDiv[middle + i].style.top = (midDivTop + divHeight * i) + 'px';
+	    aDiv[middle + i].style.display = 'block';
+      }
+	  
+	  break;
+	
+	case 2:
+	  midDivTop = middle * divHeight + divTop;
+	  midDivLeft = middle * divWidth;
+	  
+	  aDiv[middle].style.left = midDivLeft + 'px';
+      aDiv[middle].style.top = midDivTop + 'px';
+	  aDiv[middle].style.display = 'block';
+	
+	  for (var i = 1; i <= middle; i++) {
+        aDiv[middle - i].style.left = (midDivLeft - divWidth * i) + 'px';
+	    aDiv[middle - i].style.top = (midDivTop - divHeight * i) + 'px';
+        aDiv[middle - i].style.display = 'block';
+	    aDiv[middle + i].style.left = (midDivLeft + divWidth * i) + 'px';
+        aDiv[middle + i].style.top = (midDivTop - divHeight * i) + 'px';
+	    aDiv[middle + i].style.display = 'block';
+      }
+	  
+	  break;
+	case 3:
+	  midDivTop = middle * divHeight + divTop;
+	  midDivLeft = 0;
+	  
+	  aDiv[middle].style.left = midDivLeft + 'px';
+      aDiv[middle].style.top = midDivTop + 'px';
+	  aDiv[middle].style.display = 'block';
+	
+	  for (var i = 1; i <= middle; i++) {
+        aDiv[middle - i].style.left = (midDivLeft + divWidth * i) + 'px';
+	    aDiv[middle - i].style.top = (midDivTop - divHeight * i) + 'px';
+        aDiv[middle - i].style.display = 'block';
+	    aDiv[middle + i].style.left = (midDivLeft + divWidth * i) + 'px';
+        aDiv[middle + i].style.top = (midDivTop + divHeight * i) + 'px';
+	    aDiv[middle + i].style.display = 'block';
+      }
+	  
+	  break;
+    
+	default:	  
+	  break;
+    }
+  }    
+}
+</script>
+
+</body>
+</html>
