@@ -6,14 +6,14 @@
 <style>
 ul {padding: 0; margin: 0;}
 li {list-style: none;}
-body {background: black;}
+body {background: #171717;}
 
 #pic {
   position:  relative;
   width: 400px;
   height: 500px;
   margin: 0 auto;
-  background: blue;
+  background: url(imgs/loader_ico.gif) no-repeat center #fff;
 }
 
 #pic img {
@@ -37,7 +37,8 @@ body {background: black;}
   height: 30px;
   line-height: 30px;
   text-align: center;
-  color: white;
+  color: #fff;
+  background: #000;
 }
 
 #pic ul {
@@ -63,15 +64,50 @@ body {background: black;}
 
 <body>
 <div id="pic">
-<img src="" alt="图片加载中......"/>
-<span>图片数量正在加载中......</span>
-<p>文字说明正在加载中......</p>
-<ul>
-  <li class="active"></li>
-  <li></li>
-  <li></li>
-  <li></li>
-</ul>
+  <img src="imgs/loader_ico.gif"/>
+  <span>图片数量正在加载中......</span>
+  <p>文字说明正在加载中......</p>
+  <ul>
+  </ul>
 </div>
+
+<script>
+window.onload = function () {
+  var oDiv = document.getElementById('pic');
+  var oImg = oDiv.getElementsByTagName('img')[0];
+  var oSpan = oDiv.getElementsByTagName('span')[0];
+  var oP = oDiv.getElementsByTagName('p')[0];
+  var oUl = oDiv.getElementsByTagName('ul')[0];
+  var aLi = oUl.getElementsByTagName('li');
+  
+  var aUrl = ['imgs/buffon.jpg', 'imgs/nesta.jpg', 'imgs/vieri.jpg', 'imgs/totti.jpg'];
+  var aText = ['布冯', '内斯塔', '维埃里', '托蒂'];
+  var aLen = aUrl.length;
+  var num = 0;
+  var oldLi; 
+  
+  for (var i = 0; i < aLen; i++) {
+    oUl.innerHTML += '<li></li>';  
+  }  
+  
+  oImg.src = aUrl[0];
+  oSpan.innerHTML = (num + 1) + '/' + aLen;
+  oP.innerHTML = aText[num];
+  aLi[num].className = 'active';
+  oldLi = aLi[num];
+  
+  for (var i = 0; i < aLen; i++) {
+	aLi[i].index = i;
+    aLi[i].onclick = function () {
+	  oldLi.className = '';
+	  this.className = 'active';
+	  oldLi = this;
+	  oSpan.innerHTML = (this.index + 1) + '/' + aLen;
+	  oImg.src = aUrl[this.index];
+	  oP.innerHTML = aText[this.index];
+	}
+  } 
+}
+</script>
 </body>
 </html>
