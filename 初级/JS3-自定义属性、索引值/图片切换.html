@@ -88,23 +88,24 @@ window.onload = function () {
   
   for (var i = 0; i < aLen; i++) {
     oUl.innerHTML += '<li></li>';  
-  }  
+  }
   
-  oImg.src = aUrl[0];
-  oSpan.innerHTML = (num + 1) + '/' + aLen;
-  oP.innerHTML = aText[num];
-  aLi[num].className = 'active';
-  oldLi = aLi[num];
+  function showPic() {
+   	oSpan.innerHTML = (num + 1) + '/' + aLen;
+	oImg.src = aUrl[num];
+	oP.innerHTML = aText[num];
+	aLi[num].className = 'active';
+	oldLi = aLi[num]; 
+  }
   
+  showPic();
+    
   for (var i = 0; i < aLen; i++) {
 	aLi[i].index = i;
     aLi[i].onclick = function () {
+	  num = this.index;
 	  oldLi.className = '';
-	  this.className = 'active';
-	  oldLi = this;
-	  oSpan.innerHTML = (this.index + 1) + '/' + aLen;
-	  oImg.src = aUrl[this.index];
-	  oP.innerHTML = aText[this.index];
+	  showPic();
 	}
   } 
 }
