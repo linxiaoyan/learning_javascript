@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+<input type="button" value="A" />
+<input type="button" value="A" />
+<input type="button" value="A" />
+
+<script>
+window.onload = function () {
+  var aBtn = document.getElementsByTagName('input');
+  var arr = ['A', 'B', 'C', 'D'];
+  var len = arr.length;
+  
+  for (var i = 0; i < len; i++) {
+    aBtn[i].num = 1;
+	aBtn[i].onclick = function () {
+	  this.value = arr[this.num++ % len]
+	}
+  }
+}
+</script>
+</body>
+</html>
