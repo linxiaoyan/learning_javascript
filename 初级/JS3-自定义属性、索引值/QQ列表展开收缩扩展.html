@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+ul, h2 {padding: 0; margin: 0;}
+li {list-style: none;}
+
+#list {
+  width: 240px;
+  margin: 0 auto;
+  border: 1px solid #333;
+}
+
+#list h2 {
+  height: 30px;
+  line-height: 30px;
+  text-indent: 20px;
+  color: #000;
+  background: url(imgs/ico1.gif) no-repeat 5px center #6ff;
+}
+
+#list .active {
+  height: 30px;
+  line-height: 30px;
+  text-indent: 20px;
+  color: #000;
+  background: url(imgs/ico2.gif) no-repeat 5px center #98cd7d; 
+}
+
+#list ul {
+  display: none;
+}
+
+#list ul li {
+  height: 24px;
+  border-bottom: 1px solid #000;
+  line-height: 24px;
+  text-indent: 20px;
+}
+
+#list ul .mouseclick {background: #3071ab;}
+#list ul .mouseover {background: #bab4d8;}
+
+</style>
+</head>
+
+<body>
+<ul id="list">
+  <li>
+    <h2>我的好友</h2>
+    <ul>
+      <li>张三</li>
+      <li>张三</li>
+      <li>张三</li>
+    </ul>
+  </li>
+  <li>
+    <h2>企业好友</h2>
+    <ul>
+      <li>李四</li>
+      <li>李四</li>
+      <li>李四</li>
+    </ul>
+  </li>
+  <li>
+    <h2>黑名单</h2>
+    <ul>
+      <li>王五</li>
+      <li>王五</li>
+      <li>王五</li>
+    </ul>
+  </li>  
+</ul>
+
+<script>
+window.onload = function () {
+  var oUl = document.getElementById('list');
+  var aH2 = oUl.getElementsByTagName('h2');
+  var aUl = oUl.getElementsByTagName('ul');
+  var aLi = [];
+  var oldH2;
+  var oldH2Flag = false;
+  var oldLi;
+  var oldLiFlag = false;
+  
+  for (var i = 0; i < aH2.length; i++) {
+    aH2[i].index = i;
+	aH2[i].onclick = function () {
+	  //初始化旧h2
+      if (!oldH2Flag)	{
+	    oldH2 = this;
+		oldH2Flag = true;
+	  }
+	  
+	  //只要h2被点击，清除li的class，但要通过oldLiFlag判断oldLi被初始化了
+	  if (oldLiFlag) {
+	    oldLi.className = ''; 
+	  }
+	  
+	  //不是同一个h2的时候才清除旧h2的class
+	  if (oldH2 != this) {
+	    oldH2.className = '';
+	    aUl[oldH2.index].style.display = 'none';
+	  }
+	  
+	  //同一个h2仍要判断是否有class了
+	  if (this.className == '') {
+		this.className = 'active';
+	    aUl[this.index].style.display = 'block';
+	  } else {
+        this.className = '';
+		aUl[this.index].style.display = 'none';
+	  }
+	  
+	  //保存旧的h2
+	  oldH2 = this;
+	}  
+  }
+  
+  for (var i = 0; i < aUl.length; i++) {
+    var temp = aUl[i].getElementsByTagName('li');
+    for (var j = 0; j < temp.length; j++) {
+	  aLi.push(temp[j]);
+	}
+  }
+ 
+  for (var i = 0; i < aLi.length; i++) {
+	aLi[i].index = i;
+	aLi[i].onclick = function () {
+	  if (!oldLiFlag)	{
+	    oldLi = this;
+		oldLiFlag = true;
+	  }
+	
+	  if (oldLi != this) {
+	    oldLi.className = '';
+	  }
+
+	  if (this.className != 'mouseclick') {
+		this.className = 'mouseclick';
+      } else {
+		this.className = '';
+	  }
+	  
+      oldLi = this; 	  
+	}
+	
+	aLi[i].onmouseover = function () {
+	  if (this.className == '') {
+	    this.className = 'mouseover';
+	  }
+	}
+	
+    aLi[i].onmouseout = function () {
+	  if (this.className != 'mouseclick') {
+	    this.className = '';
+	  }
+	}
+  }
+}
+
+</script>
+</body>
+</html>
