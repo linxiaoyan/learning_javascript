@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+p, ul, li, div {padding: 0; margin: 0;}
+ul {list-style: none;}
+
+#box {
+  /*position默认是static，设置top等位置无效*/
+  margin: 0 auto;
+  width: 712px;
+  height: 568px;
+  background: #000;
+}
+
+#box p {
+  width: 682px;
+  height: 40px;
+  margin: 0 auto;
+  line-height: 40px;
+  text-align: left;
+  font-size: 25px;
+  font-weight: bold;
+  color: #fff;
+}
+
+#content {
+  /*position设置为relative，此时可以通过top等从content的位置开始调整*/
+  position: relative; 
+  width: 682px;
+  height: 460px;
+  margin: 0 auto;
+  background: #A89D9D;
+}
+
+#content img {
+  width: 682px;
+  height: 460px;
+}
+
+#content a {
+  /*content的position为relative，a的position设置为absolute后，可以通过top等从content的原点开始调整*/
+  position: absolute;
+  top: 210px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 36px;
+  font-weight: bolid;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  border: 2px solid #fff;
+  background: #F1AF0A;
+  filter: alpha(opacity: 40);
+  opacity: 0.4;
+}
+
+#content a:hover {
+  filter: alpha(opacity: 90);
+  opacity: 0.9;
+}
+
+#content #prev {
+  left: 20px;
+}
+
+#content #next {
+  right: 20px;
+}
+
+#box ul {
+  width: 100px;
+  height: 35px;
+  margin: 0 auto;
+}
+
+#box li {
+  /*使用display: inline-block会产生4px间隔*/
+  position: relative;
+  float: left;
+  width: 15px;
+  height: 15px;
+  margin-top: 20px;
+  margin-right: 5px;
+  margin-left: 5px;
+  background: #94a59c;
+}
+
+.thumbnail {
+  position: absolute;
+  bottom: 25px;
+  left: -52.5px;		
+  width: 110px;
+  height: 70px;
+  border: 5px solid #fff;
+}
+
+</style>
+
+
+</head>
+
+<body>
+<div id="box">
+  <p>带略缩图的图片轮换</p>
+  <div id="content">
+    <img src="#" />
+    <a id="prev" href="#"><</a>
+    <a id="next" href="#">></a>
+  </div>
+  <ul>
+    <li>
+      <div></div>
+    </li>
+    <li>
+      <div></div>
+    </li>
+    <li>
+      <div class="thumbnail"></div>
+    </li>
+    <li>
+      <div></div>
+    </li>
+  </ul>
+</div>
+</body>
+</html>
