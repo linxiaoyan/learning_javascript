@@ -153,12 +153,12 @@ window.onload = function () {
   
   //prev的onclick事件
   oPrev.onclick = function () {
-	index = --index < 0 ? (len - 1) : index
+	index = --index < 0 ? (len - 1) : index;
 	oldLi.className = '';
 	aLi[index].className = 'active';
 	oldLi = aLi[index];
 	showPic();
-  }
+  };
 
   //next的onclick事件  
   oNext.onclick = function () {
@@ -167,7 +167,7 @@ window.onload = function () {
 	aLi[index].className = 'active';
 	oldLi = aLi[index];
 	showPic();  
-  }
+  };
   
   for (var i = 0; i < len; i++) {
     aLi[i].index = i;
@@ -183,7 +183,7 @@ window.onload = function () {
 	  this.className = 'active';
       oldLi = this;
 	  showPic();
-	}
+	};
 	
 	//li的onmouseover事件
 	aLi[i].onmouseover = function () {
@@ -194,7 +194,7 @@ window.onload = function () {
       aDiv[this.index].style.filter = temp;
 	  
 	  aDiv[this.index].style.display = 'block';
-	}
+	};
 	
 	//li的onmouseout事件
 	aLi[i].onmouseout = function () {
