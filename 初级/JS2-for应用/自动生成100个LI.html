@@ -40,14 +40,14 @@ window.onload = function () {
   var aColor = ['red', 'yellow', 'blue', 'green'];
   var len = aColor.length;
   var row = 10;
-  var coloum = 10;
+  var column = 10;
   var clicked = false;
   
   oBtn.onclick = function () {
 	if (!clicked) {
 	  for (var i = 0; i < row; i++) {
-	    for (var j = 0; j < coloum; j++) {
-		  var index = i * coloum + j;
+	    for (var j = 0; j < column; j++) {
+		  var index = i * column + j;
 	      oLi = document.createElement('li');
           oLi.innerHTML = index;
 		  oLi.style.background = aColor[index % len];
