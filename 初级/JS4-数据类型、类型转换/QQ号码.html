@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+请输入QQ号码：<input type="text" maxlength="25"/>
+<input type="button" value="判断" />
+
+
+<br />
+1、有没有输入<br />
+2、输入的是不是数字<br />
+3、不能有0在前面<br />
+4、不能是小数<br />
+5、输入的数字必须在5位以上、10位以内<br />
+
+<script>
+window.onload = function () {
+  var oText = document.getElementsByTagName('input')[0];
+  var oBtn = document.getElementsByTagName('input')[1];
+  var aChar = [];
+  var beginIndex = 0;
+  var endIndex;
+
+  function trimSpace() {
+    var len = oText.value.length;
+    if (len == 0) {
+      alert('没有输入');
+      return false;
+    }
+
+    for (var i = 0; i < len; i++) {
+      var c = oText.value.charAt(i);
+      if (' ' == c) {
+        beginIndex = i;
+      } else {
+        beginIndex++;
+        break;
+      }
+    }
+
+    if (beginIndex == (len - 1)) {
+      alert('没有输入');
+      return false;
+    }
+
+    for (var i = len - 1; i > 0; i--) {
+      var c = oText.value.charAt(i);
+      if (c == ' ') {
+        endIndex = i;
+      } else {
+        break;
+      }
+    }
+
+    for (var i = beginIndex; i < endIndex; i++) {
+      var c = oText.value.charAt(i);
+      if (' ' == c) {
+        alert('请连续输入');
+        return false;
+      } else {
+        aChar.push(c);
+      }
+    }
+
+    return true;
+  }
+
+  function isDigital() {
+    if ('0' == aChar[0]) {
+      alert('不能有0在前面');
+      return false;
+    }
+
+    for (var i = 0; i < aChar.length; i++) {
+      if ('0' <= aChar[i] && aChar[i] <= '9') {
+        continue;
+      } else {
+        alert('输入的不是整数');
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  function checkLen() {
+    if (5 < aChar.length && aChar.length < 10) {
+      return true;
+    } else {
+      alert('输入的数字必须在5位以上、10位以内');
+      return false;
+    }
+  }
+
+  oBtn.onclick = function () {
+    if (trimSpace() && isDigital() && checkLen()) {
+      alert(aChar.join(""));
+    }
+  };
+}
+</script>
+</body>
+</html>
