@@ -153,53 +153,53 @@ window.onload = function () {
   
   //prev的onclick事件
   oPrev.onclick = function () {
-	  index = --index < 0 ? (len - 1) : index;
-	  oldLi.className = '';
-	  aLi[index].className = 'active';
-	  oldLi = aLi[index];
-	  showPic();
+    index = --index < 0 ? (len - 1) : index;
+    oldLi.className = '';
+    aLi[index].className = 'active';
+    oldLi = aLi[index];
+    showPic();
   };
 
   //next的onclick事件  
   oNext.onclick = function () {
-	  index = ++index % len;
-	  oldLi.className = '';
-	  aLi[index].className = 'active';
-	  oldLi = aLi[index];
-	  showPic();
+    index = ++index % len;
+    oldLi.className = '';
+    aLi[index].className = 'active';
+    oldLi = aLi[index];
+    showPic();
   };
   
   for (var i = 0; i < len; i++) {
     aLi[i].index = i;
-	
-	  //li的onclick事件
-	  aLi[i].onclick = function () {
-	    if (this == oldLi) {
-	      return;
-	    }
+
+    //li的onclick事件
+    aLi[i].onclick = function () {
+      if (this == oldLi) {
+        return;
+      }
 	  
-	    index = this.index;
-	    oldLi.className = '';
-	    this.className = 'active';
+      index = this.index;
+      oldLi.className = '';
+      this.className = 'active';
       oldLi = this;
-	    showPic();
-	  };
+      showPic();
+    };
 	
-	  //li的onmouseover事件
-	  aLi[i].onmouseover = function () {
-	    aDiv[this.index].style.backgroundImage = 'url(' + aUrl[this.index] + ')';
-	  
-	    //兼容IE不支持background-size
-	    var temp = 'progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + aUrl[this.index] + '\', sizingMethod=\'scale\')';
+    //li的onmouseover事件
+    aLi[i].onmouseover = function () {
+      aDiv[this.index].style.backgroundImage = 'url(' + aUrl[this.index] + ')';
+
+      //兼容IE不支持background-size
+      var temp = 'progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + aUrl[this.index] + '\', sizingMethod=\'scale\')';
       aDiv[this.index].style.filter = temp;
 	  
-	    aDiv[this.index].style.display = 'block';
-	  };
-	
-	  //li的onmouseout事件
-	  aLi[i].onmouseout = function () {
-	    aDiv[this.index].style.display = 'none';
-	  };
+      aDiv[this.index].style.display = 'block';
+    };
+
+    //li的onmouseout事件
+    aLi[i].onmouseout = function () {
+      aDiv[this.index].style.display = 'none';
+    };
   }
 }
 </script>
