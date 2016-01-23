@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+
+<style>
+ul, li, div {padding: 0; margin: 0;}
+li {list-style: none;}
+
+.music-box {
+  width: 312px;
+}
+
+.music-list {
+  height: 30px;
+}
+
+.music-list ul {
+  position: relative;
+  height: 29px;
+}
+
+.music-list li {
+  position: absolute;
+  display: inline-block;
+  top: 9px;
+  font-size: 12px;
+}
+
+.checkbox {
+  left: 17px;
+  width: 13px;
+  height: 13px;
+  background: url('icons2.gif') 0 -6px no-repeat;
+}
+
+.song {
+  left: 45px;
+  width: 163px;
+  height: 12px;
+}
+
+.singer {
+  left: 208px;
+  width: 104px;
+  height: 12px;
+}
+
+.select-box {
+  height: 35px;
+  border-top: 1px solid #dedede;
+  border-bottom: 2px solid #000000;
+}
+
+.select-box li {
+  float:left;
+  font-size: 12px;
+}
+
+.select-checkbox {
+  width: 13px;
+  height: 13px;
+  margin-top: 12px;
+  margin-left: 17px;
+  background: url('icons2.gif') 0 -6px no-repeat;
+}
+
+.text {
+  width: 34px;
+  height: 25px;
+  margin-top: 5px;
+  margin-left: 15px;
+  line-height: 25px;
+}
+
+.store {
+  width: 65px;
+  height: 25px;
+  margin-top: 5px;
+  margin-left: 10px;
+  background: url("icons2.gif") -91px 0;
+}
+
+.add {
+  width: 65px;
+  height: 25px;
+  margin-top: 5px;
+  margin-left: 10px;
+  background: url("icons2.gif") -221px 0;
+}
+
+.delete {
+  width: 65px;
+  height: 25px;
+  margin-top: 5px;
+  margin-left: 10px;
+  background: url("icons2.gif") -351px 0;
+}
+
+</style>
+</head>
+<body>
+<div class="music-box">
+  <ul id="musicUl">
+  </ul>
+  <div class="select-box">
+    <ul id="selectUl"></ul>
+  </div>
+</div>
+
+<script>
+window.onload = function () {
+  var musicUl = document.getElementById('musicUl');
+  var selectUl = document.getElementById('selectUl');
+  var aSong = [['私奔', '梁博'], ['北京北京', '梁博，黄勇'], ['我爱你中国','梁博'], ['花火', '梁博'], ['回来', '梁博'], ['爱要有你才完美', '梁博，那英']];
+  var aMusicStyle = ['checkbox', 'song', 'singer'];
+  var aSelectStyle = ['select-checkbox', 'text', 'store', 'add', 'delete'];
+  var aMusicListBgColor = ['#f7ffff', '#ffffff', '#efefef'];
+  var selectNum = 0;
+  var aCheckBox = document.getElementsByClassName('checkbox');
+
+  for (var i = 0; i < aSong.length; i++) {
+    var musicLi = document.createElement('li');
+    var songUl = document.createElement('ul');
+
+    songUl.className = 'music-list-ul';
+    musicLi.className = 'music-list'
+    musicLi.style.backgroundColor = aMusicListBgColor[i % 2];
+
+    for (var j = 0; j < 3; j++) {
+      var oLi = document.createElement('li');
+      oLi.className = aMusicStyle[j];
+      if (j) {
+        oLi.innerHTML = aSong[i][j - 1];
+      }
+      songUl.appendChild(oLi);
+    }
+
+    musicLi.appendChild(songUl);
+    musicUl.appendChild(musicLi);
+  }
+
+  for (var i = 0; i < 5; i++) {
+    var oLi = document.createElement('li');
+    oLi.className = aSelectStyle[i];
+    if (1 == i) {
+      oLi.innerHTML = '全选';
+    }
+    selectUl.appendChild(oLi);
+  }
+
+  var aMusicList = musicUl.getElementsByClassName('music-list');
+  for (var i = 0; i < aMusicList.length; i++) {
+    aMusicList[i].index = i;
+
+    aMusicList[i].onmouseover = function () {
+      this.style.backgroundColor = aMusicListBgColor[2];
+    };
+
+    aMusicList[i].onmouseout = function () {
+      this.style.backgroundColor = aMusicListBgColor[this.index % 2];
+    }
+  }
+
+  var oSelectCheckbox = selectUl.getElementsByClassName('select-checkbox')[0];
+  var oStore = selectUl.getElementsByClassName('store')[0];
+  var oAdd = selectUl.getElementsByClassName('add')[0];
+  var oDelete = selectUl.getElementsByClassName('delete')[0];
+
+  oSelectCheckbox.onOff = false;
+  oSelectCheckbox.onclick = function () {
+    if (this.onOff) {
+      this.style.backgroundPosition = '0 -6px';
+      this.onOff = false;
+      selectNum = 0;
+    } else {
+      this.style.backgroundPosition = '-13px -6px';
+      this.onOff = true;
+      selectNum = aSong.length;
+    }
+
+    if (selectNum > 0) {
+      for (var i = 0; i < aCheckBox.length; i++) {
+        aCheckBox[i].style.backgroundPosition = '-13px -6px';
+        aCheckBox[i].onOff = true;
+      }
+
+      oStore.style.backgroundPosition = '-26px 0';
+      oAdd.style.backgroundPosition = '-156px 0';
+      oDelete.style.backgroundPosition = '-286px 0';
+    } else {
+      for (var i = 0; i < aCheckBox.length; i++) {
+        aCheckBox[i].style.backgroundPosition = '0 -6px';
+      }
+
+      oStore.style.backgroundPosition = '-91px 0';
+      oAdd.style.backgroundPosition = '-221px 0';
+      oDelete.style.backgroundPosition = '-351px 0';
+    }
+  };
+
+  for (var i = 0; i < aCheckBox.length; i++) {
+    aCheckBox[i].onOff = false;
+
+    aCheckBox[i].onclick = function () {
+      if (this.onOff) {
+        this.style.backgroundPosition = '0 -6px';
+        this.onOff = false;
+        selectNum--;
+      } else {
+        this.style.backgroundPosition = '-13px -6px';
+        this.onOff = true;
+        selectNum++;
+      }
+
+      if (selectNum > 0) {
+        oStore.style.backgroundPosition = '-26px 0';
+        oAdd.style.backgroundPosition = '-156px 0';
+        oDelete.style.backgroundPosition = '-286px 0';
+      } else {
+        oSelectCheckbox.style.backgroundPosition = '0 -6px';
+        oSelectCheckbox.onOff = false;
+        oStore.style.backgroundPosition = '-91px 0';
+        oAdd.style.backgroundPosition = '-221px 0';
+        oDelete.style.backgroundPosition = '-351px 0';
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

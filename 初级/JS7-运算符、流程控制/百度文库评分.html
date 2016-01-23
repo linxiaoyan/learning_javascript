@@ -29,7 +29,6 @@ li {list-style: none;}
   height: 25px;
   margin-top: 19px;
   font-size: 0;
-  background: blue;
 }
 
 #box li {
@@ -67,7 +66,7 @@ li {list-style: none;}
   width: 241px;
   height: 40px;
   z-index: 2;
-  background: red url(icons.gif) no-repeat -75px 0;
+  background: url(icons.gif) no-repeat -75px 0;
 }
 
 
@@ -110,7 +109,6 @@ window.onload = function () {
   var oBtn = document.getElementsByTagName('input')[0];
   var oDiv = oBox.getElementsByTagName('div')[0];
   var aText = ['很差', '较差', '还行', '推荐', '力荐'];
-  var img = 'icons.gif';
   var stars = 5;
   var onClick = false;
   var oldIndex = -1;
