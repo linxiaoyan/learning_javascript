@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <script src="../js/xy.js"></script>
+<style>
+#div1 {
+  width: 100px;
+  height: 100px;
+  background: red;
+}
+</style>
+</head>
+<body>
+<div id="div1" style="height: 200px;"></div>
+
+<script>
+
+ $(function () {
+   $('div1').onclick = function () {
+     alert(getStyle($(div1), 'height'));
+   };
+ });
+
+</script>
+
+</body>
+</html>
