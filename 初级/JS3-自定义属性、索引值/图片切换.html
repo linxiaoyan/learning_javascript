@@ -91,22 +91,22 @@ window.onload = function () {
   }
   
   function showPic() {
-   	oSpan.innerHTML = (num + 1) + '/' + aLen;
-	oImg.src = aUrl[num];
-	oP.innerHTML = aText[num];
-	aLi[num].className = 'active';
-	oldLi = aLi[num]; 
+    oSpan.innerHTML = (num + 1) + '/' + aLen;
+    oImg.src = aUrl[num];
+    oP.innerHTML = aText[num];
+    aLi[num].className = 'active';
+    oldLi = aLi[num];
   }
   
   showPic();
     
   for (var i = 0; i < aLen; i++) {
-	aLi[i].index = i;
+	  aLi[i].index = i;
     aLi[i].onclick = function () {
-	  num = this.index;
-	  oldLi.className = '';
-	  showPic();
-	}
+	    num = this.index;
+	    oldLi.className = '';
+	    showPic();
+	  }
   } 
 }
 </script>

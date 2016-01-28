@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <script src="../js/xy.js"></script>
+
+<style>
+ul, li, img, div {padding: 0; margin: 0;}
+li {list-style: none;}
+img {border: none;}
+
+.box {
+  position: relative;
+  width: 200px;
+  height: 180px;
+  padding: 10px;
+  border: 1px solid #000;
+}
+
+.titleList {
+  height: 29px;
+  margin-bottom: 1px;
+  font-size: 12px;
+}
+
+.titleList li {
+  float: left;
+  width: 80px;
+  height: 29px;
+  margin-right: 1px;
+  text-align: center;
+  line-height: 29px;
+}
+
+.titleList-normal {
+  background: #94ffc6;
+}
+
+.titleList-active{
+  background: #005a63;
+}
+
+.nameList {
+  display: inline-block;
+  position: absolute;
+  top: 40px;
+  width: 100px;
+  height: 150px;
+  font-size: 12px;
+}
+
+.nameList li {
+  width: 100px;
+  height: 48px;
+  font-size: 12px;
+  text-align: center;
+  line-height: 48px;
+}
+
+.nameList-normal {
+  background: #f7f7f7;
+}
+
+.nameList-active {
+  background: #639cc6;
+}
+
+.nameList-middleItem {
+  margin: 3px 0;
+}
+
+.box img {
+  width: 100px;
+  height: 150px;
+}
+
+</style>
+
+</head>
+<body>
+<div class="box">
+  <ul class="titleList">
+    <li class="titleList-active">后场</li>
+    <li class="titleList-normal">前场</li>
+  </ul>
+  <img src="#" />
+  <ul class="nameList">
+    <li class=""></li>
+    <li class="nameList-middleItem"></li>
+    <li class=""></li>
+  </ul>
+</div>
+
+<script>
+function showPic(data, oTitleLi, titleIndex, aNameLi, img) {
+  for (var i = 0; i < aNameLi.length; i++) {
+    aNameLi[i].innerHTML = data[titleIndex][i];
+  }
+
+  oTitleLi.className = 'titleList-active';
+  img.src = '../image/' + data[titleIndex][0] + '.jpg';
+  aNameLi[0].style.background = '#639cc6';
+}
+
+$(function () {
+  var aUl = document.getElementsByTagName('ul');
+  var oImg = document.getElementsByTagName('img')[0];
+  var oTitle = aUl[0];
+  var oName = aUl[1];
+  var aTitleLi = oTitle.getElementsByTagName('li');
+  var aNameLi = oName.getElementsByTagName('li');
+  var aData = [['nesta', 'cannavaro', 'panucci'], ['totti', 'vieri', 'inzaghi']];
+  var titleLiNum = 2;
+  var nameLiNum = 3;
+  var nameIndex = 0;
+  var titleIndex = 0;
+  var index = 0;
+  var timer = null;
+
+  for (var i = 0; i < nameLiNum; i++) {
+    aNameLi[i].style.background = '#f7f7f7';
+  }
+
+  function autoPlay() {
+    timer = setInterval(function () {
+      aNameLi[nameIndex].style.background = '#f7f7f7';
+      titleIndex = parseInt(index / nameLiNum) % titleLiNum;
+      nameIndex = ++index % nameLiNum;
+
+      var newTitleIndex = parseInt(index / nameLiNum) % titleLiNum;
+      if (newTitleIndex != titleIndex) {
+        aTitleLi[titleIndex].className = 'titleList-normal';
+        aTitleLi[newTitleIndex].className = 'titleList-active';
+        titleIndex = newTitleIndex;
+
+        showPic(aData, aTitleLi[titleIndex], titleIndex, aNameLi, oImg);
+      } else {
+        oImg.src = '../image/' + aData[titleIndex][nameIndex] + '.jpg';
+        aNameLi[nameIndex].style.background = '#639cc6';
+      }
+
+    }, 2000);
+  }
+
+  for (var i = 0; i < titleLiNum; i++) {
+    aTitleLi[i].index = i;
+
+    aTitleLi[i].onclick = function () {
+      if (this.index == titleIndex) {
+        return;
+      }
+
+      clearInterval(timer);
+
+      aTitleLi[titleIndex].className = 'titleList-normal';
+      aNameLi[nameIndex].style.background = '#f7f7f7';
+
+      titleIndex = this.index;
+      index = this.index * nameLiNum;
+      nameIndex = index % nameLiNum;
+
+      showPic(aData, this, titleIndex, aNameLi, oImg);
+      autoPlay();
+    };
+  }
+
+  showPic(aData, aTitleLi[0], titleIndex, aNameLi, oImg);
+  autoPlay();
+});
+</script>
+</body>
+</html>

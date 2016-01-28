@@ -66,7 +66,7 @@ li {list-style: none;}
 <script>
 $(function () {
   var aLi = document.getElementsByTagName('li');
-  var aImg = document.getElementsByTagName('img')[0];
+  var oImg = document.getElementsByTagName('img')[0];
   var aPic = ['buffon', 'panucci', 'nesta', 'maldini', 'totti', 'vieri', 'buffon', 'panucci', 'nesta', 'maldini', 'totti', 'vieri'];
   var aText = ['布冯', '帕努奇', '内斯塔', '马蒂尼', '托蒂', '维埃里', '布冯', '帕努奇', '内斯塔', '马蒂尼', '托蒂', '维埃里'];
   var len = aText.length;
@@ -80,7 +80,7 @@ $(function () {
 
   function showPic() {
     aLi[index].className = 'active';
-    aImg.src = '../image/' + aPic[index] + '.jpg';
+    oImg.src = '../image/' + aPic[index] + '.jpg';
   }
 
   function autoPlay() {
