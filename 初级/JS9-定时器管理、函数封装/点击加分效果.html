@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="../css/base.css" />
+  <script src="../js/xy.js"></script>
+
+<style>
+#box {
+  position: relative;
+  top: 300px;
+  left: 300px;
+  width: 400px;
+  height: 40px;
+  border: 1px solid #000;
+  background: lightgreen;
+}
+
+ul {
+  float: left;
+}
+
+li {
+  position: relative;
+  display: inline-block;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 25px;
+  text-align: center;
+}
+
+</style>
+</head>
+<body>
+<div id="box">
+  <ul>
+  </ul>
+</div>
+
+<script>
+$(function () {
+  var oDiv = document.getElementById('box');
+  var oUl = oDiv.getElementsByTagName('ul')[0];
+  var aLi = oDiv.getElementsByTagName('li');
+  var num = 10;
+  var index = 0;
+  var timer = null;
+  var onOff = false;
+
+  for (var i = 0; i < num; i++) {
+    oUl.innerHTML += '<li>+1</li>';
+  }
+
+  oUl.onclick = function () {
+    if (onOff) {
+      return;
+    }
+
+    onOff = true;
+    timer = setInterval(function () {
+      move(aLi[index++], 'top', 10, -100);
+
+      if (index == num) {
+        clearInterval(timer);
+        index = 0;
+        onOff = false;
+      }
+    }, 70);
+  }
+});
+
+
+</script>
+</body>
+</html>

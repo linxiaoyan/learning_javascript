@@ -19,34 +19,32 @@
 <script>
 $(function () {
   var aDiv = document.getElementsByTagName('div');
-  var num = 10;
+  var num = 5;
   var index = 0;
   var timer = null;
   var inc = 10;
   var target = 600;
-  var flag = false;
-  var i = 1;
+  var onOff = false;
+  var clickTimes = 1;
 
   for (var i = 0; i < num; i++) {
     document.body.innerHTML += '<div></div>';
   }
 
   document.onclick = function () {
-    if (flag && index < num) {
+    if (onOff) {
       return;
     }
 
-    clearInterval(timer);
+    onOff = true;
     timer = setInterval(function () {
-      move(aDiv[index], 'marginTop', inc, target);
-      index++;
-      flag = true;
+      move(aDiv[index++], 'marginTop', inc, target);
 
       if (index == num) {
         clearInterval(timer);
         index = 0;
-        flag = false;
-        target = ++i % 2 == 0 ? 0 : 600;
+        onOff = false;
+        target = (++clickTimes % 2 == 0) ? 0 : 600;
       }
     }, 50);
   };

@@ -32,7 +32,6 @@ function move(obj, attr, inc, target, endFn) {
     }
 
     setStyle(obj, attr, offset);
-
     if (offset == target) {
       clearInterval(obj.move);
 
