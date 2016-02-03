@@ -2,79 +2,24 @@
 <html>
 <head lang="en">
   <meta charset="UTF-8">
-  <title></title>
-  <script src="../js/xy.js"></script>
+  <title>自动轮换选项卡</title>
 
 <style>
-ul, li, img, div {padding: 0; margin: 0;}
-li {list-style: none;}
-img {border: none;}
+ul, li, img, div {padding:0; margin:0;}
+ul {list-style:none;}
+img {border:none;}
 
-.box {
-  position: relative;
-  width: 200px;
-  height: 180px;
-  padding: 10px;
-  border: 1px solid #000;
-}
-
-.titleList {
-  height: 29px;
-  margin-bottom: 1px;
-  font-size: 12px;
-}
-
-.titleList li {
-  float: left;
-  width: 80px;
-  height: 29px;
-  margin-right: 1px;
-  text-align: center;
-  line-height: 29px;
-}
-
-.titleList-normal {
-  background: #94ffc6;
-}
-
-.titleList-active{
-  background: #005a63;
-}
-
-.nameList {
-  display: inline-block;
-  position: absolute;
-  top: 40px;
-  width: 100px;
-  height: 150px;
-  font-size: 12px;
-}
-
-.nameList li {
-  width: 100px;
-  height: 48px;
-  font-size: 12px;
-  text-align: center;
-  line-height: 48px;
-}
-
-.nameList-normal {
-  background: #f7f7f7;
-}
-
-.nameList-active {
-  background: #639cc6;
-}
-
-.nameList-middleItem {
-  margin: 3px 0;
-}
-
-.box img {
-  width: 100px;
-  height: 150px;
-}
-
+.box {position:relative; width:200px; height:180px; padding:10px; border:1px solid #000;}
+.titleList {height:29px; margin-bottom:1px; font-size: 12px;}
+.titleList li {float:left; width:80px; height:29px; margin-right:1px; text-align:center; line-height:29px;}
+.titleList-normal {background:#94ffc6;}
+.titleList-active {background:#005a63;}
+.nameList {display:inline-block; position:absolute; top:40px; width:100px; height:150px; font-size:12px;}
+.nameList li {width:100px; height:48px; font-size:12px; text-align:center; line-height:48px;}
+.nameList-normal {background:#f7f7f7;}
+.nameList-active {background:#639cc6;}
+.nameList-middleItem {margin:3px 0;}
+.box img {width:100px; height:150px;}
 </style>
 
 </head>
@@ -103,7 +48,7 @@ function showPic(data, oTitleLi, titleIndex, aNameLi, img) {
   aNameLi[0].style.background = '#639cc6';
 }
 
-$(function () {
+window.onload = function () {
   var aUl = document.getElementsByTagName('ul');
   var oImg = document.getElementsByTagName('img')[0];
   var oTitle = aUl[0];
@@ -167,7 +112,7 @@ $(function () {
 
   showPic(aData, aTitleLi[0], titleIndex, aNameLi, oImg);
   autoPlay();
-});
+};
 </script>
 </body>
 </html>

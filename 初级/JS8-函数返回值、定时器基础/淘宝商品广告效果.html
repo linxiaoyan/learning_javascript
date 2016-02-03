@@ -2,43 +2,17 @@
 <html>
 <head lang="en">
   <meta charset="UTF-8">
-  <title></title>
-  <script src="../js/xy.js"></script>
+  <title>淘宝商品广告效果</title>
+
 <style>
-ul, li, div, img {padding: 0; margin: 0;}
-li {list-style: none;}
+ul, li, div, img {padding:0; margin:0;}
+ul {list-style:none;}
 
-.ad-box {
-  width: 300px;
-  height: 218px;
-  border: 1px solid #000;
-}
-
-.ad-box img {
-  float: left;
-  width: 200px;
-  height: 218px;
-}
-
-.ad-box ul {
-  float: left;
-  width: 50px;
-}
-
-.ad-box li {
-  width: 46px;
-  height: 32px;
-  margin: 2px 1px;
-  font-size: 12px;
-  line-height: 35px;
-  text-align: center;
-  color: #000;
-  border: 1px solid #000;
-}
-
-.active {
-  background: skyblue;
-}
+.ad-box {width:300px; height:218px; border:1px solid #000;}
+.ad-box img {float:left; width:200px; height:218px;}
+.ad-box ul {float:left; width:50px;}
+.ad-box li {width:46px; height:32px; margin:2px 1px; font-size:12px; line-height:35px; text-align:center; color:#000; border:1px solid #000;}
+.active {background:skyblue;}
 
 </style>
 </head>
@@ -64,7 +38,7 @@ li {list-style: none;}
 </div>
 
 <script>
-$(function () {
+window.onload = function () {
   var aLi = document.getElementsByTagName('li');
   var oImg = document.getElementsByTagName('img')[0];
   var aPic = ['buffon', 'panucci', 'nesta', 'maldini', 'totti', 'vieri', 'buffon', 'panucci', 'nesta', 'maldini', 'totti', 'vieri'];
@@ -116,7 +90,7 @@ $(function () {
 
   showPic();
   autoPlay();
-});
+};
 
 </script>
 </body>

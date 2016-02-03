@@ -2,47 +2,47 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>无标题文档</title>
+<title>热身课程</title>
 <style>
-div, ul, li {padding: 0; margin: 0;}
-li {list-style: none;}
+div, ul, li {padding:0; margin:0;}
+li {list-style:none;}
 
-#weibo {width: 80px; height: 30px;}
-#weibo a {display: block; background: #fcfcfc; line-height: 30px; text-align: center; text-decoration: none; color: #000; border: 1px solid #333;}
-#weibo_list {width: 100px; background: #ffffff; border: 1px solid #333; display: none;}
-#weibo_list li {line-height: 30px; text-align: center; text-decoration: none; color: #000;}
+#weibo {width:80px; height:30px;}
+#weibo a {display:block; background:#fcfcfc; line-height:30px; text-align:center; text-decoration:none; color:#000; border:1px solid #333;}
+#weibo-list {width:100px; background: #fff; border:1px solid #333; display:none;}
+#weibo-list li {line-height:30px; text-align:center; text-decoration:none; color:#000;}
 </style>
 </head>
 
 <body>
 <div id="weibo">
-  <a id="weibo_link" href="#">微博</a>
-    <div id="weibo_list">
-      <ul>
-        <li>私信</li>
-        <li>评论</li>
-        <li>@我</li>   
-      </ul> 
-    </div>
+  <a id="weibo-link" href="#">微博</a>
+  <div id="weibo-list">
+    <ul>
+      <li>私信</li>
+      <li>评论</li>
+      <li>@我</li>
+    </ul>
+  </div>
 </div>
 
 <script>
 
 window.onload = function () {
-  var wb_link = document.getElementById("weibo_link");
-  var wb_list = document.getElementById("weibo_list");
+  var wb_link = document.getElementById("weibo-link");
+  var wb_list = document.getElementById("weibo-list");
   var weibo = document.getElementById("weibo");
   
   weibo.onmouseover = function () {
     wb_link.style.background = "#edeef0";
     wb_list.style.display = "block";
-    wb_list.style.background = "#ffffff";
-  }
+    wb_list.style.background = "#fff";
+  };
   
   weibo.onmouseout = function () {
     wb_link.style.background = "#fcfcfc";
     wb_list.style.display = "none";
-  }
+  };
 }
 
 </script>

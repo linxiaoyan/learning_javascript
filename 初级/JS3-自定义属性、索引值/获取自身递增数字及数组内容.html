@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>无标题文档</title>
+<title>获取自身递增数字</title>
 </head>
 
 <body>
@@ -18,9 +18,9 @@ window.onload = function () {
   
   for (var i = 0; i < len; i++) {
     aBtn[i].num = 1;
-	aBtn[i].onclick = function () {
-	  this.value = arr[this.num++ % len]
-	}
+    aBtn[i].onclick = function () {
+      this.value = arr[this.num++ % len]
+    };
   }
 }
 </script>

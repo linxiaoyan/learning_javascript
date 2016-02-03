@@ -2,20 +2,20 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>无标题文档</title>
+<title>图片切换</title>
 <style>
-ul {padding: 0; margin: 0;}
-li {list-style: none;}
-body {background: #171717;}
+ul {padding:0; margin:0;}
+li {list-style:none;}
+body {background:#171717;}
 
-#pic {position: relative; width: 400px; height: 500px; margin: 0 auto; background: url(../image/3loader_icon.gif) no-repeat center #fff;}
-#pic img {width: 400px; height: 500px;}
-#pic span {top: 0;}
-#pic p {bottom: 0; margin: 0;}
-#pic span, #pic p {position: absolute; left: 0; width: 400px; height: 30px; line-height: 30px; text-align: center; color: #fff; background: #000;}
-#pic ul {position: absolute; top: 0; width: 40px; right: -50px;}
-#pic li {width: 40px; height: 40px; margin-bottom: 5px; background: #666;}
-#pic .active {background: #fc3;}
+#pic {position:relative; width:400px; height:500px; margin:0 auto; background:url(../image/3loader_icon.gif) no-repeat center #fff;}
+#pic img {width:400px; height:500px;}
+#pic span {top:0;}
+#pic p {bottom:0; margin:0;}
+#pic span, #pic p {position:absolute; left:0; width:400px; height:30px; line-height:30px; text-align:center; color:#fff; background:#000;}
+#pic ul {position:absolute; top:0; width:40px; right:-50px;}
+#pic li {width:40px; height:40px; margin-bottom:5px; background:#666;}
+#pic .active {background:#fc3;}
 
 </style>
 </head>
@@ -38,7 +38,7 @@ window.onload = function () {
   var oUl = oDiv.getElementsByTagName('ul')[0];
   var aLi = oUl.getElementsByTagName('li');
   
-  var aUrl = ['../image/buffon.jpg', '../image/nesta.jpg', '../image/vieri.jpg', '../image/totti.jpg'];
+  var aUrl = ['buffon.jpg', 'nesta.jpg', 'vieri.jpg', 'totti.jpg'];
   var aText = ['布冯', '内斯塔', '维埃里', '托蒂'];
   var aLen = aUrl.length;
   var num = 0;
@@ -50,7 +50,7 @@ window.onload = function () {
   
   function showPic() {
     oSpan.innerHTML = (num + 1) + '/' + aLen;
-    oImg.src = aUrl[num];
+    oImg.src = '../image/' + aUrl[num];
     oP.innerHTML = aText[num];
     aLi[num].className = 'active';
     oldLi = aLi[num];

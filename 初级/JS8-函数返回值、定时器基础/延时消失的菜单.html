@@ -2,105 +2,26 @@
 <html>
 <head lang="en">
   <meta charset="UTF-8">
-  <title></title>
-  <link rel="stylesheet" type="text/css" href="../css/base.css" />
-  <script src="../js/xy.js"></script>
+  <title>延时消失的菜单</title>
+
 <style>
-#nav {
-  position: relative;
-  width: 520px;
-  height: 36px;
-  font-size: 14px;
-  line-height: 36px;
-  border: 1px solid #000;
-  background: #215a9c;
-}
+ul, li, div {padding:0; margin:0;}
+ul {list-style:none;}
 
-#menuList {
-  float: left;
-  width: 85%;
-  height: 100%;
-}
-
-#menuList li.menu {
-  float: left;
-  height: 20px;
-  margin: 8px 0;
-  padding: 0 3px;
-  line-height: 20px;
-  font-size: 14px;
-  border-right: 1px solid #000;
-}
-
-#menuList a {
-  display: block;
-  padding: 0 21px;
-  color: #fff;
-  text-decoration: none;
-}
-
-#menuList li.menu-first {
-  margin-left: 16px;
-}
-
-#menuList li.menu-last {
-  border-right: 0;
-}
-
-#nav span {
-  display: block;
-  float: right;
-  font-size: 12px;
-  line-height: 36px;
-  margin-right: 16px;
-  color: #fff;
-}
-
-#nav span a {
-  color: #fff;
-  text-decoration: none;
-}
-
-#menuList ul.subMenuList {
-  display: none;
-  position: absolute;
-  top: 40px;
-  height: 25px;
-  line-height: 25px;
-  font-size: 12px;
-  border: 1px solid #000;
-  background: #eff7f7;
-}
-
-#menuList li {
-  float: left;
-  height: 12px;
-  line-height: 12px;
-  font-size: 12px;
-  padding: 0 8px;
-  margin: 7px 0 6px 0;
-  border-right: 1px solid #000;
-}
-
-#menuList li.subMenu-first {
-  margin-left: 5px;
-}
-
-#menuList li.subMenu-last {
-  border-right: 0;
-  margin-right: 5px;
-}
-
-#menuList ul.subMenuList a {
-  display: block;
-  height: 12px;
-  padding: 0;
-  color: #0000FF;
-}
-
-#menuList ul.subMenuList a:hover {
-  text-decoration: underline;
-}
+#nav {position:relative; width:520px; height:36px; line-height:36px; font-size:14px; border:1px solid #000; background:#215a9c;}
+#menuList {float:left; width:85%; height:100%;}
+#menuList li.menu {float:left; height:20px; margin:8px 0; padding:0 3px; line-height:20px; font-size:14px; border-right:1px solid #000;}
+#menuList a {display:block; padding:0 21px; color:#fff; text-decoration:none;}
+#menuList li.menu-first {margin-left:16px;}
+#menuList li.menu-last {border-right:0;}
+#nav span {display:block; float:right; font-size:12px; line-height:36px; margin-right:16px; color:#fff;}
+#nav span a {color:#fff; text-decoration:none;}
+#menuList ul.subMenuList {display:none; position:absolute; top:40px; height:25px; line-height:25px; font-size:12px; border:1px solid #000; background:#eff7f7;}
+#menuList li {float:left; height:12px; line-height:12px; font-size:12px; padding:0 8px; margin:7px 0 6px 0; border-right:1px solid #000;}
+#menuList li.subMenu-first {margin-left:5px;}
+#menuList li.subMenu-last {border-right:0; margin-right:5px;}
+#menuList ul.subMenuList a {display:block; height:12px; padding:0; color:#0000FF;}
+#menuList ul.subMenuList a:hover {text-decoration:underline;}
 
 </style>
 </head>
@@ -156,12 +77,11 @@ function activeMenu(menu, subMenuList, index) {
   subMenuList[index].style.display = 'block';
 }
 
-$(function () {
+window.onload = function () {
   var aMenu = document.getElementsByClassName('menu');
   var aSubMenuList = document.getElementsByClassName('subMenuList');
   var timer = null;
   var index = 0;
-
 
   for (var i = 0; i < aSubMenuList.length; i++) {
     aSubMenuList[i].onmouseover = function () {
@@ -188,7 +108,7 @@ $(function () {
       }, 1000);
     };
   }
-});
+};
 </script>
 </body>
 </html>

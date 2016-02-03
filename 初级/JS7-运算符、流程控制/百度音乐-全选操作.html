@@ -2,101 +2,26 @@
 <html>
 <head lang="en">
   <meta charset="UTF-8">
-  <title></title>
+  <title>百度音乐-全选操作</title>
 
 <style>
-ul, li, div {padding: 0; margin: 0;}
-li {list-style: none;}
+ul, li, div {padding:0; margin:0;}
+li {list-style:none;}
 
-.music-box {
-  width: 312px;
-}
-
-.music-list {
-  height: 30px;
-}
-
-.music-list ul {
-  position: relative;
-  height: 29px;
-}
-
-.music-list li {
-  position: absolute;
-  display: inline-block;
-  top: 9px;
-  font-size: 12px;
-}
-
-.checkbox {
-  left: 17px;
-  width: 13px;
-  height: 13px;
-  background: url('../image/7icon2.gif') 0 -6px no-repeat;
-}
-
-.song {
-  left: 45px;
-  width: 163px;
-  height: 12px;
-}
-
-.singer {
-  left: 208px;
-  width: 104px;
-  height: 12px;
-}
-
-.select-box {
-  height: 35px;
-  border-top: 1px solid #dedede;
-  border-bottom: 2px solid #000000;
-}
-
-.select-box li {
-  float:left;
-  font-size: 12px;
-}
-
-.select-checkbox {
-  width: 13px;
-  height: 13px;
-  margin-top: 12px;
-  margin-left: 17px;
-  background: url('../image/7icon2.gif') 0 -6px no-repeat;
-}
-
-.text {
-  width: 34px;
-  height: 25px;
-  margin-top: 5px;
-  margin-left: 15px;
-  line-height: 25px;
-}
-
-.store {
-  width: 65px;
-  height: 25px;
-  margin-top: 5px;
-  margin-left: 10px;
-  background: url("../image/7icon2.gif") -91px 0;
-}
-
-.add {
-  width: 65px;
-  height: 25px;
-  margin-top: 5px;
-  margin-left: 10px;
-  background: url("../image/7icon2.gif") -221px 0;
-}
-
-.delete {
-  width: 65px;
-  height: 25px;
-  margin-top: 5px;
-  margin-left: 10px;
-  background: url("../image/7icon2.gif") -351px 0;
-}
+.music-box {width:312px;}
+.music-list {height:30px;}
+.music-list ul {position:relative; height:29px;}
+.music-list li {position:absolute; display:inline-block; top:9px; font-size:12px;}
+.checkbox {left:17px; width:13px; height:13px; background:url('../image/7icon2.gif') 0 -6px no-repeat;}
+.song {left:45px; width:163px; height:12px;}
+.singer {left:208px; width:104px; height:12px;}
+.select-box {height:35px; border-top:1px solid #dedede; border-bottom:2px solid #000000;}
+.select-box li {float:left; font-size:12px;}
+.select-checkbox {width:13px; height:13px; margin-top:12px; margin-left:17px; background:url('../image/7icon2.gif') 0 -6px no-repeat;}
+.text {width:34px; height:25px; margin-top:5px; margin-left:15px; line-height:25px;}
+.store {width:65px; height:25px; margin-top:5px; margin-left:10px; background:url("../image/7icon2.gif") -91px 0;}
+.add {width:65px; height:25px; margin-top:5px; margin-left:10px; background:url("../image/7icon2.gif") -221px 0;}
+.delete {width:65px; height:25px; margin-top:5px; margin-left:10px; background:url("../image/7icon2.gif") -351px 0;}
 
 </style>
 </head>
@@ -119,17 +44,18 @@ window.onload = function () {
   var aMusicListBgColor = ['#f7ffff', '#ffffff', '#efefef'];
   var selectNum = 0;
   var aCheckBox = document.getElementsByClassName('checkbox');
+  var oLi;
 
   for (var i = 0; i < aSong.length; i++) {
     var musicLi = document.createElement('li');
     var songUl = document.createElement('ul');
 
     songUl.className = 'music-list-ul';
-    musicLi.className = 'music-list'
+    musicLi.className = 'music-list';
     musicLi.style.backgroundColor = aMusicListBgColor[i % 2];
 
     for (var j = 0; j < 3; j++) {
-      var oLi = document.createElement('li');
+      oLi = document.createElement('li');
       oLi.className = aMusicStyle[j];
       if (j) {
         oLi.innerHTML = aSong[i][j - 1];
@@ -142,7 +68,7 @@ window.onload = function () {
   }
 
   for (var i = 0; i < 5; i++) {
-    var oLi = document.createElement('li');
+    oLi = document.createElement('li');
     oLi.className = aSelectStyle[i];
     if (1 == i) {
       oLi.innerHTML = '全选';
