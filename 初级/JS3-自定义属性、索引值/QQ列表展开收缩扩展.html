@@ -87,77 +87,77 @@ window.onload = function () {
   
   for (var i = 0; i < aH2.length; i++) {
     aH2[i].index = i;
-	aH2[i].onclick = function () {
-	  //初始化旧h2
-      if (!oldH2Flag)	{
-	    oldH2 = this;
-		oldH2Flag = true;
-	  }
-	  
-	  //只要h2被点击，清除li的class，但要通过oldLiFlag判断oldLi被初始化了
-	  if (oldLiFlag) {
-	    oldLi.className = ''; 
-	  }
-	  
-	  //不是同一个h2的时候才清除旧h2的class
-	  if (oldH2 != this) {
-	    oldH2.className = '';
-	    aUl[oldH2.index].style.display = 'none';
-	  }
-	  
-	  //同一个h2仍要判断是否有class了
-	  if (this.className == '') {
-		this.className = 'active';
-	    aUl[this.index].style.display = 'block';
-	  } else {
+    aH2[i].onclick = function () {
+      //初始化旧h2
+      if (!oldH2Flag) {
+        oldH2 = this;
+        oldH2Flag = true;
+      }
+
+      //只要h2被点击，清除li的class，但要通过oldLiFlag判断oldLi被初始化了
+      if (oldLiFlag) {
+        oldLi.className = '';
+      }
+
+      //不是同一个h2的时候才清除旧h2的class
+      if (oldH2 != this) {
+        oldH2.className = '';
+        aUl[oldH2.index].style.display = 'none';
+      }
+
+      //同一个h2仍要判断是否有class了
+      if (this.className == '') {
+        this.className = 'active';
+        aUl[this.index].style.display = 'block';
+      } else {
         this.className = '';
-		aUl[this.index].style.display = 'none';
-	  }
-	  
-	  //保存旧的h2
-	  oldH2 = this;
-	}  
+        aUl[this.index].style.display = 'none';
+      }
+
+      //保存旧的h2
+      oldH2 = this;
+    }
   }
   
   for (var i = 0; i < aUl.length; i++) {
     var temp = aUl[i].getElementsByTagName('li');
     for (var j = 0; j < temp.length; j++) {
-	  aLi.push(temp[j]);
-	}
+      aLi.push(temp[j]);
+    }
   }
  
   for (var i = 0; i < aLi.length; i++) {
-	aLi[i].index = i;
-	aLi[i].onclick = function () {
-	  if (!oldLiFlag)	{
-	    oldLi = this;
-		oldLiFlag = true;
-	  }
-	
-	  if (oldLi != this) {
-	    oldLi.className = '';
-	  }
+	  aLi[i].index = i;
+	  aLi[i].onclick = function () {
+      if (!oldLiFlag)	{
+        oldLi = this;
+        oldLiFlag = true;
+      }
 
-	  if (this.className != 'mouseclick') {
-		this.className = 'mouseclick';
+      if (oldLi != this) {
+        oldLi.className = '';
+      }
+
+      if (this.className != 'mouseclick') {
+        this.className = 'mouseclick';
       } else {
-		this.className = '';
-	  }
-	  
-      oldLi = this; 	  
-	};
-	
-	aLi[i].onmouseover = function () {
-	  if (this.className == '') {
-	    this.className = 'mouseover';
-	  }
-	};
-	
+        this.className = '';
+      }
+
+      oldLi = this;
+    };
+
+    aLi[i].onmouseover = function () {
+      if (this.className == '') {
+        this.className = 'mouseover';
+      }
+    };
+
     aLi[i].onmouseout = function () {
-	  if (this.className != 'mouseclick') {
-	    this.className = '';
-	  }
-	};
+      if (this.className != 'mouseclick') {
+        this.className = '';
+      }
+    };
   }
 }
 

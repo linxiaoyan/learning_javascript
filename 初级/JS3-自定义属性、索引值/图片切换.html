@@ -8,56 +8,14 @@ ul {padding: 0; margin: 0;}
 li {list-style: none;}
 body {background: #171717;}
 
-#pic {
-  position:  relative;
-  width: 400px;
-  height: 500px;
-  margin: 0 auto;
-  background: url(../image/3loader_icon.gif) no-repeat center #fff;
-}
-
-#pic img {
-  width: 400px;
-  height: 500px;
-}
-
-#pic span {
-  top: 0;
-}
-
-#pic p {
-  bottom: 0;
-  margin: 0;
-}
-
-#pic span, #pic p {
-  position: absolute;
-  left: 0;
-  width: 400px;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  color: #fff;
-  background: #000;
-}
-
-#pic ul {
-  position: absolute;
-  top: 0;
-  width: 40px;
-  right: -50px; 
-}
-
-#pic li {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 5px;
-  background: #666;    
-}
-
-#pic .active {
-  background: #fc3;
-}
+#pic {position: relative; width: 400px; height: 500px; margin: 0 auto; background: url(../image/3loader_icon.gif) no-repeat center #fff;}
+#pic img {width: 400px; height: 500px;}
+#pic span {top: 0;}
+#pic p {bottom: 0; margin: 0;}
+#pic span, #pic p {position: absolute; left: 0; width: 400px; height: 30px; line-height: 30px; text-align: center; color: #fff; background: #000;}
+#pic ul {position: absolute; top: 0; width: 40px; right: -50px;}
+#pic li {width: 40px; height: 40px; margin-bottom: 5px; background: #666;}
+#pic .active {background: #fc3;}
 
 </style>
 </head>
@@ -101,12 +59,12 @@ window.onload = function () {
   showPic();
     
   for (var i = 0; i < aLen; i++) {
-	  aLi[i].index = i;
+    aLi[i].index = i;
     aLi[i].onclick = function () {
-	    num = this.index;
-	    oldLi.className = '';
-	    showPic();
-	  }
+      num = this.index;
+      oldLi.className = '';
+      showPic();
+    };
   } 
 }
 </script>

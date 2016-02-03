@@ -44,17 +44,17 @@ window.onload = function () {
   var clicked = false;
   
   oBtn.onclick = function () {
-	if (!clicked) {
-	  for (var i = 0; i < row; i++) {
-	    for (var j = 0; j < column; j++) {
-		  var index = i * column + j;
-	      oLi = document.createElement('li');
+    if (!clicked) {
+      for (var i = 0; i < row; i++) {
+        for (var j = 0; j < column; j++) {
+          var index = i * column + j;
+          oLi = document.createElement('li');
           oLi.innerHTML = index;
-		  oLi.style.background = aColor[index % len];
-	      oUl.appendChild(oLi);
-		}
-	  }
-	  clicked = true;
+          oLi.style.background = aColor[index % len];
+          oUl.appendChild(oLi);
+        }
+      }
+      clicked = true;
     }
   }
 }
