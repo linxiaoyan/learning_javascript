@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script src="../js/xy.js"></script>
+
+</head>
+<body>
+
+<script>
+window.onload = function () {
+  setInterval(showDate, 1000);
+  showDate();
+
+  function showDate() {
+    var oDate = new Date();
+    var iYear = oDate.getFullYear();
+    var iMon = oDate.getMonth() + 1;
+    var iDay = oDate.getDay();
+    var iWeek = iDay - 1;
+    var iHours = oDate.getHours();
+    var iMin = oDate.getMinutes();
+    var iSec = oDate.getSeconds();
+    var week = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
+
+    var str = iYear + '年' + iMon + '月' + iDay + '日' + ' ' + week[iWeek] + ' ' + iHours + ':' + toTwo(iMin) + ':' + toTwo(iSec);
+
+    document.body.innerHTML = str;
+  }
+};
+
+function toTwo(num) {
+  return num > 10 ? ('' + num) : ('0' + num);
+}
+
+</script>
+
+</body>
+</html>

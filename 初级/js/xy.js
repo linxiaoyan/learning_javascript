@@ -65,3 +65,26 @@ function shake(obj, attr, endFn) {
     }
   }, 50);
 }
+
+function getDate(obj) {
+  setInterval(showDate, 1000);
+  showDate();
+
+  function showDate() {
+    var oDate = new Date();
+    var iYear = oDate.getFullYear();
+    var iMon = oDate.getMonth() + 1;
+    var iDay = oDate.getDay();
+    var iWeek = iDay - 1;
+    var iHours = oDate.getHours();
+    var iMin = oDate.getMinutes();
+    var iSec = oDate.getSeconds();
+    var week = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
+
+    obj.innerHTML = iYear + '年' + iMon + '月' + iDay + '日' + ' ' + week[iWeek] + ' ' + iHours + ':' + toTwo(iMin) + ':' + toTwo(iSec);
+  }
+}
+
+function toTwo(num) {
+  return num > 10 ? ('' + num) : ('0' + num);
+}
