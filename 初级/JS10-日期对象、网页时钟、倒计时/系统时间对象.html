@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title></title>
-  <script src="../js/xy.js"></script>
+  <title>系统时间对象</title>
 
 </head>
 <body>
@@ -24,9 +23,7 @@ window.onload = function () {
     var iSec = oDate.getSeconds();
     var week = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
 
-    var str = iYear + '年' + iMon + '月' + iDay + '日' + ' ' + week[iWeek] + ' ' + iHours + ':' + toTwo(iMin) + ':' + toTwo(iSec);
-
-    document.body.innerHTML = str;
+    document.body.innerHTML = iYear + '年' + iMon + '月' + iDay + '日' + ' ' + week[iWeek] + ' ' + toTwo(iHours) + ':' + toTwo(iMin) + ':' + toTwo(iSec);
   }
 };
 

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>图片时钟效果</title>
+</head>
+<body>
+
+<div id="time-box">
+  <img src="" />
+  <img src="" />
+  <img src="" />
+  <img src="" />
+  <img src="" />
+  <img src="" />
+  <img src="" />
+  <img src="" />
+</div>
+
+<script>
+window.onload = function () {
+  var oTimeDiv = document.getElementById('time-box');
+  var aImage = oTimeDiv.getElementsByTagName('img');
+
+  showTime();
+  setInterval(showTime, 1000);
+
+  function showTime() {
+    var oDate = new Date();
+    var iHours = oDate.getHours();
+    var iMin = oDate.getMinutes();
+    var iSec = oDate.getSeconds();
+    var str = toTwo(iHours) + ':' + toTwo(iMin) + ':' + toTwo(iSec);
+
+    for (var i = 0; i < str.length; i++) {
+      aImage[i].src = (str.charAt(i) === ':') ? ('./img/colon.jpg') : ('./img/' + str.charAt(i) + '.jpg');
+    }
+  }
+};
+
+function toTwo(num) {
+  return num > 10 ? ('' + num) : ('0' + num);
+}
+</script>
+
+
+</body>
+</html>
