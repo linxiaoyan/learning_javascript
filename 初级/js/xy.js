@@ -16,10 +16,6 @@ function getStyle(obj, attr) {
   return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj)[attr];
 }
 
-function setStyle(obj, attr, value) {
-  obj.style[attr] = value + 'px';
-}
-
 function move(obj, attr, inc, target, endFn) {
   inc = parseInt(getStyle(obj, attr)) > target ? -inc : inc;
   clearInterval(obj.move);
@@ -31,7 +27,7 @@ function move(obj, attr, inc, target, endFn) {
       offset = target;
     }
 
-    setStyle(obj, attr, offset);
+    obj.style[attr] = offset + 'px';
     if (offset == target) {
       clearInterval(obj.move);
 
@@ -56,14 +52,35 @@ function shake(obj, attr, endFn) {
 
   clearInterval(obj.shake);
   obj.shake = setInterval(function () {
-    setStyle(obj, attr, offset + arr[num++]);
+    obj.style[attr] = (offset + arr[num++]) + 'px';
 
     if (num == arr.length) {
       clearInterval(obj.shake);
       obj.shake = null;
       endFn && endFn();
     }
-  }, 50);
+  }, 30);
+}
+
+function opacity(obj, num, target, endFn) {
+  num = getStyle(obj, 'opacity') * 100 < target ? num : -num;
+  clearInterval(obj.opacity);
+
+  obj.opacity = setInterval(function () {
+    var speed = parseInt(getStyle(obj, 'opacity') * 100) + num;
+
+    if (speed > target && num > 0 || speed < target && num < 0) {
+      speed = target;
+    }
+
+    obj.style.opacity = speed / 100;
+    obj.style.filter = 'alpha(opacity=' + speed + ')';
+
+    if (speed == target) {
+      clearInterval( obj.opacity );
+      endFn && endFn();
+    }
+  }, 15);
 }
 
 function getDate(obj) {
@@ -81,7 +98,7 @@ function getDate(obj) {
     var iSec = oDate.getSeconds();
     var week = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
 
-    obj.innerHTML = iYear + '年' + iMon + '月' + iDay + '日' + ' ' + week[iWeek] + ' ' + iHours + ':' + toTwo(iMin) + ':' + toTwo(iSec);
+    obj.innerHTML = iYear + '年' + iMon + '月' + iDay + '日' + ' ' + week[iWeek] + ' ' + toTwo(iHours) + ':' + toTwo(iMin) + ':' + toTwo(iSec);
   }
 }
 
