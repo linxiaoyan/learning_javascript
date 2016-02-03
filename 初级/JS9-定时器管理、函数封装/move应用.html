@@ -2,53 +2,56 @@
 <html>
 <head lang="en">
   <meta charset="UTF-8">
-  <title></title>
+  <title>move应用</title>
   <script src="../js/xy.js"></script>
+
 <style>
- div {
-   float: left;
-   width: 50px;
-   height: 50px;
-   margin-left: 20px;
-   background: red;
- }
+div {float:left; width:50px; height:50px; margin-left:20px; background:red;}
 </style>
 </head>
-<body>
 
+<body>
 <script>
-$(function () {
+window.onload = function () {
   var aDiv = document.getElementsByTagName('div');
   var num = 5;
   var index = 0;
   var timer = null;
   var inc = 10;
   var target = 600;
-  var onOff = false;
+  var onOff = true;
   var clickTimes = 1;
+  var stopNum = 0;
 
   for (var i = 0; i < num; i++) {
     document.body.innerHTML += '<div></div>';
   }
 
   document.onclick = function () {
-    if (onOff) {
+    if (!onOff) {
       return;
     }
 
-    onOff = true;
+    onOff = false;
     timer = setInterval(function () {
-      move(aDiv[index++], 'marginTop', inc, target);
+      move(aDiv[index], 'marginTop', inc, target, function () {
+        //每个div运动结束后都要统计，当统计数达到div总数时才打开onclick开关
+        stopNum++;
+        if (stopNum == num) {
+          stopNum = 0;
+          index = 0;
+          target = (++clickTimes % 2 == 0) ? 0 : 600;
+          onOff = true;
+        }
+      });
 
-      if (index == num) {
+      //所有div都开始运动后就可以清除定时器
+      if (++index === num) {
         clearInterval(timer);
-        index = 0;
-        onOff = false;
-        target = (++clickTimes % 2 == 0) ? 0 : 600;
       }
     }, 50);
   };
-});
+};
 </script>
 </body>
 </html>
