@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>图片时钟动画版</title>
+  <script src="../js/xy.js"></script>
+
+<style>
+img, ul, li, div {padding:0; margin:0;}
+ul {list-style:none;}
+#timeList {width:400px; margin:50px auto; font-size:0;}
+#timeList li {position:relative; display:inline-block; width:50px; height:70px; overflow:hidden;}
+#timeList li div {position:absolute; top:0; left:0;}
+#timeList li img {width:50px; height:70px;}
+</style>
+</head>
+
+<body>
+<ul id="timeList">
+  <li>
+    <div>
+      <img />
+      <img />
+    </div>
+  </li>
+  <li>
+    <div>
+      <img />
+      <img />
+    </div>
+  </li>
+  <li>
+    <div>
+      <img />
+      <img />
+    </div>
+  </li>
+  <li>
+    <div>
+      <img />
+      <img />
+    </div>
+  </li>
+  <li>
+    <div>
+      <img />
+      <img />
+    </div>
+  </li>
+  <li>
+    <div>
+      <img />
+      <img />
+    </div>
+  </li>
+  <li>
+    <div>
+      <img />
+      <img />
+    </div>
+  </li>
+  <li>
+    <div>
+      <img />
+      <img />
+    </div>
+  </li>
+</ul>
+
+<script>
+window.onload = function () {
+  var oUl = document.getElementById('timeList');
+  var aLi = document.getElementsByTagName('li');
+
+  clearTimeout(oUl.timer);
+
+  function getTime() {
+    var oDate = new Date();
+    return toTwo(oDate.getHours()) + ':' + toTwo(oDate.getMinutes()) + ':' + toTwo(oDate.getSeconds());
+  }
+
+  function timeFlip(oLi, char) {
+    var oDiv = oLi.getElementsByTagName('div')[0];
+    var aImg = oLi.getElementsByTagName('img');
+
+    if (char == ':') {
+      aImg[0].src = './img/colon.jpg';
+    } else {
+      //由于是往上滚动，所以先设置下面的图片
+      aImg[1].src = './img/' + char + '.jpg';
+
+      //下面的图片和上面的图片不一样的时候，把div往上移动
+      if (aImg[1].src != aImg[0].src) {
+        move(oDiv, 'top', 10, -70, function () {
+          //保存下面的图片到上面的位置
+          aImg[0].src = aImg[1].src;
+          //通过重置div把上面的图片显示出来
+          oDiv.style.top = '0px';
+        });
+      }
+    }
+  }
+
+  function fnTime() {
+    var strTime = getTime();
+
+    for (var i = 0; i < aLi.length; i++) {
+      timeFlip(aLi[i], strTime[i]);
+    }
+  }
+
+  fnTime();
+  oUl.timer = setInterval(fnTime, 1000);
+}
+</script>
+
+</body>
+</html>
