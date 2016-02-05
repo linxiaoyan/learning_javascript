@@ -37,10 +37,11 @@ function move(obj, attr, inc, target, endFn) {
 }
 
 function shake(obj, attr, endFn) {
-  if (obj.shake) {
+  if (obj.shaked) {
     return;
   }
 
+  obj.shaked = false;
   var offset = parseInt(getStyle(obj, attr));
   var arr = [];
   var num = 0;
@@ -56,13 +57,13 @@ function shake(obj, attr, endFn) {
 
     if (num == arr.length) {
       clearInterval(obj.shake);
-      obj.shake = null;
+      obj.shaked = false;
       endFn && endFn();
     }
   }, 30);
 }
 
-function opacity(obj, num, target, endFn) {
+function opacity(obj, num, target, frequency, endFn) {
   num = getStyle(obj, 'opacity') * 100 < target ? num : -num;
   clearInterval(obj.opacity);
 
@@ -80,7 +81,7 @@ function opacity(obj, num, target, endFn) {
       clearInterval( obj.opacity );
       endFn && endFn();
     }
-  }, 15);
+  }, frequency);
 }
 
 function getDate(obj) {
@@ -103,5 +104,5 @@ function getDate(obj) {
 }
 
 function toTwo(num) {
-  return num > 10 ? ('' + num) : ('0' + num);
+  return num >= 10 ? ('' + num) : ('0' + num);
 }

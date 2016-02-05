@@ -55,7 +55,7 @@ $(function () {
         }
       });
 
-      opacity(aSpan[i], 2, 0, function () {
+      opacity(aSpan[i], 2, 0, 15, function () {
         k++;
         if (k == aSpan.length) {
           endFn('opacity');
@@ -70,9 +70,9 @@ $(function () {
     //op的width原先为0，让其移动出来
     move(oP, 'width', 20, 500);
     //op在移动的时候增加背景的透明度到100
-    opacity(oP, 3, 100, function () {
+    opacity(oP, 3, 100, 15, function () {
       //当透明度增加到100时再把透明度减少到0
-      opacity(oP, 3, 0, function () {
+      opacity(oP, 3, 0, 15, function () {
         //最后恢复op原先的width
         oP.style.width = 0;
       })
@@ -91,7 +91,7 @@ $(function () {
         //把span放回原来的位置
         aSpan[i].style.top = 0;
         //恢复span的透明度
-        opacity(aSpan[i], 3, 100, function () {
+        opacity(aSpan[i], 3, 100, 15, function () {
           l++;
           //最后一块span恢复透明度之后才打开onclick的开关
           if (l == aSpan.length) {
