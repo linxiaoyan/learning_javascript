@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script src="../js/xy.js"></script>
+
+<style>
+img, h1, p, div {padding:0; margin:0;}
+img {border:0;}
+#autoBox {position:relative; width:300px; height:450px; margin: 50px auto; border:5px solid #b3b3b3; overflow:hidden;}
+#autoPic {position:absolute; left:0; width:1500px; height:450px; font-size:0;}
+#autoPic img {width:300px; height:100%; background-size:100% 100%;}
+#autoInfo {position:absolute; top:455px; left:0; width:300px; height:75px; background:yellow;}
+#autoInfo div {position:absolute; left:0; top:0; width:300px; color:#fff; background:#000; opacity:0.7;}
+#autoInfo h1 {padding:5px; font-size:24px; line-height:30px;}
+#autoInfo p {padding:5px; font-size:20px; line-height:24px;}
+
+</style>
+
+</head>
+<body>
+<div id="autoBox">
+  <div id="autoPic">
+    <img src="../image/totti.jpg" />
+    <img src="../image/vieri.jpg" />
+    <img src="../image/inzaghi.jpg" />
+    <img src="../image/cannavaro.jpg" />
+    <img src="../image/totti.jpg" />
+  </div>
+  <div id="autoInfo">
+    <div style="top:-75px;">
+      <h1>托蒂</h1>
+      <p>罗马王子</p>
+    </div>
+    <div>
+      <h1>维埃里</h1>
+      <p>亚平宁坦克</p>
+    </div>
+    <div>
+      <h1>因扎吉</h1>
+      <p>米兰影子杀手</p>
+    </div>
+    <div>
+      <h1>卡纳瓦罗</h1>
+      <p>皇马铁卫</p>
+    </div>
+    <div>
+      <h1>托蒂</h1>
+      <p>罗马王子</p>
+    </div>
+  </div>
+</div>
+
+<script>
+window.onload = function () {
+  var autoPic = document.getElementById('autoPic');
+  var aAutoInfo = document.getElementById('autoInfo').getElementsByTagName('div');
+  var num = 0;
+
+  //使用首尾图片一致的技巧，达到无缝切换
+  function autoPlay() {
+    setInterval(function () {
+      move(aAutoInfo[num], 'top', 5, 0, function () {
+        num++;
+
+        if (num == aAutoInfo.length) {
+          num = 1;
+          autoPic.style.left = 0;
+        }
+
+        move(autoPic, 'left', 10, -300 * num, function () {
+          move(aAutoInfo[num], 'top', 5, -80);
+        });
+      });
+    }, 4000);
+  }
+
+  autoPlay();
+};
+</script>
+</body>
+</html>
