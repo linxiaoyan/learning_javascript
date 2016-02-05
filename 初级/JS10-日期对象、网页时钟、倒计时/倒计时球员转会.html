@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>倒计时球员转会</title>
+  <script src="../js/xy.js"></script>
+
+<style>
+ul, li, div, input, p, img, h1 {padding:0; margin:0;}
+ul {list-style:none;}
+img {border:0;}
+
+#saleBox {position:relative; width:574px;}
+#saleBox h1 {padding:5px; font-size:14px;}
+
+.playerList {border-top:2px solid #000; font-size:0;}
+.player {position:relative; display:inline-block; width:190px; height:370px; border-right:2px solid #b3b3b3;
+         border-bottom:2px solid #b3b3b3; background:url('./img/timeOutBg.png') 0 0 no-repeat; background-size:100% 100%;}
+.player-right {border-right:0;}
+
+.playerBox {position:absolute; top:0; left:0; width:180px; height:360px; padding: 5px; text-align:center; font-size:14px;
+            background:#fff; overflow:hidden;}
+.playerBox input[type="text"] {width:65%; height:18px; background:#ded6e7;}
+.playerBox input[type="button"] {width:25%; height:18px; font-size:12px; font-weight:bold; border:1px solid #000;}
+.playerBox p {margin-top:10px; line-height:15px; color:#000;}
+.playerBox img {width:95%; height:60%; margin-top:10px;}
+.playerBox p.timeLeft {color:#bab4d8;}
+.playerBox p.info {text-align:left;}
+.playerBox p.price {position:absolute; bottom:15px;}
+.playerBox span {font-weight:bold; color:#bdadbd;}
+.playerBox span.price {color:#bd214a}
+
+#saleBox table {width:574px; margin-top:20px; text-align:center; font-size:14px; font-weight:bold; color:#522121;
+                background:#ded6e7; border-collapse:collapse;}
+#saleBox td {padding:10px 0; border-top:2px solid #fff; border-bottom:2px solid #fff;}
+#saleBox thead td.info {width:200px;}
+#saleBox thead td.price {width:200px;}
+#saleBox thead td.photo {width:174px;}
+#saleBox tbody td:first-child {width:200px; padding:0 10px; color:#000;}
+#saleBox tbody td div {width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+#saleBox tbody td img {width:30px; height:50px; border:1px solid skyblue;}
+
+#total {text-align:right; font-size:20px; font-weight:bold;}
+.totalPrice {color:#bd214a;}
+
+</style>
+</head>
+<body>
+<div id="saleBox">
+  <h1>球员名单</h1>
+  <ul class="playerList">
+    <li class="player">
+      <div class="playerBox">
+        <input type="text" value="February 5, 2016 13:07:30"/>
+        <input type="button" value="确定" />
+        <p class="timeLeft">剩余00天00时00分00秒</p>
+        <img src="../image/buffon.jpg" />
+        <p class="info">布冯 意大利第一门将 效力于尤文图斯</p>
+        <p class="price">
+          <span>抢购价：</span>
+          <span class="price">¥</span>
+          <span class="price">50000000.00</span>
+        </p>
+      </div>
+    </li>
+    <li class="player">
+      <div class="playerBox">
+        <input type="text"  value="February 6, 2016 10:05:0"/>
+        <input type="button" value="确定" />
+        <p class="timeLeft">剩余00天00时00分00秒</p>
+        <img src="../image/vieri.jpg" />
+        <p class="info">维埃里 意大利第一中锋 国米进球机器</p>
+        <p class="price">
+          <span>抢购价：</span>
+          <span class="price">$</span>
+          <span class="price">60000000.00</span>
+        </p>
+      </div>
+    </li>
+    <li class="player player-right">
+      <div class="playerBox">
+        <input type="text"  value="February 6, 2017 10:05:0"/>
+        <input type="button" value="确定" />
+        <p class="timeLeft">剩余00天00时00分00秒</p>
+        <img src="../image/cannavaro.jpg" />
+        <p class="info">卡纳瓦罗 后防大将 效力于皇家马德里</p>
+        <p class="price">
+          <span>抢购价：</span>
+          <span class="price">$</span>
+          <span class="price">40000000.00</span>
+        </p>
+      </div>
+    </li>
+    <li class="player">
+      <div class="playerBox">
+        <input type="text"  value="February 16, 2016 10:05:0"/>
+        <input type="button" value="确定" />
+        <p class="timeLeft">剩余00天00时00分00秒</p>
+        <img src="../image/totti.jpg" />
+        <p class="info">托蒂 罗马王子</p>
+        <p class="price">
+          <span>抢购价：</span>
+          <span class="price">$</span>
+          <span class="price">55000000.00</span>
+        </p>
+      </div>
+    </li>
+    <li class="player">
+      <div class="playerBox">
+        <input type="text"  value="February 6, 2017 10:05:0"/>
+        <input type="button" value="确定" />
+        <p class="timeLeft">剩余00天00时00分00秒</p>
+        <img src="../image/inzaghi.jpg" />
+        <p class="info">因扎吉 米兰城影子杀手</p>
+        <p class="price">
+          <span>抢购价：</span>
+          <span class="price">$</span>
+          <span class="price">50000000.00</span>
+        </p>
+      </div>
+    </li>
+  </ul>
+  <table id="buyTable">
+    <thead>
+    <tr>
+      <td class="info">商品名称</td>
+      <td class="price">价钱</td>
+      <td class="photo"></td>
+    </tr>
+    </thead>
+    <tbody>
+    <!--
+    <tr>
+      <td><div>维埃里 意大利第一中锋 国米进球机器</div></td>
+      <td>$60,000,000.00</td>
+      <td><img src="../image/vieri.jpg"/></td>
+    </tr>
+    -->
+    </tbody>
+  </table>
+  <p id="total"><br />总价: <span class="totalPrice">0</span>元<br />
+  </p>
+</div>
+
+<script>
+window.onload = function () {
+  var saleBox = document.getElementById('saleBox');
+  var aPlayerBox = saleBox.getElementsByClassName('playerBox');
+
+  for (var i = 0; i < aPlayerBox.length; i++) {
+    timeOut(aPlayerBox[i]);
+  }
+
+  function timeOut(box) {
+    var oBtn = box.getElementsByTagName('input')[1];
+    oBtn.onOff = true;
+
+    oBtn.onclick = function () {
+      if (!this.onOff) {
+        return;
+      }
+
+      var oText = box.getElementsByTagName('input')[0];
+      var oTimeLeft = box.getElementsByTagName('p')[0];
+      var oInfo = box.getElementsByTagName('p')[1];
+      var price = box.getElementsByTagName('span')[2].innerHTML;
+      var oTbody = document.getElementsByTagName('tbody')[0];
+      var oImg = box.getElementsByTagName('img')[0];
+      var oTotalPrice = document.getElementById('total').getElementsByTagName('span')[0];
+      var oFuture = new Date(oText.value);
+      var oBtn = this;
+
+      if (isNaN(oFuture) || (oFuture - new Date()) <= 0) {
+        return;
+      }
+
+      clearInterval(this.timer);
+      this.timer = setInterval(function () {
+        var oNow = new Date();
+        var leftTime = (oFuture - oNow) / 1000;
+
+        if (leftTime <= 0) {
+          oTimeLeft.innerHTML = '剩余00天00时00分00秒';
+          //关闭按钮，抖动图片，添加到buyList
+          oBtn.onOff = false;
+          clearInterval(oBtn.timer);
+          shake(box, 'left', function () {
+            move(box, 'top', 10, 700);
+            opacity(box, 10, 0, 100, function () {
+              box.style.display = 'none';
+              oTbody.innerHTML += '<tr><td><div>' + oInfo.innerHTML + '<div></td><td>' + price + '</td><td><img src="' + oImg.src + '" /></td></tr>';
+              oTotalPrice.innerHTML = parseFloat(oTotalPrice.innerHTML) + parseFloat(price);
+            });
+          });
+        } else {
+          var str = '剩余' + toTwo(Math.floor(leftTime / 86400)) + '天'
+              + toTwo(Math.floor(leftTime % 86400 / 3600)) + '时'
+              + toTwo(Math.floor(leftTime % 86400 % 3600 / 60)) + '分'
+              + toTwo(Math.floor(leftTime % 86400 % 3600 % 60)) + '秒';
+          oTimeLeft.innerHTML = str;
+        }
+      }, 1000);
+    }
+  }
+}
+
+</script>
+
+</body>
+</html>

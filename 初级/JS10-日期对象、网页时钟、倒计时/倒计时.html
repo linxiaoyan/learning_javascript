@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>倒计时</title>
+</head>
+<body>
+<script>
+window.onload = function () {
+  var oFuture = new Date(2016, 1, 3, 22, 57, 50);
+  var timer = setInterval(timeOut, 1000);
+  
+  timeOut();
+  
+  function timeOut() {
+    var oNow = new Date();
+    var secs = Math.floor((oFuture - oNow) / 1000);
+    var iDay = Math.floor(secs / 86400);
+    var iHours = Math.floor(secs % 86400 / 3600);
+    var iMin = Math.floor(secs % 86400 % 3600 / 60);
+    var iSec = secs % 60;
+
+    if (secs < 0) {
+      document.body.innerHTML = '0天0时0分0秒';
+      clearInterval(timer);
+    } else {
+      document.body.innerHTML = iDay + '天' + iHours + '时' + iMin + '分' + iSec + '秒';
+    }
+  }
+}
+
+</script>
+</body>
+</html>
