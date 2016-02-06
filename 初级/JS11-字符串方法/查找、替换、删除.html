@@ -126,8 +126,15 @@ window.onload = function () {
     };
   }
 
+  function clearAllInput() {
+    oSearchText.value = '';
+    oReplaceSource.value = '';
+    oReplaceTarget.value = '';
+  }
+
   aToolButtons[0].onclick = function () {
     hiddenToolBox();
+    clearAllInput();
   };
 
   for (var i = 1; i < toolBtnNum; i++) {
@@ -194,9 +201,10 @@ window.onload = function () {
       }
 
       replaceStr(source, target);
-      oReplaceSource.value = '';
-      oReplaceTarget.value = '';
     }
+
+    oReplaceSource.value = '';
+    oReplaceTarget.value = '';
   };
 }
 </script>
