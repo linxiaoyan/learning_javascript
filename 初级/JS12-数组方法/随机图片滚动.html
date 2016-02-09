@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script src="../js/xy.js"></script>
+
+<style>
+div, ul, li, img {padding:0; margin:0;}
+ul {list-style:none;}
+
+
+.clearfix:after {display:block; height:0; content:''; clear:both; visibility:hidden;}
+.clearfix {*zoom:1;}
+
+#box {width:320px; margin:20px auto;}
+#box ul {float:left;}
+#box li {position:relative; float:left; width:150px; height:200px; margin:5px; overflow:hidden;}
+
+.imgBox {position:absolute; top:0; left:0; width:100%; height:200%;}
+.imgBox img {display:block; width:100%; height:50%;}
+
+</style>
+</head>
+<body>
+<div id="box" class="clearfix">
+  <ul>
+    <li>
+      <div class="imgBox">
+        <img/>
+        <img/>
+      </div>
+    </li>
+    <li>
+      <div class="imgBox">
+        <img/>
+        <img/>
+      </div>
+    </li>
+    <li>
+      <div class="imgBox">
+        <img/>
+        <img/>
+      </div>
+    </li>
+    <li>
+      <div class="imgBox">
+        <img/>
+        <img/>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<script>
+window.onload = function () {
+  var oBox = document.getElementById('box');
+  var aImgBox = oBox.getElementsByTagName('div');
+  var aImg = oBox.getElementsByTagName('img');
+  var aImgName = ['totti', 'vieri', 'inzaghi', 'nesta', 'cannavaro', 'panucci', 'zambrotta', 'maldini'];
+  var len = aImgBox.length;
+
+  for (var i = 0; i < aImg.length; i++) {
+    aImg[i].src = '../image/' + aImgName[i] + '.jpg';
+  }
+
+  function randomFlip(oImgBox) {
+    function imgFlip() {
+      oImgBox.target = oImgBox.target == 0 ? -200 : 0;
+      setTimeout(function () {
+        move(oImgBox, 'top', 10, oImgBox.target, imgFlip)
+      }, Math.floor(Math.random() * 2000 + 1000));
+    }
+
+    imgFlip(aImgBox[i]);
+  }
+
+  for (var i = 0; i < len; i++) {
+    aImgBox[i].target = 0;
+    randomFlip(aImgBox[i]);
+  }
+};
+
+</script>
+</body>
+</html>
