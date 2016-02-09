@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+
+<style>
+div, ul, li, img, p, a {padding:0; margin:0;}
+ul {list-style:none;}
+img {border:0;}
+
+#sortBox {width:486px; padding:10px; background:#f1f1f1;}
+#sortButtonList {font-size:0; text-align:center;}
+#sortImgList {font-size:0;}
+#sortButtonList li {display:inline-block; width:100px; height:30px; margin:5px; font-size:18px; font-weight:bold;
+                    line-height:30px; cursor:pointer; color:#fff; background:#00999a;}
+.sortButton-normal {border:1px solid #c3c3c3;}
+.sortButton-active {border:1px solid orangered;}
+#sortImgList li {display:inline-block; width:150px; height:250px; padding:5px; background:#fff; overflow:hidden;}
+.sortImg-normal {border:1px solid #fff;}
+.sortImg-active {border:1px solid orangered;}
+#sortImgList img {width:100%; height:90%;}
+#sortImgList p {width:100%; height:10%; font-size:14px; line-height:25px; text-align:center; color:#1f6b9e; background:#f1f1f1;}
+
+</style>
+</head>
+<body>
+<div id="sortBox">
+  <ul id="sortButtonList">
+    <li class="sortButton-normal"></li>
+    <li class="sortButton-normal">打乱顺序</li>
+  </ul>
+  <ul id="sortImgList">
+    <li class="sortImg-normal">
+      <img />
+      <p></p>
+    </li>
+    <li class="sortImg-normal">
+      <img />
+      <p></p>
+    </li>
+    <li class="sortImg-normal">
+      <img />
+      <p></p>
+    </li>
+    <li class="sortImg-normal">
+      <img />
+      <p></p>
+    </li>
+    <li class="sortImg-normal">
+      <img />
+      <p></p>
+    </li>
+    <li class="sortImg-normal">
+      <img />
+      <p></p>
+    </li>
+  </ul>
+</div>
+
+<script>
+window.onload = function () {
+  var oSortBox = document.getElementById('sortBox');
+  var oSortButtonList = document.getElementById('sortButtonList');
+  var oSortImgList = document.getElementById('sortImgList');
+  var aSortImg = oSortImgList.getElementsByTagName('li');
+  var aImg = oSortImgList.getElementsByTagName('img');
+  var aP = oSortImgList.getElementsByTagName('p');
+  var aSortButton = oSortButtonList.getElementsByTagName('li');
+  var oSortButton = aSortButton[0];
+  var oRandomButton = aSortButton[1];
+  var jData = {name : ['buffon', 'maldini', 'cannavaro', 'inzaghi', 'totti', 'vieri'],
+               info : ['1-布冯', '3-马尔蒂尼', '5-卡纳瓦罗', '9-因扎吉', '10-托蒂', '21-维埃里']};
+  var arr = [];
+  var i;
+
+  for (i = 0; i < aImg.length; i++) {
+    aImg[i].src = '../image/' + jData.name[i] + '.jpg';
+    aP[i].innerHTML = jData.info[i];
+    oSortButton.innerHTML = '从大到小';
+    arr.push(i);
+  }
+
+  for (i = 0; i < aSortImg.length; i++) {
+    aSortImg[i].onmouseover = function () {
+      this.className = 'sortImg-active';
+    };
+
+    aSortImg[i].onmouseout = function () {
+      this.className = 'sortImg-normal';
+    };
+  }
+
+  for (i = 0; i < aSortButton.length; i++) {
+    aSortButton[i].onmouseover = function () {
+      this.className = 'sortButton-active';
+    };
+
+    aSortButton[i].onmouseout = function () {
+      this.className = 'sortButton-normal';
+    };
+  }
+
+  oSortButton.flag = false;
+  oSortButton.onclick = function () {
+    var str = '';
+
+    if (this.flag) {
+      this.innerHTML = '从大到小';
+    } else {
+      arr.sort(function (a, b) {
+        return a < b;
+      });
+
+      this.innerHTML = '从小到大';
+    }
+
+    for (i = 0; i < aSortImg.length; i++) {
+      str += '<li class="sortImg-normal">' + aSortImg[arr[i]].innerHTML + '</li>';
+    }
+
+    oSortImgList.innerHTML = str;
+
+    this.flag = !this.flag;
+  };
+
+};
+
+</script>
+</body>
+</html>
