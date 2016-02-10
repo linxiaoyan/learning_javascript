@@ -15,7 +15,7 @@ img {border:0;}
 #sortButtonList li {display:inline-block; width:100px; height:30px; margin:5px; font-size:18px; font-weight:bold;
                     line-height:30px; cursor:pointer; color:#fff; background:#00999a;}
 .sortButton-normal {border:1px solid #c3c3c3;}
-.sortButton-active {border:1px solid orangered;}
+.sortButton-active {opacity:0.5;}
 #sortImgList li {display:inline-block; width:150px; height:250px; padding:5px; background:#fff; overflow:hidden;}
 .sortImg-normal {border:1px solid #fff;}
 .sortImg-active {border:1px solid orangered;}
@@ -60,7 +60,6 @@ img {border:0;}
 
 <script>
 window.onload = function () {
-  var oSortBox = document.getElementById('sortBox');
   var oSortButtonList = document.getElementById('sortButtonList');
   var oSortImgList = document.getElementById('sortImgList');
   var aSortImg = oSortImgList.getElementsByTagName('li');
@@ -78,7 +77,7 @@ window.onload = function () {
     aImg[i].src = '../image/' + jData.name[i] + '.jpg';
     aP[i].innerHTML = jData.info[i];
     oSortButton.innerHTML = '从大到小';
-    arr.push(i);
+    arr.push(aSortImg[i]);
   }
 
   for (i = 0; i < aSortImg.length; i++) {
@@ -105,25 +104,35 @@ window.onload = function () {
   oSortButton.onclick = function () {
     var str = '';
 
-    if (this.flag) {
-      this.innerHTML = '从大到小';
-    } else {
-      arr.sort(function (a, b) {
-        return a < b;
-      });
-
-      this.innerHTML = '从小到大';
-    }
+    arr.reverse();
+    this.innerHTML = this.flag ? '从大到小' : '从小到大';
 
     for (i = 0; i < aSortImg.length; i++) {
-      str += '<li class="sortImg-normal">' + aSortImg[arr[i]].innerHTML + '</li>';
+      str += '<li class="sortImg-normal">' + arr[i].innerHTML + '</li>';
     }
 
     oSortImgList.innerHTML = str;
-
     this.flag = !this.flag;
   };
 
+  oRandomButton.onclick = function () {
+    var str = '';
+    var tmp = [];
+
+    for (i = 0; i < aImg.length; i++) {
+      tmp.push(arr[i]);
+    }
+
+    tmp.sort(function () {
+      return Math.random() - 0.5;
+    });
+
+    for (i = 0; i < aSortImg.length; i++) {
+      str += '<li class="sortImg-normal">' + tmp[i].innerHTML + '</li>';
+    }
+
+    oSortImgList.innerHTML = str;
+  };
 };
 
 </script>
