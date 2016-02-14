@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>getElementsByClassName升级版</title>
+
+<style>
+#box {width:500px; height:500px;}
+.box1 {background:red;}
+.box2 {background:blue;}
+.box3 {background:yellow;}
+.box4 {background:green;}
+.box5 {background:orange;}
+.f30 {font-size:30px;}
+</style>
+
+</head>
+<body>
+<div id="box">
+  <div class="box1 f30">aaa</div>
+  <div class="box2">bbb</div>
+  <div class="box3 f30">ccc</div>
+  <div class="box4">ddd</div>
+  <div class="box5 f30">eee</div>
+</div>
+
+<script>
+window.onload = function () {
+  function getElementsByClassName(obj, tagName, className) {
+    var aClassName = className.split(', ');
+    var elements = obj.getElementsByTagName(tagName);
+    var resElements = [];
+
+    for (var i = 0; i < aClassName.length; i++) {
+      for (var j = 0; j < elements.length; j++) {
+        var arrClassName = elements[j].className.split(' ');
+        for (var k = 0; k < arrClassName.length; k++) {
+          if (arrClassName[k] == aClassName[i]) {
+            resElements.push(elements[j]);
+            break;
+          }
+        }
+      }
+    }
+
+    return resElements;
+  }
+
+  var oBox = document.getElementById('box');
+  var elements = getElementsByClassName(oBox, '*', 'box1, box2, f30');
+
+  for (var i = 0; i < elements.length; i++) {
+    alert(elements[i].className);
+    elements[i].style.background = 'skyblue';
+  }
+}
+</script>
+</body>
+</html>
