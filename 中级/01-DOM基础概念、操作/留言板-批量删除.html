@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div id="box">
+  <input type="text" />
+  <input type="button" value="留言"/>
+  <input type="button" value="批量删除"/>
+  <ul></ul>
+</div>
+
+<script>
+window.onload = function () {
+  var oBox = document.getElementById('box');
+  var aInput = oBox.getElementsByTagName('input');
+  var oUl = oBox.getElementsByTagName('ul')[0];
+  var oText = aInput[0];
+  var oBtn = aInput[1];
+  var oDel = aInput[2];
+
+  function isSpace(str) {
+    for (var i = 0; i < str.length; i++) {
+      if (str.charAt(i) != ' ') {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  oBtn.onclick = function () {
+    if (isSpace(oText.value)) {
+      return;
+    }
+
+    var oLi = document.createElement('li');
+    oLi.innerHTML = oText.value;
+
+    if (oUl.children[0]) {
+      oUl.insertBefore(oLi, oUl.children[0]);
+    } else {
+      oUl.appendChild(oLi);
+    }
+
+    oText.value = '';
+
+    oLi.mark = false;
+    oLi.onclick = function () {
+      this.mark = !this.mark;
+      this.style.backgroundColor = this.mark ? 'skyblue' : '';
+    }
+  };
+
+  oDel.onclick = function () {
+    for (var i = 0; i < oUl.children.length; i++) {
+      if (oUl.children[i].mark) {
+        oUl.removeChild(oUl.children[i]);
+        i--;
+      }
+    }
+  };
+}
+</script>
+</body>
+</html>
