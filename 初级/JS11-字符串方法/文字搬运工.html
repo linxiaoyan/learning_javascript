@@ -60,6 +60,16 @@ window.onload = function () {
   var preLiIndex = 0;
   var timer = null;
 
+  function isSpace(str) {
+    for (var i = 0; i < str.length; i++) {
+      if (str.charAt(i) != ' ') {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   oBtn.onclick = function () {
     if (timer) {
       return;
@@ -68,8 +78,8 @@ window.onload = function () {
     var text = oTextarea.value;
     var all = text.length;
     var char;
-
-    if (text.length == 0) {
+    
+    if (isSpace(text)) {
       alert('请在左侧文本框输入');
       return;
     }
