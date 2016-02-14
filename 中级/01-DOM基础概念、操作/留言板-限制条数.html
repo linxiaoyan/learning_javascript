@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>留言板-限制条数</title>
+</head>
+<body>
+<div id="box">
+  <input type="text" />
+  <input type="button" value="留言" />
+  <ul></ul>
+</div>
+
+<script>
+window.onload = function () {
+  var oDiv = document.getElementById('box');
+  var oText = oDiv.getElementsByTagName('input')[0];
+  var oBtn = oDiv.getElementsByTagName('input')[1];
+  var oUl = oDiv.getElementsByTagName('ul')[0];
+  var n = 5;
+
+  function isSpace(str) {
+    for (var i = 0; i < str.length; i++) {
+      if (str.charAt(i) != ' ') {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  oBtn.onclick = function () {
+    if (isSpace(oText.value)) {
+      return;
+    }
+
+    var oLi = document.createElement('li');
+    oLi.innerHTML = oText.value;
+
+    if (oUl.children[0]) {
+      oUl.insertBefore(oLi, oUl.children[0]);
+    } else {
+      oUl.appendChild(oLi);
+    }
+
+    if (oUl.children[n]) {
+      oUl.removeChild(oUl.children[n]);
+    }
+
+    oText.value = '';
+  }
+}
+
+</script>
+</body>
+</html>
