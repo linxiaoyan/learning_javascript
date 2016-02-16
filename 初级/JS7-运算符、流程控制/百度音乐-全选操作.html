@@ -140,6 +140,14 @@ window.onload = function () {
         selectNum++;
       }
 
+      if (selectNum == aCheckBox.length) {
+        oSelectCheckbox.onOff = true;
+        oSelectCheckbox.style.backgroundPosition = '-13px -6px';
+      } else {
+        oSelectCheckbox.onOff = false;
+        oSelectCheckbox.style.backgroundPosition = '0 -6px';
+      }
+
       if (selectNum > 0) {
         oStore.style.backgroundPosition = '-26px 0';
         oAdd.style.backgroundPosition = '-156px 0';
