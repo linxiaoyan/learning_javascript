@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>动态操作表格</title>
+
+<style>
+div, input {padding:0; margin:0;}
+  
+#box {position:relative; width:600px; margin:30px auto;}
+#dataForm {position:relative; width:400px; margin:0 auto; padding:10px; line-height:30px; border:1px solid #000; border-radius:5px;}
+#dataForm input {margin-right:5px;}
+#dataForm input[type='button'] {position:absolute; bottom:15px; margin-right:0; font-size:20px; font-weight:bold;}
+#dataTab {width:600px; margin:20px auto; border-collapse:collapse;}
+#dataTab th, td {border:1px solid #000; padding:5px;}
+#dataTab th, td:first-child {width:80px; text-align:center;}
+#box input[type='button'] {position:absolute; right:20px; font-size:20px;}
+
+</style>
+</head>
+<body>
+<div id="box">
+  <form id="dataForm">
+    姓名：
+    <input type="text" name="name" /><br />
+    性别：
+    <input type="radio" name="sex" value="男" checked/>男
+    <input type="radio" name="sex" value="女" />女<br />
+    国籍：
+    <select name="country" value="">
+      <option value="">请选择国籍</option>
+      <option value="中国">中国</option>
+      <option value="美国">美国</option>
+      <option value="加拿大">加拿大</option>
+    </select><br />
+    爱好：
+    <input type="checkbox" name="hobby" value="足球" />足球
+    <input type="checkbox" name="hobby" value="篮球" />篮球
+    <input type="checkbox" name="hobby" value="排球" />排球
+    <input type="button" name="add" value="添加" id="addBtn">
+  </form>
+  <table id="dataTab">
+    <thead>
+    <tr>
+      <th><input type="checkbox" id="checkAll">全选</th>
+      <th>姓名</th>
+      <th>性别</th>
+      <th>国籍</th>
+      <th>爱好</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <input type="button" value="删除" id="delBtn" />
+</div>
+
+<script>
+window.onload = function () {
+  var oForm = document.getElementById('dataForm');
+  var oTab = document.getElementById('dataTab');
+  var oDelBtn = document.getElementById('delBtn');
+  var oAddBtn = document.getElementById('addBtn');
+  var oTbody = oTab.tBodies[0];
+  var oThead = oTab.tHead;
+  var oCheckAll = document.getElementById('checkAll');
+  var data = [{name:'张三', sex:'男', country:'中国', hobby:'足球'},
+              {name:'李四', sex:'男', country:'中国', hobby:'篮球，排球'},
+              {name:'John', sex:'男', country:'美国', hobby:'篮球'},
+              {name:'Lucy', sex:'女', country:'加拿大', hobby:'排球'}];
+
+  function insertData(tbody, data) {
+    for (var i = 0; i < data.length; i++) {
+      var oTr = document.createElement('tr');
+      var oTd;
+
+      oTd = document.createElement('td');
+      oTd.innerHTML = '<input type="checkbox"/>';
+      oTr.appendChild(oTd);
+
+      oTd = document.createElement('td');
+      oTd.innerHTML = data[i].name;
+      oTr.appendChild(oTd);
+
+      oTd = document.createElement('td');
+      oTd.innerHTML = data[i].sex;
+      oTr.appendChild(oTd);
+
+      oTd = document.createElement('td');
+      oTd.innerHTML = data[i].country;
+      oTr.appendChild(oTd);
+
+      oTd = document.createElement('td');
+      oTd.innerHTML = data[i].hobby;
+      oTr.appendChild(oTd);
+
+      tbody.appendChild(oTr);
+    }
+  }
+
+  function colorLine(tbody) {
+    for (var i = 0; i < tbody.children.length; i++) {
+      tbody.children[i].style.background = (i % 2 == 0) ? '#fff' : '#edf3fa';
+    }
+  }
+
+  function checkbox() {
+    for (var i = 0; i < oTbody.rows.length; i++) {
+      oTbody.rows[i].cells[0].children[0].onclick = function () {
+        for (var i = 0; i < oTbody.rows.length; i++) {
+          if (!oTbody.rows[i].cells[0].children[0].checked) {
+            oCheckAll.checked = false;
+            return;
+          }
+        }
+        oCheckAll.checked = true;
+      };
+    }
+  }
+
+  function getChecked(form, name) {
+    var arr = [];
+
+    for (var i = 0; i < form[name].length; i++) {
+      if (form[name][i].checked) {
+        arr.push(form[name][i].value);
+      }
+    }
+
+    if (form[name][0].type == 'radio') {
+      return arr[0];
+    } else if (form[name][0].type == 'checkbox') {
+      return arr;
+    }
+  }
+
+  function isSpace(str) {
+    for (var i = 0; i < str.length; i++) {
+      if (str.charAt(i) != ' ') {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function checkDate(data) {
+    if (isSpace(data.name)) {
+      alert('请输入姓名');
+      return false;
+    }
+
+    if (data.sex == '') {
+      alert('请选择性别');
+      return false;
+    }
+
+    if (data.country == '') {
+      alert('请选择国籍');
+      return false;
+    }
+
+    if (data.hobby.length == 0) {
+      alert('请选择爱好');
+      return false;
+    }
+
+    return true;
+  }
+
+  oAddBtn.onclick = function () {
+    var name, sex, country;
+    var hobby = [];
+    var data = [];
+
+    name = oForm.name.value;
+    sex = getChecked(oForm, 'sex');
+    country = oForm.country.value;
+    hobby = getChecked(oForm, 'hobby');
+    data = [{'name':name, 'sex':sex, 'country':country, 'hobby':hobby}];
+
+    if (!checkDate(data[0])) {
+      return;
+    }
+
+    insertData(oTbody, data);
+    colorLine(oTbody);
+    checkbox();
+    oForm.reset();
+  };
+
+  oDelBtn.onclick = function () {
+    oCheckAll.checked = false;
+    for (var i = 0; i < oTbody.rows.length; i++) {
+      if (oTbody.rows[i].cells[0].children[0].checked) {
+        oTbody.removeChild(oTbody.rows[i]);
+        i--;
+      }
+    }
+    colorLine(oTbody);
+  };
+
+  oCheckAll.onclick = function () {
+    for (var i = 0; i < oTbody.rows.length; i++) {
+      oTbody.rows[i].cells[0].children[0].checked = this.checked;
+    }
+  };
+
+  insertData(oTbody, data);
+  colorLine(oTbody);
+  checkbox();
+}
+</script>
+</body>
+</html>
