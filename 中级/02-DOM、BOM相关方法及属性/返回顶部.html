@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>返回顶部</title>
+
+<style>
+body, div {padding:0; margin:0;}
+#wrapper {position:relative; width:100%; height:2000px; background:skyblue;}
+#toTop {position:absolute; right:0; bottom:0; width:100px; height:100px; line-height:100px; text-align:center; background:red;}
+</style>
+</head>
+<body>
+<div id="wrapper">
+  <div id="toTop">返回顶部</div>
+</div>
+
+<script>
+window.onload = function () {
+  var toTopBtn = document.getElementById('toTop');
+  var stepTop = 50;
+
+  toTopBtn.onclick = function () {
+    if (toTopBtn.flag) {
+      return;
+    }
+
+    toTopBtn.flag = true;
+
+    toTopBtn.timer = setInterval(function () {
+      var newScrollTop = (document.body.scrollTop - stepTop) > 0 ? (document.body.scrollTop - stepTop) : 0;
+      document.body.scrollTop = newScrollTop;
+
+      if (newScrollTop == 0) {
+        clearInterval(toTopBtn.timer);
+        toTopBtn.flag = false;
+      }
+    }, 20);
+  }
+}
+</script>
+</body>
+</html>
