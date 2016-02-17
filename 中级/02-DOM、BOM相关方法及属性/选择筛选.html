@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>选择筛选</title>
+
+<style>
+#selectBox dd {cursor:pointer;}
+</style>
+</head>
+<body>
+<div id="selectBox">
+  <dl>
+    <dt>码数</dt>
+    <dd>XS</dd>
+    <dd>S</dd>
+    <dd>M</dd>
+    <dd>L</dd>
+  </dl>
+  <dl>
+    <dt>颜色</dt>
+    <dd>黑色</dd>
+    <dd>深蓝色</dd>
+    <dd>灰色</dd>
+  </dl>
+  <div id="selectResult"></div>
+</div>
+
+<script>
+window.onload = function () {
+  var oSelectBox = document.getElementById('selectBox');
+  var oSelectResult = document.getElementById('selectResult');
+  var aDl = oSelectBox.getElementsByTagName('dl');
+  var size = '';
+  var color = '';
+
+  for (var i = 0; i < aDl.length; i++) {
+    var aDd = aDl[i].getElementsByTagName('dd');
+    for (var j = 0; j < aDd.length; j++) {
+      aDd[j].type = i;
+
+      aDd[j].onclick = function () {
+        switch (this.type) {
+          case 0:
+            size = this.innerHTML + ' ';
+            break;
+          case 1:
+            color = this.innerHTML + ' ';
+            break;
+          default:
+            break;
+        }
+
+        oSelectResult.innerHTML = size + color;
+      };
+    }
+  }
+}
+</script>
+</body>
+</html>
