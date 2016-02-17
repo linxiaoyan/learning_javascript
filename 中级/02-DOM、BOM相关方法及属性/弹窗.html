@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>弹窗</title>
+  <script src="../../js/xy.js"></script>
+
+<style>
+body, div {padding:0; margin:0;}
+#mask {display:none; position:absolute; top:0; left:0; background:#000; opacity:0.3; filter:alpha(opacity=30);}
+#regWin {display:none; position:absolute; width:300px; height:200px; padding:10px; border:5px solid #000; background:#fff;}
+#regWin a {display:inline-block; float:right; width:20px; height:20px; line-height:20px; text-align:center; color:#000;}
+#regWin a:hover {color:#fff; background:#000;}
+
+</style>
+</head>
+<body style="width:2000px; height:2000px; background:skyblue;">
+<input type="button" value="注册" id="regBtn"/>
+<div id="mask"></div>
+<div id="regWin">这里是注册表单的内容<a id="closeRegWin">×</a></div>
+
+<script>
+window.onload = function () {
+  var oRegBtn = document.getElementById('regBtn');
+  var oRegWin = document.getElementById('regWin');
+  var oMask = document.getElementById('mask');
+  var oCloseRegWin = document.getElementById('closeRegWin');
+
+  oCloseRegWin.onclick = function () {
+    oRegWin.style.display = 'none';
+    oMask.style.display = 'none';
+  };
+
+  oRegBtn.onclick = function () {
+    resizeMask(oMask);
+    setPosition(oRegWin);
+  };
+
+  window.onscroll = function () {
+    if (oRegWin.style.display != 'none') {
+      setPosition(oRegWin);
+    }
+  };
+
+  window.onresize = function () {
+    if (oMask.style.display != 'none') {
+      resizeMask(oMask);
+    }
+
+    if (oRegWin.style.display != 'none') {
+      setPosition(oRegWin);
+    }
+  };
+
+  function resizeMask(obj) {
+    obj.style.display = 'block';
+    obj.style.width = Math.max(document.documentElement.clientWidth, document.body.offsetWidth) + 'px';
+    obj.style.height = Math.max(document.documentElement.clientHeight, document.body.offsetHeight) + 'px';
+  }
+
+  function setPosition(obj) {
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+
+    obj.style.display = 'block'; //先设置block才能取到offset的值
+    obj.style.top = (document.documentElement.clientHeight - obj.offsetHeight) / 2 + scrollTop + 'px';
+    obj.style.left = (document.documentElement.clientWidth - obj.offsetWidth) / 2 + scrollLeft + 'px';
+  }
+}
+</script>
+</body>
+</html>
