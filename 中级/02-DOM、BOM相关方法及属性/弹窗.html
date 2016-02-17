@@ -15,9 +15,9 @@ body, div {padding:0; margin:0;}
 </style>
 </head>
 <body style="width:2000px; height:2000px; background:skyblue;">
-<input type="button" value="注册" id="regBtn"/>
+<input type="button" value="弹窗" id="regBtn"/>
 <div id="mask"></div>
-<div id="regWin">这里是注册表单的内容<a id="closeRegWin">×</a></div>
+<div id="regWin">这是弹窗的内容<a id="closeRegWin">×</a></div>
 
 <script>
 window.onload = function () {
@@ -33,12 +33,12 @@ window.onload = function () {
 
   oRegBtn.onclick = function () {
     resizeMask(oMask);
-    setPosition(oRegWin);
+    setCenter(oRegWin);
   };
 
   window.onscroll = function () {
     if (oRegWin.style.display != 'none') {
-      setPosition(oRegWin);
+      setCenter(oRegWin);
     }
   };
 
@@ -48,7 +48,7 @@ window.onload = function () {
     }
 
     if (oRegWin.style.display != 'none') {
-      setPosition(oRegWin);
+      setCenter(oRegWin);
     }
   };
 
@@ -58,7 +58,7 @@ window.onload = function () {
     obj.style.height = Math.max(document.documentElement.clientHeight, document.body.offsetHeight) + 'px';
   }
 
-  function setPosition(obj) {
+  function setCenter(obj) {
     var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
 
