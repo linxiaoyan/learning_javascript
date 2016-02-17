@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>两侧居中广告</title>
+  <script src="../../js/xy.js"></script>
+
+<style>
+#wrapper {height:2000px;}
+.ad {position:absolute; width:80px; height:200px; background:red;}
+.ad-left {left:0;}
+.ad-right {right:0;}
+
+</style>
+</head>
+<body>
+<div id="wrapper">
+  <div class="ad ad-left">左侧广告</div>
+  <div class="ad ad-right">右侧广告</div>
+</div>
+
+<script>
+window.onload = function () {
+  var oWrapper = document.getElementById('wrapper');
+  var aAd = getElementsByClassName(oWrapper, 'div', 'ad-left, ad-right');
+
+  setMiddle(aAd);
+
+  window.onscroll = window.onresize = function () {
+    setMiddle(aAd);
+  };
+
+  function setMiddle(aObj) {
+    for (var i = 0; i < aObj.length; i++) {
+      var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      aObj[i].style.top = (document.documentElement.clientHeight - aObj[i].offsetHeight) / 2 + scrollTop + 'px';
+    }
+  }
+}
+</script>
+</body>
+</html>
