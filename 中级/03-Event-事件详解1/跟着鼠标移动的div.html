@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>跟着鼠标移动的div</title>
+</head>
+<body style="height:2000px;">
+<div style="position:absolute; width:100px; height:100px; background:blue;"></div>
+
+<script>
+window.onload = function () {
+  var oDiv = document.getElementsByTagName('div')[0];
+
+  document.onmousemove = function(ev) {
+    var ev = ev || event;
+    var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+
+    oDiv.style.top = ev.clientY + scrollTop + 'px';
+    oDiv.style.left = ev.clientX + 'px';
+  };
+}
+</script>
+</body>
+</html>
