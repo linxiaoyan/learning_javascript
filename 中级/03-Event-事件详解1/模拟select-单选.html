@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>模拟select-单选</title>
+
+<style>
+div, ul {padding:0; margin:0;}
+ul {list-style:none;}
+#div1 {width:200px; height:20px; padding:5px; margin:0 auto; line-height:20px; font-size:20px;
+       border:1px solid orangered; color:black;}
+#ul1 {display:none; width:210px; margin:0 auto; border:1px solid orangered;}
+#ul1 a {display:block; padding:5px; line-height:20px; font-size:20px; text-decoration:none; color:black;}
+#ul1 a:hover {color:white; background:orangered;}
+
+</style>
+</head>
+<body>
+<div id="div1"></div>
+<ul id="ul1">
+  <li><a href="javascrip:;">黑体</a></li>
+  <li><a href="javascrip:;">宋体</a></li>
+  <li><a href="javascrip:;">楷体</a></li>
+  <li><a href="javascrip:;">仿宋</a></li>
+</ul>
+<script>
+window.onload = function() {
+  var oDiv = document.getElementById('div1');
+  var oUl = document.getElementById('ul1');
+
+  document.onclick = function() {
+    oUl.style.display = 'none';
+  };
+
+  oDiv.onclick = function(ev) {
+    var ev = ev || event;
+    ev.cancelBubble = true;
+    oUl.style.display = 'block';
+  };
+
+  for (var i = 0; i < oUl.children.length; i++) {
+    oUl.children[i].onclick = function() {
+      oDiv.innerHTML = this.children[0].innerHTML;
+    };
+  }
+}
+</script>
+</body>
+</html>
