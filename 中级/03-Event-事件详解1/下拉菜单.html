@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>下拉菜单</title>
+
+<style>
+#div1 {display:none; width:100px; height:200px; border:1px solid orangered;}
+</style>
+</head>
+<body>
+<input type="button" value="按钮" id="btn">
+<div id="div1"></div>
+<p>aaaaaaaaa</p>
+<p>aaaaaaaaa</p>
+<p>aaaaaaaaa</p>
+<p>aaaaaaaaa</p>
+
+<script>
+window.onload = function() {
+  var oBtn = document.getElementById('btn');
+  var oDiv = document.getElementById('div1');
+
+  oBtn.onclick = function(ev) {
+    var ev = ev || event;
+    //如果不阻止按钮的事件冒泡，那么onclick事件会继续传递给父级document,这样父级又把div隐藏了
+    ev.cancelBubble = true;
+    oDiv.style.display = 'block';
+  };
+
+  document.onclick = function() {
+    oDiv.style.display = 'none';
+  };
+}
+</script>
+</body>
+</html>
