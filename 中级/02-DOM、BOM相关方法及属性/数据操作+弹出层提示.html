@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>数据操作+弹出层提示</title>
+  <script src="../../js/xy.js"></script>
+
+<style>
+div, ul {padding:0; margin:0;}
+ul {list-style:none;}
+
+#container {width:1000px; margin:60px auto;}
+#nav {height:36px; border-bottom:2px solid orangered;}
+#nav li {float:left; height:36px; padding:0 10px; margin-right:5px; line-height:36px; font-size:20px; cursor:pointer;}
+#nav li.focus {font-weight:bold; color:#fff; background:orangered;}
+#listContent .list {margin-top:5px;}
+#listContent .list li {position:relative; height:36px; line-height:36px; font-size:18px;}
+#listContent .list li a {display:inline-block; height:36px;}
+#tips {display:none; position:absolute; width:400px; height:200px; padding:10px; border:2px solid orangered; background:#fff;}
+#tips li.column {float:left; width:200px; height:30px; line-height:30px; border-bottom:1px solid #ccc;}
+#arrow {position:absolute; top:120px; left:-11px; width:11px; height:17px; background:url(./arrow.png) no-repeat;}
+
+</style>
+
+<script>
+  var data = [
+    {
+      'name'	:	'前端',
+      'list'	:	[
+        {
+          'title'	:	'前端工程师',
+          'company'	:	'北京魔方国际旅行社有限公司',
+          'position'	:	'前端页面',
+          'recruitingNumbers'	:	'2人',
+          'workingLocation'	:	'北京海淀',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'网站前端页面设计',
+          'company'	:	'北京中联讯通网络科技有限公司 ',
+          'position'	:	'前端页面',
+          'recruitingNumbers'	:	'5人',
+          'workingLocation'	:	'北京月坛',
+          'workExperience'	:	'不限',
+          'education'	:	'大专',
+          'wage'	:	'7000',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'高级web前端工程师',
+          'company'	:	'星职场教育培训公司 ',
+          'position'	:	'前端页面',
+          'recruitingNumbers'	:	'12人',
+          'workingLocation'	:	'军博',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'HTML5前端工程师',
+          'company'	:	'北京育智兴邦教育科技有限公司 ',
+          'position'	:	'前端页面',
+          'recruitingNumbers'	:	'2人',
+          'workingLocation'	:	'朝阳',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'前端工程师',
+          'company'	:	'北京恩跃时代教育科技有限公司 ',
+          'position'	:	'前端页面',
+          'recruitingNumbers'	:	'2人',
+          'workingLocation'	:	'北京',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'网站前端设计',
+          'company'	:	'北京创美时代办公家具有限公司 ',
+          'position'	:	'前端页面',
+          'recruitingNumbers'	:	'2人',
+          'workingLocation'	:	'北京海淀',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'诚招web前端开发工程师',
+          'company'	:	'北京中新美迪文化发展中心 ',
+          'position'	:	'前端页面',
+          'recruitingNumbers'	:	'2人',
+          'workingLocation'	:	'东城',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'web前端DIV+CSS',
+          'company'	:	'北京华夏安业科技有限公司 ',
+          'position'	:	'前端页面',
+          'recruitingNumbers'	:	'2人',
+          'workingLocation'	:	'西城',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'前端设计',
+          'company'	:	'北京鲁艺轩网络科技有限公司 ',
+          'position'	:	'前端页面',
+          'recruitingNumbers'	:	'3人',
+          'workingLocation'	:	'通州',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'招聘 前端页面工作者',
+          'company'	:	'千言万语（北京）教育科技有限公司 ',
+          'position'	:	'前端页面',
+          'recruitingNumbers'	:	'2人',
+          'workingLocation'	:	'北京',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'页面前端工程师',
+          'company'	:	'北京奇点时空投资管理有限公司 ',
+          'position'	:	'前端页面',
+          'recruitingNumbers'	:	'4人',
+          'workingLocation'	:	'北京海淀',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'高级web前端工程师',
+          'company'	:	'星职场教育培训公司 ',
+          'position'	:	'前端页面',
+          'recruitingNumbers'	:	'12人',
+          'workingLocation'	:	'军博',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'HTML5前端工程师',
+          'company'	:	'北京育智兴邦教育科技有限公司 ',
+          'position'	:	'前端页面',
+          'recruitingNumbers'	:	'2人',
+          'workingLocation'	:	'朝阳',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'前端工程师',
+          'company'	:	'北京恩跃时代教育科技有限公司 ',
+          'position'	:	'前端页面',
+          'recruitingNumbers'	:	'2人',
+          'workingLocation'	:	'北京',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'网站前端设计',
+          'company'	:	'北京创美时代办公家具有限公司 ',
+          'position'	:	'前端页面',
+          'recruitingNumbers'	:	'2人',
+          'workingLocation'	:	'北京海淀',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        }
+      ]
+    },
+
+    {
+      'name'	:	'后端',
+      'list'	:	[
+        {
+          'title'	:	'PHP工程师',
+          'company'	:	'北京创美时代办公家具有限公司 ',
+          'position'	:	'PHP后台',
+          'recruitingNumbers'	:	'2人',
+          'workingLocation'	:	'北京海淀',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'诚招java开发工程师',
+          'company'	:	'北京中新美迪文化发展中心 ',
+          'position'	:	'java开发',
+          'recruitingNumbers'	:	'2人',
+          'workingLocation'	:	'东城',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'java工程师',
+          'company'	:	'北京华夏安业科技有限公司 ',
+          'position'	:	'java后台',
+          'recruitingNumbers'	:	'2人',
+          'workingLocation'	:	'西城',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'.net工程师',
+          'company'	:	'北京鲁艺轩网络科技有限公司 ',
+          'position'	:	'.net程序员',
+          'recruitingNumbers'	:	'3人',
+          'workingLocation'	:	'通州',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'招聘php程序员',
+          'company'	:	'千言万语（北京）教育科技有限公司 ',
+          'position'	:	'php程序员',
+          'recruitingNumbers'	:	'2人',
+          'workingLocation'	:	'北京',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        },
+        {
+          'title'	:	'PHP高级工程师',
+          'company'	:	'北京奇点时空投资管理有限公司 ',
+          'position'	:	'PHP高级工程师',
+          'recruitingNumbers'	:	'4人',
+          'workingLocation'	:	'北京海淀',
+          'workExperience'	:	'不限',
+          'education'	:	'不限',
+          'wage'	:	'面议',
+          'addDate'	:	'2013-12-14'
+        }
+      ]
+    }
+  ];
+</script>
+<script>
+window.onload = function () {
+  var oContainer = document.getElementById('container');
+  var oNav = document.getElementById('nav');
+  var oListContent = document.getElementById('listContent');
+  var oTips = document.getElementById('tips');
+  var oTipsContent = document.getElementById('tipsContent');
+
+  for (var i = 0; i < data.length; i++) {
+    var oLi = document.createElement('li');
+    oLi.innerHTML = data[i].name;
+    oNav.appendChild(oLi);
+  }
+
+  oNav.children[0].className = 'focus';
+
+  function addTitle(index) {
+    var oUl = document.createElement('ul');
+
+    for (var i = 0; i < data[index].list.length; i++) {
+      var oLi = document.createElement('li');
+      oLi.innerHTML = '<a href="javascript:;">' + data[index].list[i].title + '</a>';
+      oUl.appendChild(oLi);
+    }
+
+    oListContent.innerHTML = '';
+    oUl.className = 'list';
+    oListContent.appendChild(oUl);
+  }
+
+  for (var i = 0; i < oNav.children.length; i++) {
+    oNav.children[i].index = i;
+
+    oNav.children[i].onclick = function () {
+      for (var j = 0; j < oNav.children.length; j++) {
+        oNav.children[j].className = '';
+      }
+      this.className = 'focus';
+
+      addTitle(this.index);
+      showTitle(this.index);
+    };
+  }
+
+  function showTips(title) {
+    var pos = getPos(title);
+
+    var offsetHeightOfTips = oTips.offsetHeight;
+
+    //tips是否越过可视区顶部
+    if (pos.top - offsetHeightOfTips / 2 < document.body.scrollTop) {
+      oTips.style.top = document.body.scrollTop + 'px';
+    } else {
+      oTips.style.top = pos.top - offsetHeightOfTips / 2 + 'px';
+    }
+
+    //tips是否越过可视区底部
+    if (pos.top + offsetHeightOfTips / 2 > document.body.scrollTop + document.documentElement.clientHeight) {
+      //title到可视区底部剩下的高度
+      var leftHeight = document.body.scrollTop + document.documentElement.clientHeight - pos.top;
+      oTips.style.top = pos.top - offsetHeightOfTips + leftHeight + 'px';
+    }
+
+    oTips.style.left = pos.left + title.offsetWidth + 10 + 'px';
+  }
+
+  function tipsContent(idxOfData, idxOfTitle) {
+    oTipsContent.innerHTML = '';
+    var oUl = document.createElement('ul');
+    var str = '<li><h2>' + data[idxOfData].list[idxOfTitle].company + '</h2></li>' +
+        '<li class="column"><span style="font-weight:bold">职位：</span><span>' + data[idxOfData].list[idxOfTitle].position + '</span></li>' +
+        '<li class="column"><span style="font-weight:bold">招聘人数：</span><span>' + data[idxOfData].list[idxOfTitle].recruitingNumbers + '</span></li>' +
+        '<li class="column"><span style="font-weight:bold">工作地点：</span><span>' + data[idxOfData].list[idxOfTitle].workingLocation + '</span></li>' +
+        '<li class="column"><span style="font-weight:bold">工作经历：</span><span>' + data[idxOfData].list[idxOfTitle].workExperience + '</span></li>' +
+        '<li class="column"><span style="font-weight:bold">学历：</span><span>' + data[idxOfData].list[idxOfTitle].education + '</span></li>' +
+        '<li class="column"><span style="font-weight:bold">薪资：</span><span>' + data[idxOfData].list[idxOfTitle].wage + '</span></li>';
+
+    oUl.innerHTML = str;
+    oTipsContent.appendChild(oUl);
+  }
+
+  function showTitle(idxOfData) {
+    var oList = oListContent.getElementsByTagName('ul')[0];
+    var aTitle = oList.getElementsByTagName('a');
+
+    for (var i = 0; i < aTitle.length; i++) {
+      aTitle[i].index = i;
+
+      aTitle[i].onmouseover = function () {
+        oTips.style.display = 'block';
+        showTips(this);
+        tipsContent(idxOfData, this.index);
+      };
+
+      aTitle[i].onmouseout = function () {
+        oTips.style.display = 'none';
+      };
+    }
+  }
+
+  addTitle(0);
+  showTitle(0);
+}
+</script>
+</head>
+<body>
+<div id="container">
+  <ul id="nav"></ul>
+  <div id="listContent"></div>
+  <div id="tips">
+    <span id="arrow"></span>
+    <div id="tipsContent"></div>
+  </div>
+</div>
+</body>
+</html>
