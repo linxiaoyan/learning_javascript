@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>事件冒泡</title>
+
+<style>
+#div1 {padding:50px; background:red;}
+#div2 {padding:50px; background:blue;}
+#div3 {padding:50px; background:yellow;}
+</style>
+</head>
+<body>
+<div id="div1">
+  <div id="div2">
+    <div id="div3"></div>
+  </div>
+</div>
+
+<script>
+window.onload = function () {
+  var oDiv1 = document.getElementById('div1');
+  var oDiv2 = document.getElementById('div2');
+  var oDiv3 = document.getElementById('div3');
+
+  //当div2被点击的时候，虽然没有捕捉动作，但仍会把点击事件传给父级
+  oDiv1.onclick = oDiv3.onclick = function() {
+    return alert(this.id);
+  };
+}
+</script>
+</body>
+</html>
