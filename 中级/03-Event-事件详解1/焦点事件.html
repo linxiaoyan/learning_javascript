@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>焦点事件</title>
+
+<style>
+input[type="text"] {opacity:0.3;}
+</style>
+</head>
+<body>
+<input type="text" value="请输入">
+<input type="button" value="全选">
+
+<script>
+window.onload = function () {
+  var oText = document.getElementsByTagName('input')[0];
+  var oBtn = document.getElementsByTagName('input')[1];
+
+  oText.onfocus = function () {
+    if (this.value == '请输入') {
+      this.style.opacity = 1.0;
+      this.value = '';
+    }
+  };
+
+  oText.onblur = function () {
+    if (this.value == '') {
+      this.style.opacity = 0.3;
+      this.value = '请输入';
+    }
+  };
+
+  oBtn.onclick = function () {
+    if (oText.value != '请输入') {
+      oText.select();
+    }
+  };
+
+  oText.focus();
+}
+</script>
+</body>
+</html>
