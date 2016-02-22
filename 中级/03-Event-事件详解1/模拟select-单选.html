@@ -18,10 +18,10 @@ ul {list-style:none;}
 <body>
 <div id="div1"></div>
 <ul id="ul1">
-  <li><a href="javascrip:;">黑体</a></li>
-  <li><a href="javascrip:;">宋体</a></li>
-  <li><a href="javascrip:;">楷体</a></li>
-  <li><a href="javascrip:;">仿宋</a></li>
+  <li><a href="javascript:;">黑体</a></li>
+  <li><a href="javascript:;">宋体</a></li>
+  <li><a href="javascript:;">楷体</a></li>
+  <li><a href="javascript:;">仿宋</a></li>
 </ul>
 <script>
 window.onload = function() {
@@ -41,13 +41,14 @@ window.onload = function() {
 
   for (var i = 0; i < oUl.children.length; i++) {
     oUl.children[i].index = i;
+
     oUl.children[i].onclick = function() {
-      oUl.children[index].style.color = 'black';
-      oUl.children[index].style.background = 'white';
+      oUl.children[index].children[0].style.color = '';
+      oUl.children[index].children[0].style.backgroundColor = '';
 
       oDiv.innerHTML = this.children[0].innerHTML;
-      this.style.color = 'white';
-      this.style.background = 'orangered';
+      this.children[0].style.color = 'white';
+      this.children[0].style.backgroundColor = 'orangered';
 
       index = this.index;
     };

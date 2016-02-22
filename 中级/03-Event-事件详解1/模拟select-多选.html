@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>模拟select-多选</title>
+
+  <style>
+    div, ul {padding:0; margin:0;}
+    ul {list-style:none;}
+    #div1 {width:200px; height:20px; padding:5px; margin:0 auto; line-height:20px; font-size:20px;
+      border:1px solid orangered; color:black;}
+    #ul1 {display:none; width:210px; margin:0 auto; border:1px solid orangered;}
+    #ul1 a {display:block; padding:5px; line-height:20px; font-size:20px; text-decoration:none; color:black;}
+    #ul1 a:hover {color:white; background:orangered;}
+
+  </style>
+</head>
+<body>
+<div id="div1"></div>
+<ul id="ul1">
+  <li><a href="javascript:;">黑体</a></li>
+  <li><a href="javascript:;">宋体</a></li>
+  <li><a href="javascript:;">楷体</a></li>
+  <li><a href="javascript:;">仿宋</a></li>
+</ul>
+<script>
+  window.onload = function() {
+    var oDiv = document.getElementById('div1');
+    var oUl = document.getElementById('ul1');
+    var arr = [];
+    var arrIndex = [];
+
+    document.onclick = function() {
+      oUl.style.display = 'none';
+    };
+
+    oDiv.onclick = function(ev) {
+      var ev = ev || event;
+      ev.cancelBubble = true;
+      oUl.style.display = 'block';
+      arr = [];
+    };
+
+    function setBgColor(arr) {
+      for (var i = 0; i < arr.length; i++) {
+        oUl.children[arr[i]].children[0].style.color = 'white';
+        oUl.children[arr[i]].children[0].style.backgroundColor = 'orangered';
+      }
+    }
+
+    function clearBgColor(index) {
+      oUl.children[index].children[0].style.color = '';
+      oUl.children[index].children[0].style.backgroundColor = '';
+    }
+
+    for (var i = 0; i < oUl.children.length; i++) {
+      oUl.children[i].index = i;
+
+      oUl.children[i].onclick = function(ev) {
+        var ev = ev || event;
+
+        if (ev.shiftKey) {
+          ev.cancelBubble = true;
+        }
+
+        //div被点中的时候，arr已经被清空，这时候li被点击时要清除arr对应的li的背景色
+        if (arr.length == 0) {
+          for (var i = 0; i < arrIndex.length; i++) {
+            clearBgColor(arrIndex[i]);
+          }
+          arrIndex = [];
+        }
+
+        for (var i = 0; i < arr.length; i++) {
+          if (arr[i] == this.children[0].innerHTML) {
+            arr.splice(i, 1);
+            arrIndex.splice(this.index);
+            oDiv.innerHTML = arr.join(', ');
+            clearBgColor(this.index);
+            return;
+          }
+        }
+
+        arr.push(this.children[0].innerHTML);
+        arrIndex.push(this.index);
+        oDiv.innerHTML = arr.join(', ');
+        setBgColor(arrIndex);
+      };
+    }
+  }
+</script>
+</body>
+</html>
