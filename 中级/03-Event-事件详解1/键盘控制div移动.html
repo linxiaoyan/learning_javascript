@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>键盘控制div移动</title>
+
+<style>
+#div1 {position:absolute; width:100px; height:100px; background:blue; border:1px solid black;}
+</style>
+</head>
+<body>
+<div id="div1"></div>
+
+<script>
+window.onload = function() {
+  var oDiv = document.getElementById('div1');
+  var move = {left: false, right: false, top: false, bottom: false};
+  
+  document.onkeydown = function(ev) {
+    var ev = ev || event;
+    switch (ev.keyCode) {
+      case 37:
+        move.left = true;
+        break;
+      case 38:
+        move.top = true;
+        break;
+      case 39:
+        move.right = true;
+        break;
+      case 40:
+        move.bottom = true;
+        break;
+    }
+  };
+
+  document.onkeyup = function(ev) {
+    var e = ev || event;
+    switch (e.keyCode) {
+      case 37:
+        move.left = false;
+        break;
+      case 38:
+        move.top = false;
+        break;
+      case 39:
+        move.right = false;
+        break;
+      case 40:
+        move.bottom = false;
+        break;
+    }
+  };
+
+  setInterval(function() {
+    //需要注意的是oDiv.style.left的结果是带px的,需要用到该值做计算时应该采用parseInt(oDiv.style.left)
+    if (move.left) {
+      oDiv.style.left = oDiv.offsetLeft - 20 + 'px';
+    }
+    if (move.right) {
+      oDiv.style.left = oDiv.offsetLeft + 20 + 'px';
+    }
+    if (move.top) {
+      oDiv.style.top = oDiv.offsetTop- 20 + 'px';
+    }
+    if (move.bottom) {
+      oDiv.style.top = oDiv.offsetTop + 20 + 'px';
+    }
+  }, 50);
+}
+</script>
+</body>
+</html>
