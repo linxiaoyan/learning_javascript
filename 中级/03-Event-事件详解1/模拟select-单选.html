@@ -27,6 +27,7 @@ ul {list-style:none;}
 window.onload = function() {
   var oDiv = document.getElementById('div1');
   var oUl = document.getElementById('ul1');
+  var index = 0;
 
   document.onclick = function() {
     oUl.style.display = 'none';
@@ -39,8 +40,16 @@ window.onload = function() {
   };
 
   for (var i = 0; i < oUl.children.length; i++) {
+    oUl.children[i].index = i;
     oUl.children[i].onclick = function() {
+      oUl.children[index].style.color = 'black';
+      oUl.children[index].style.background = 'white';
+
       oDiv.innerHTML = this.children[0].innerHTML;
+      this.style.color = 'white';
+      this.style.background = 'orangered';
+
+      index = this.index;
     };
   }
 }
