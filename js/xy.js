@@ -16,6 +16,7 @@ function getStyle(obj, attr) {
   return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj)[attr];
 }
 
+//移动
 function move(obj, attr, inc, target, endFn) {
   inc = parseInt(getStyle(obj, attr)) > target ? -inc : inc;
   clearInterval(obj.move);
@@ -36,6 +37,7 @@ function move(obj, attr, inc, target, endFn) {
   }, 30);
 }
 
+//震动
 function shake(obj, attr, endFn) {
   if (obj.shaked) {
     return;
@@ -63,6 +65,7 @@ function shake(obj, attr, endFn) {
   }, 30);
 }
 
+//透明度渐变
 function opacity(obj, num, target, frequency, endFn) {
   num = getStyle(obj, 'opacity') * 100 < target ? num : -num;
   clearInterval(obj.opacity);
@@ -88,12 +91,13 @@ function toTwo(num) {
   return num >= 10 ? ('' + num) : ('0' + num);
 }
 
+//获取当前日期
 function getDate() {
   var oDate = new Date();
   var iYear = oDate.getFullYear();
   var iMon = oDate.getMonth() + 1;
-  var iDay = oDate.getDay();
-  var iWeek = iDay - 1;
+  var iDay = oDate.getDate();
+  var iWeek = oDate.getDay() - 1;
   var iHours = oDate.getHours();
   var iMin = oDate.getMinutes();
   var iSec = oDate.getSeconds();
@@ -103,6 +107,7 @@ function getDate() {
   return str;
 }
 
+//获取当前位置
 function getPos(obj) {
   var pos = {top:0, left:0};
 
@@ -133,6 +138,7 @@ function getElementsByClassName(obj, tagName, className) {
   return resElements;
 }
 
+//添加class样式
 function addClass(obj, className) {
   if (obj.className == '') {
     obj.className = className;
@@ -154,6 +160,7 @@ function arrIndexOf(arr, val) {
   return -1;
 }
 
+//移除class样式
 function removeClass(obj, className) {
   if (obj.className != '') {
     var aClassName = obj.className.split(' ');
@@ -166,6 +173,7 @@ function removeClass(obj, className) {
   }
 }
 
+//获取表单选中项
 function getChecked(form, name) {
   var arr = [];
 
@@ -182,7 +190,63 @@ function getChecked(form, name) {
   }
 }
 
+//事件绑定
+function bind(obj, evname, fn) {
+  if (obj.addEventListener) {
+    obj.addEventListener(evname, fn, false);
+  } else {
+    obj.attachEvent('on' + evname, function() {
+      fn.call(obj);
+    });
+  }
+}
 
+//拖拽
+function drag(obj) {
+  obj.onmousedown = function(ev) {
+    var ev = ev || event;
+
+    var disX = ev.clientX - this.offsetLeft;
+    var disY = ev.clientY - this.offsetTop;
+
+    //setCapture 全局捕获，为兼容ie
+    if (obj.setCapture) {
+      obj.setCapture();
+    }
+
+    document.onmousemove = function(ev) {
+      var ev = ev || event;
+      var l = ev.clientX - disX;
+      var t = ev.clientY - disY;
+
+      if (l < 0) {
+        l = 0;
+      } else if (l > document.documentElement.clientWidth - obj.offsetWidth) {
+        l = document.documentElement.clientWidth - obj.offsetWidth;
+      }
+
+      if (t < 0) {
+        t = 0;
+      } else if (t > document.documentElement.clientHeight - obj.offsetHeight) {
+        t = document.documentElement.clientHeight - obj.offsetHeight;
+      }
+
+      obj.style.left = l + 'px';
+      obj.style.top = t + 'px';
+    };
+
+    document.onmouseup = function() {
+      document.onmousemove = document.onmouseup = null;
+
+      if (obj.releaseCapture) {
+        obj.releaseCapture();
+      }
+    };
+
+    //当其他对象被选中时，阻止浏览器默认的拖拽动作
+    return false;
+  };
+}
 
 
 
