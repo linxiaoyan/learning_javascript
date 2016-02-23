@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>事件函数的取消</title>
+
+<style>
+#div1 {padding:50px; background:red;}
+#div2 {padding:50px; background:blue;}
+#div3 {padding:50px; background:yellow;}
+</style>
+</head>
+<body>
+<div id="div1">
+  <div id="div2">
+    <div id="div3"></div>
+  </div>
+</div>
+
+<script>
+window.onload = function() {
+  var oDiv1 = document.getElementById('div1');
+  var oDiv2 = document.getElementById('div2');
+  var oDiv3 = document.getElementById('div3');
+
+  function fn1() {
+    alert(this.id + ' 1');
+  }
+
+  function fn2() {
+    alert(this.id + ' 2');
+  }
+
+  /*
+  ie : obj.detachEvent(事件名称，事件函数);
+  标准 : obj.removeEventListener(事件名称，事件函数，是否捕获);
+  */
+
+  oDiv1.addEventListener('click', fn1, false); //false冒泡
+  oDiv1.addEventListener('click', fn2, true);  //true捕获
+
+  oDiv3.addEventListener('click', fn2, false);
+  oDiv3.addEventListener('click', fn2, true);
+
+  oDiv3.addEventListener('click', fn1, false);
+  oDiv3.addEventListener('click', fn1, true);
+
+  oDiv3.removeEventListener('click', fn2, true);
+  oDiv3.removeEventListener('click', fn2, false);
+}
+</script>
+</body>
+</html>
