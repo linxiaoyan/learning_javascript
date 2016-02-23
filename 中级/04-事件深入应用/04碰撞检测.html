@@ -22,11 +22,11 @@ window.onload = function() {
   function checkCollision(srcObj, dstObj) {
     srcObj.onmousedown = function(ev) {
       var ev = ev || event;
-      var disX = ev.clientX - this.offsetLeft;
-      var disY = ev.clientY - this.offsetTop;
+      var disX = ev.clientX - srcObj.offsetLeft;
+      var disY = ev.clientY - srcObj.offsetTop;
 
-      if (this.setCapture) {
-        this.setCapture();
+      if (srcObj.setCapture) {
+        srcObj.setCapture();
       }
 
       document.onmousemove = function(ev) {

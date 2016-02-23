@@ -20,9 +20,8 @@ window.onload = function() {
   function drag(obj) {
     obj.onmousedown = function(ev) {
       var ev = ev || event;
-
-      var disX = ev.clientX - this.offsetLeft;
-      var disY = ev.clientY - this.offsetTop;
+      var disX = ev.clientX - obj.offsetLeft;
+      var disY = ev.clientY - obj.offsetTop;
 
       //setCapture 全局捕获，为兼容ie
       if (obj.setCapture) {
