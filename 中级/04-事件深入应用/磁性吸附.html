@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>磁性吸附</title>
+
+<style>
+body, div {padding:0; margin:0;}
+</style>
+</head>
+<body>
+<div id="div1" style="position:absolute; width:100px; height:100px; background:green;"></div>
+
+<script>
+  window.onload = function() {
+    var oDiv = document.getElementById('div1');
+
+    drag(oDiv);
+
+    function drag(obj) {
+      obj.onmousedown = function(ev) {
+        var ev = ev || event;
+
+        var disX = ev.clientX - this.offsetLeft;
+        var disY = ev.clientY - this.offsetTop;
+
+        //setCapture 全局捕获，为兼容ie
+        if (obj.setCapture) {
+          obj.setCapture();
+        }
+
+        document.onmousemove = function(ev) {
+          var ev = ev || event;
+          var l = ev.clientX - disX;
+          var t = ev.clientY - disY;
+          var dis = 50;
+
+          if (l < dis) {
+            l = 0;
+          } else if (l > document.documentElement.clientWidth - obj.offsetWidth - dis) {
+            l = document.documentElement.clientWidth - obj.offsetWidth;
+          }
+
+          if (t < dis) {
+            t = 0;
+          } else if (t > document.documentElement.clientHeight - obj.offsetHeight - dis) {
+            t = document.documentElement.clientHeight - obj.offsetHeight;
+          }
+
+          obj.style.left = l + 'px';
+          obj.style.top = t + 'px';
+        };
+
+        document.onmouseup = function() {
+          document.onmousemove = document.onmouseup = null;
+
+          if (obj.releaseCapture) {
+            obj.releaseCapture();
+          }
+        };
+
+        //当其他对象被选中时，阻止浏览器默认的拖拽动作
+        return false;
+      };
+    }
+  };
+</script>
+</body>
+</html>
