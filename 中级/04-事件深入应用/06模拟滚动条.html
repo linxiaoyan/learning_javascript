@@ -38,7 +38,11 @@ window.onload = function() {
   var oDiv3 = document.getElementById('div3');
   var oDiv4 = document.getElementById('div4');
 
-  var maxTop = oDiv1.offsetHeight - oDiv2.offsetHeight;
+  //计算拖动条的比例，如果文字高度小于可视区，则拖动条和滚动条一样长，这样就无法拖动了
+  var scale = oDiv3.clientHeight / oDiv4.offsetHeight > 1 ? 1 : oDiv3.clientHeight / oDiv4.offsetHeight;
+
+  //设置拖动条的长度
+  oDiv2.style.height = oDiv1.clientHeight * scale + 'px';
 
   oDiv2.onmousedown = function(ev) {
     var ev = ev || event;
@@ -51,6 +55,7 @@ window.onload = function() {
     document.onmousemove = function(ev) {
       var ev = ev || event;
       var newTop = ev.clientY - disY;
+      var maxTop = oDiv1.clientHeight - oDiv2.offsetHeight;
       var offset = oDiv3.clientHeight - oDiv4.offsetHeight;
 
       if (newTop < 0) {
@@ -59,13 +64,8 @@ window.onload = function() {
         newTop = maxTop;
       }
 
-      if (offset > 0) {
-        oDiv2.style.top = '0px';
-        oDiv4.style.top = '0px';
-      } else {
-        oDiv2.style.top = newTop + 'px';
-        oDiv4.style.top = offset * (newTop / maxTop) + 'px';
-      }
+      oDiv2.style.top = newTop + 'px';
+      oDiv4.style.top = offset * (newTop / maxTop) + 'px';
     };
 
     document.onmouseup = function() {
