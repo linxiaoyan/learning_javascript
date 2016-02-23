@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>模拟滚动条</title>
+
+<style>
+#div1 {position:absolute; left:10px; top:10px; width:30px; height:500px; background:pink;}
+#div2 {position:absolute; left:0; top:0; width:30px; height:30px; background:orangered;}
+#div3 {position:absolute; left:50px; top:10px; width:300px; height:498px; overflow:hidden; border:1px solid black;}
+#div4 {position:absolute; width:290px; padding:5px;}
+</style>
+</head>
+<body>
+<div id="div1">
+  <div id="div2"></div>
+</div>
+<div id="div3">
+  <div id="div4">2001年，伊布首次入选国家队。
+    2002年，伊布随队参加了韩日世界杯。[23]
+    2004年葡萄牙欧洲杯，伊布在和以混凝土防守著称的意大利队的比赛中打入一粒神奇的入球。当时他背对着球门，以蝎子摆尾的姿势用脚后跟将球吊入布冯把守的大门。[3]  瑞典在1/4决赛与荷兰相遇，在90分钟和加时赛内双方踢成0-0，双方遂进入点球大战，由于年轻的伊布过分追求角度，将点球罚飞，瑞典队也最终以4-5败在了荷兰队门前，中止了他们在1本届欧洲杯上的步伐。[24]
+    伊布在马尔默
+    伊布在马尔默 (15张)
+    2006年世界杯预选赛，伊布表现非常出色，贡献了包括客场7比0战胜马耳他的四个入球以及在战胜匈牙利的比赛中令人惊叹的伤停补时进球，帮助瑞典成功晋级2006年世界杯。但是伊布和瑞典在本次世界杯并没有发挥好，他在和巴拉圭的比赛中被替换下场，由于腹股沟拉伤，他没有参加和英格兰的比赛，在另一场和特立尼达和多巴哥的比赛，伤病继续影响他的发挥。瑞典最终在1/8决赛被东道主德国队淘汰出局。
+    2006年8月，在加盟国际米兰不久之后，伊布被征召参加和列支敦士登的欧洲杯资格赛。由于9月4日是阿斯顿维拉中卫梅尔贝里29岁的生日，他和伊布以及南特中场威廉松一同外出庆祝。结果三人未能在规定的晚上23点前回酒店，最终瑞典国家队作出处罚，将三人开除出国家队。[25]  梅尔贝里和威廉松随后就通过媒体认错，但是伊布觉得有点不公，认为处罚过重，因此拒绝参加接下来同冰岛和西班牙的比赛。虽然没有了伊布，瑞典仍然赢下这些比赛。伊布仍然拒绝参加2007年2月7日和埃及的友谊赛，不过随后在2007年3月28日的欧洲杯资格赛，伊布回归国家队。在最后几轮资格赛中，伊布虽然没有进球，但是通过多次助攻帮助瑞典取得了胜利，最终瑞典成功晋级，获得了参加2008欧洲杯的资格。
+    2009年12月，在瑞典无缘南非世界杯后，伊布宣布暂时退出国家队。[26]
+    2010年7月，伊布宣布重回国家队，并将以队长身份带队征战欧预赛。[27]
+    2012年欧洲杯瑞典被分在了D小组，前两场瑞典队分别1-2负于乌克兰、2-3负于英格兰提前小组出局。然而正是这样的形势也让伊布率领的瑞典队彻底放开手脚，最后一场2-0击败法国队，伊布也打进一粒技惊四座的进球。比赛第54分钟，塞巴斯蒂安·拉尔森右路下底传中，伊布门前13米接到皮球后腾空跃起侧身凌空爆射将球打入左侧死角，从而就此成为连续3届欧洲杯都有2个进球的第一人，个人6个欧洲杯进球仅次于普拉蒂尼和希勒。进球后的伊布也张开双臂像一只雄鹰疯狂地在球场庆祝着，但无奈球队整体实力不济，伊布也只能扮演“寂寞英雄”的角色。[3]
+    2012年11月15日，瑞典与英格兰在国际热身赛在友谊球场展开争夺，伊布独中4元，并在比赛补时做了一个匪夷所思的动作——他直接在禁区外偏右距离球门将近33米的地方凌空飞身倒勾射门。皮球以完美的弧线坠入球门，无论是退防的乔·哈特还是门前救险的肖克罗斯全部无能为力。[3]
+    2014年9月5日凌晨，瑞典国家队主场迎战爱沙尼亚。开场第3分钟，伊布接到角球破门，第24分钟伊布再入一球，瑞典2-0完胜爱沙尼亚。梅开二度的伊布以50个进球成为瑞典队史头号射手王。[29]
+  </div>
+</div>
+
+<script>
+window.onload = function() {
+  var oDiv1 = document.getElementById('div1');
+  var oDiv2 = document.getElementById('div2');
+  var oDiv3 = document.getElementById('div3');
+  var oDiv4 = document.getElementById('div4');
+
+  var maxTop = oDiv1.offsetHeight - oDiv2.offsetHeight;
+
+  oDiv2.onmousedown = function(ev) {
+    var ev = ev || event;
+    var disY = ev.clientY - oDiv2.offsetTop;
+
+    if (oDiv2.setCapture) {
+      oDiv2.setCapture();
+    }
+
+    document.onmousemove = function(ev) {
+      var ev = ev || event;
+      var newTop = ev.clientY - disY;
+      var offset = oDiv3.clientHeight - oDiv4.offsetHeight;
+
+      if (newTop < 0) {
+        newTop = 0;
+      } else if (newTop > maxTop) {
+        newTop = maxTop;
+      }
+
+      if (offset > 0) {
+        oDiv2.style.top = '0px';
+        oDiv4.style.top = '0px';
+      } else {
+        oDiv2.style.top = newTop + 'px';
+        oDiv4.style.top = offset * (newTop / maxTop) + 'px';
+      }
+    };
+
+    document.onmouseup = function() {
+      document.onmousemove = document.onmouseup = null;
+
+      if (oDiv2.releaseCapture) {
+        oDiv2.releaseCapture();
+      }
+    };
+
+    return false;
+  };
+};
+</script>
+</body>
+</html>
