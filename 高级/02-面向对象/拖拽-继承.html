@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>继承</title>
+</head>
+<body>
+<div id="div1" style="position:absolute; width:100px; height:100px; background:green;">Drag</div>
+<div id="div2" style="position:absolute; width:100px; height:100px; background:orangered;">LimitDrag</div>
+
+<script>
+function Drag(id) {
+  var _this = this;
+  this.oDiv = document.getElementById(id);
+  this.disX = 0;
+  this.disY = 0;
+
+  //this.oDiv.onmousedown = this.fnDown; //此时this.fnDown的this指向this.oDiv而非new出来对象
+  this.oDiv.onmousedown = function() {
+    _this.fnDown();
+  };
+}
+
+Drag.prototype.fnDown = function(ev) {
+  var oEvent = ev || event;
+  var _this = this;
+  this.disX = oEvent.clientX - this.oDiv.offsetLeft;
+  this.disY = oEvent.clientY - this.oDiv.offsetTop;
+
+  document.onmousemove = function() {
+    _this.fnMove();
+  };
+
+  document.onmouseup = function() {
+    _this.fnUp();
+  };
+};
+
+Drag.prototype.fnMove = function(ev) {
+  var oEvent = ev || event;
+
+  this.oDiv.style.left = oEvent.clientX - this.disX + 'px';
+  this.oDiv.style.top = oEvent.clientY - this.disY + 'px';
+};
+
+Drag.prototype.fnUp = function() {
+  document.onmousemove = document.onmouseup = null;
+
+  if (this.oDiv.releaseCapture) {
+    this.oDiv.releaseCapture();
+  }
+};
+
+function LimitDrag(id) {
+  //变量继承
+  Drag.call(this, id);
+}
+
+//方法继承
+for (var i in Drag.prototype) {
+  LimitDrag.prototype[i] = Drag.prototype[i];
+}
+
+//方法重写
+LimitDrag.prototype.fnMove = function(ev) {
+  var oEvent = ev || event;
+  var l = oEvent.clientX - this.disX;
+  var t = oEvent.clientY - this.disY;
+
+  if (l < 0) {
+    l = 0;
+  } else if (l > document.documentElement.clientWidth - this.oDiv.offsetWidth) {
+    l = document.documentElement.clientWidth - this.oDiv.offsetWidth;
+  }
+
+  if (t < 0) {
+    t = 0;
+  } else if (t > document.documentElement.clientHeight - this.oDiv.offsetHeight) {
+    t = document.documentElement.clientHeight - this.oDiv.offsetHeight;
+  }
+
+  this.oDiv.style.left = l + 'px';
+  this.oDiv.style.top = t + 'px';
+};
+
+window.onload = function(ev) {
+  new Drag('div1');
+  new LimitDrag('div2');
+};
+</script>
+</body>
+</html>
