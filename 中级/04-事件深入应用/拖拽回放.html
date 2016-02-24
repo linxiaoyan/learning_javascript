@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>拖拽回放</title>
+</head>
+<body>
+<input type="button" value="回放" id="btn1"/>
+<div id="div1" style="position:absolute; width:100px; height:100px; background:green;"></div>
+
+<script>
+window.onload = function() {
+  var oBtn = document.getElementById('btn1');
+  var oDiv = document.getElementById('div1');
+  var aPosition = [];
+
+  drag(oDiv);
+
+  function drag(obj) {
+    obj.onmousedown = function(ev) {
+      var ev = ev || event;
+      var disX = ev.clientX - obj.offsetLeft;
+      var disY = ev.clientY - obj.offsetTop;
+
+      //setCapture 全局捕获，为兼容ie
+      if (obj.setCapture) {
+        obj.setCapture();
+      }
+
+      document.onmousemove = function(ev) {
+        var ev = ev || event;
+
+        obj.style.left = ev.clientX - disX + 'px';
+        obj.style.top = ev.clientY - disY + 'px';
+
+        aPosition.push({left: obj.style.left, top: obj.style.top});
+      };
+
+      document.onmouseup = function() {
+        document.onmousemove = document.onmouseup = null;
+
+        if (obj.releaseCapture) {
+          obj.releaseCapture();
+        }
+      };
+
+      //当其他对象被选中时，阻止浏览器默认的拖拽动作
+      return false;
+    };
+  }
+
+  oBtn.onclick = function() {
+    var i = 0;
+    aPosition.reverse();
+    oBtn.timer = setInterval(function() {
+      if (i == aPosition.length) {
+        clearInterval(oBtn.timer);
+        aPosition = [];
+      } else {
+        oDiv.style.left = aPosition[i++].left;
+        oDiv.style.top = aPosition[i++].top;
+      }
+    }, 30);
+  };
+};
+</script>
+</body>
+</html>
