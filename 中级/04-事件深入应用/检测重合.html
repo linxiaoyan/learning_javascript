@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>检测重合</title>
+
+<style>
+body, div {padding:0; margin:0;}
+</style>
+</head>
+<body>
+<div id="div1" style="position:absolute; z-index:2; width:100px; height:100px; background:blue; cursor:pointer;"></div>
+<div id="div2" style="position:absolute; top:300px; left:500px; width:100px; height:100px; background:red;"></div>
+
+<script>
+window.onload = function() {
+  var oDiv1 = document.getElementById('div1');
+  var oDiv2 = document.getElementById('div2');
+
+  checkOver(oDiv1, oDiv2);
+
+  function checkOver(srcObj, dstObj) {
+    srcObj.onmousedown = function(ev) {
+      var ev = ev || event;
+      var disX = ev.clientX - srcObj.offsetLeft;
+      var disY = ev.clientY - srcObj.offsetTop;
+
+      if (srcObj.setCapture) {
+        srcObj.setCapture();
+      }
+
+      document.onmousemove = function(ev) {
+        srcObj.style.left = ev.clientX - disX + 'px';
+        srcObj.style.top = ev.clientY - disY + 'px';
+
+        if ((srcObj.offsetLeft == dstObj.offsetLeft && srcObj.offsetTop == dstObj.offsetTop)) {
+          srcObj.innerHTML = '完美重合';
+        } else {
+          srcObj.innerHTML = '';
+        }
+      };
+
+      document.onmouseup = function() {
+        document.onmousemove = document.onmouseup = null;
+
+        if (srcObj.releaseCapture) {
+          srcObj.releaseCapture();
+        }
+      };
+
+      return false;
+    };
+  }
+};
+</script>
+</body>
+</html>
