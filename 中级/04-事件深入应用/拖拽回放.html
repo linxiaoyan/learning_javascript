@@ -12,7 +12,8 @@
 window.onload = function() {
   var oBtn = document.getElementById('btn1');
   var oDiv = document.getElementById('div1');
-  var aPosition = [];
+  var aLeft = [];
+  var aTop = [];
 
   drag(oDiv);
 
@@ -33,7 +34,8 @@ window.onload = function() {
         obj.style.left = ev.clientX - disX + 'px';
         obj.style.top = ev.clientY - disY + 'px';
 
-        aPosition.push({left: obj.style.left, top: obj.style.top});
+        aLeft.push(ev.clientX - disX);
+        aTop.push(ev.clientY - disY);
       };
 
       document.onmouseup = function() {
@@ -51,14 +53,15 @@ window.onload = function() {
 
   oBtn.onclick = function() {
     var i = 0;
-    aPosition.reverse();
+    aLeft.reverse();
+    aTop.reverse();
     oBtn.timer = setInterval(function() {
-      if (i == aPosition.length) {
+      oDiv.style.left = aLeft[i++] + 'px';
+      oDiv.style.top = aTop[i++] + 'px';
+
+      if (i == aLeft.length) {
         clearInterval(oBtn.timer);
-        aPosition = [];
-      } else {
-        oDiv.style.left = aPosition[i++].left;
-        oDiv.style.top = aPosition[i++].top;
+        aLeft = aTop = [];
       }
     }, 30);
   };
