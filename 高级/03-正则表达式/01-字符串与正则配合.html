@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+
+<script>
+var str = 'akEd 87es 1 2356 dd456ks $%^99&* -=-9 ';
+
+alert(str.search(new RegExp('e', 'i'))); //JS风格 i-means ignore
+alert(str.search(/e/i)); //perl风格
+
+alert(str.search(/e/));
+alert(str.match(/e/gi));
+
+alert(str.match(/\d/g)); // \d-means digital, g-means global
+alert(str.match(/\d\d/g)); // \d\d-连续两位都是数字
+alert(str.match(/\d+/g)); // \d+-连续多位都是数字
+
+alert(str.replace(/e|d/gi, 'F'));
+</script>
+</body>
+</html>
