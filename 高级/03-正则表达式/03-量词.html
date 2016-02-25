@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>量词</title>
+</head>
+<body>
+
+<script>
+/*
+{n,m} 最少出现n次，最多出现m次
+
+{n,} 至少n次
+*    任意次 {0,}
+?    零次或一次 {0,1}
++    一次或任意次 {1,}
+{n}  正好n次
+*/
+
+//过滤qq
+var str='我的qq123456789, 你的qq 987654321 ';
+alert(str.match(/[1-9]\d{4,10}/g));
+
+</script>
+</body>
+</html>
