@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>常用正则例子</title>
+</head>
+<body>
+
+<script>
+//校验邮箱
+var mailReg = /^\w+@[a-z0-9]+\.[a-z]{2,4}$/; //^行首，$行尾，行首行尾必须都符合规则
+
+//去掉首尾空格
+var str = '  ab cd efg   ';
+var clearFrontEndSpaceReg = /^\s+|\s+$/g;
+alert('(' + str.replace(clearFrontEndSpaceReg, '') + ')');
+
+//单词边界
+var str2 = 'box, abox boxa aboxa box';
+var dstWordReg = /\bbox\b/g;
+alert(dstWordReg.test(str2));
+alert(str2.match(dstWordReg));
+alert(str2.match(/box/g));
+
+//检测中文
+var checkChineseReg = '/[\u4e00-\u9fa5]/';
+
+</script>
+</body>
+</html>
