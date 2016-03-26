@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>搜狐视频记录片列表展示</title>
+<style>
+body, div, h2, ul, li, p {padding:0; margin:0;}
+ul {list-style:none;}
+a {color:black; text-decoration:none;}
+
+#ranking {width:267px; padding-left:5px; padding-right:8px; background-color:#dee7e7; overflow:hidden;}
+#ranking h2 {float:left; height:38px; padding:0 43px 0 13px; border-bottom:1px solid #b4cfdd;
+             line-height:38px; font-size:18px; color:#2c4c5d;}
+
+#tabNav {margin-top:13px; overflow:hidden;}
+#tabNav li {float:left; height:24px; padding:0 6px; border:1px solid #b4cfdd; border-right:0;
+            font-size:12px; line-height:24px; color:#497790; cursor:pointer;}
+#tabNav li:last-child {border-right:1px solid #b4cfdd;}
+
+#tabContent {clear:left;}
+#tabContent li {position:relative; line-height:28px; font-size:12px; border-bottom:1px dashed #fff;}
+#tabContent li:last-child {border-bottom:none; text-align:right;}
+#tabContent li span {position:absolute; left:6px; top:6px; width:18px; height:14px; line-height:14px; text-align:center;
+                     font-size:8px; font-weight:bold; color:#fff; background-color:#1a68a2; z-index:1;}
+#tabContent li a {display:inline-block; margin-left:37px; cursor:pointer;}
+#tabContent li div {display:none; height:82px; background:#fff; overflow:hidden;}
+#tabContent div img {float:left; height:70px; margin:6px; margin-left:30px; border:1px solid #000; cursor:pointer;}
+#tabContent div p {float:left; width:120px; padding-top:10px; line-height:16px;}
+#tabContent div a {position:absolute; right:10px; bottom:4px; padding:0 5px; line-height:20px; font-size:10px;
+                   color:white; background:#1a68a2; cursor:pointer;}
+
+#daily, #monthly, #all {display:none;}
+#tabContent .show {display:block;}
+#tabNav .active {border-bottom: 1px solid #fff; font-weight:bold; color:#000; background:#fff;}
+</style>
+
+<script>
+window.onload = function(){
+  var oTabNav = document.getElementById('tabNav');
+  var aNav = oTabNav.getElementsByTagName('li');
+  var oContent = document.getElementById('tabContent');
+  var aContentUl = oContent.getElementsByTagName('ul');
+  var oldTabNavIndex = 0;
+
+  var aData = {
+    0: {img: 'sample.png', p: '零解密：关于地球与人类的一千一问'},
+    1: {img: 'sample.png', p: '经典传奇：探索全世界重大历史事件'},
+    2: {img: 'sample.png', p: '眼界：展现普通人的曲折命运和动人...'},
+    3: {img: 'sample.png', p: '档案（BTV）：惊人事件和传奇背...'},
+    4: {img: 'sample.png', p: '世界十最：30个震惊世界的Top...'},
+    5: {img: 'sample.png', p: '身边的毛泽东：警卫员解密毛泽东秘...'},
+    6: {img: 'sample.png', p: '新电影传奇：每一步电影都有自己的...'},
+    7: {img: 'sample.png', p: '档案（上视纪实频道）：解密档案中...'},
+    8: {img: 'sample.png', p: '探寻传世国宝的千古传奇'},
+    9: {img: 'sample.png', p: '纪实系列：讲述社会百态，透视事实...'},
+    length: 10
+  };
+
+  function createTabContent(aUl, aData) {
+    for (var i = 0; i < aUl.length; i++) {
+      for(var j = 0; j < aData.length - 1; j++) {
+        var oLi = document.createElement('li');
+        var oSpan = document.createElement('span');
+        var oA = document.createElement('a');
+        var oDiv = document.createElement('div');
+        var oImg = document.createElement('img');
+        var oP = document.createElement('p');
+        var oAPlay = document.createElement('a');
+
+        oSpan.innerHTML = j + 1;
+        oA.innerHTML = aData[j].p;
+
+        oImg.src = aData[j].img;
+        oDiv.appendChild(oImg);
+
+        oP.innerHTML = aData[j].p;
+        oDiv.appendChild(oP);
+
+        oAPlay.innerHTML = '播放';
+        oDiv.appendChild(oAPlay);
+
+        oLi.appendChild(oSpan);
+        oLi.appendChild(oA);
+        oLi.appendChild(oDiv);
+
+        aUl[i].appendChild(oLi);
+      }
+
+      var oLi = document.createElement('li');
+      var oAMore = document.createElement('a');
+      oAMore.innerHTML = '更多>>';
+      oLi.appendChild(oAMore);
+      aUl[i].appendChild(oLi);
+    }
+  }
+
+  function hoverTabContent(aUl) {
+    for (var i = 0; i < aUl.length; i++) {
+      var aLi = aUl[i].getElementsByTagName('li');
+
+      for (var j = 0; j < aLi.length - 1; j++) {
+        aLi[j].onmouseover = function() {
+          this.getElementsByTagName('a')[0].style.display = 'none';
+          this.getElementsByTagName('div')[0].style.display = 'block';
+        };
+
+        aLi[j].onmouseout = function() {
+          this.getElementsByTagName('a')[0].style.display = 'block';
+          this.getElementsByTagName('div')[0].style.display = 'none';
+        };
+
+        aLi[j].onclick = function() {
+        };
+      }
+    }
+  }
+
+  function initRanking(index) {
+    aNav[index].className = 'active';
+    aContentUl[index].className = 'show';
+  }
+
+  for (var i = 0; i < aNav.length; i++) {
+    aNav[i].index = i;
+
+    aNav[i].onclick = function() {
+      aNav[oldTabNavIndex].className = '';
+      aContentUl[oldTabNavIndex].className = '';
+
+      this.className = 'active';
+      aContentUl[this.index].className = 'show';
+
+      oldTabNavIndex = this.index;
+    };
+  }
+
+  createTabContent(aContentUl, aData);
+  hoverTabContent(aContentUl);
+  initRanking(oldTabNavIndex);
+}
+</script>
+</head>
+<body>
+<div id="ranking">
+  <h2>观看排行榜</h2>
+  <ul id="tabNav">
+    <li class="active">每日</li>
+    <li>每周</li>
+    <li>全部</li>
+  </ul>
+  <div id="tabContent">
+    <ul id="daily" class="show">
+    </ul>
+    <ul id="monthly" >
+    </ul>
+    <ul id="all">
+    </ul>
+  </div>
+</div>
+</body>
+</html>
