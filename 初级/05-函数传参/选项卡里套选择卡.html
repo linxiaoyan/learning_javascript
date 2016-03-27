@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+<style>
+body, ul, li, h2, img {padding:0; margin:0;}
+h2 {font-size:14px;}
+ul {list-style:none;}
+
+#box {width:960px; padding:5px; background:#e7e7e7; overflow:hidden;}
+
+#nav {float:left; width:144px;}
+#nav li {width:143px; height:80px; border:1px solid #c6c6c6; border-right:0; border-bottom:0; line-height:80px;
+         text-align:center; font-size:12px; font-weight:bold; cursor:pointer;}
+#nav li:last-child {border-bottom:1px solid #c6c6c6;}
+#nav li.selected {background:#fff;}
+
+#contents {float:right; position:relative; width:815px; height:323px; border:1px solid #c6c6c6; border-left:0; background:#fff;}
+#contents img {width:815px; height:323px;}
+#contents ul {display:none; position:absolute; bottom:0; width:100%; text-align:justify;}
+#contents li {display:table-cell; padding:0 20px; border:1px solid #eee; line-height:30px; text-align:center; cursor: pointer;}
+#contents ul.show {display:table;}
+#contents li.active {background:red; opacity:0.7;}
+</style>
+
+<script>
+window.onload = function() {
+  var oNav = document.getElementById('nav');
+  var oContents = document.getElementById('contents');
+  var aNavList = oNav.getElementsByTagName('li');
+  var aContentsUl = oContents.getElementsByTagName('ul');
+  var oImg = oContents.getElementsByTagName('img')[0];
+  var oldNavIndex = 0;
+  var oldTabIndex = 0;
+
+  var aData = {
+    0: {nav: '最热团购', content: ['test', 'test', 'test']},
+    1: {nav: '商城特惠', content: ['test', 'test', 'test', 'test']},
+    2: {nav: '名品推荐', content: ['test', 'test', 'test', 'test', 'test']},
+    3: {nav: '缤纷活动', content: ['test', 'test', 'test', 'test']},
+    length: 4
+  };
+
+  function createNav(oUl, arr) {
+    for (var i = 0; i < arr.length; i++) {
+      var oLi = document.createElement('li');
+      oLi.innerHTML = arr[i].nav;
+      oUl.appendChild(oLi);
+    }
+  }
+
+  function createContents(oDiv, arr) {
+    for (var i = 0; i < arr.length; i++) {
+      var oUl = document.createElement('ul');
+      for (var j = 0; j < arr[i].content.length; j++) {
+        var oLi = document.createElement('li');
+        oLi.innerHTML = arr[i].nav + 'Tab' + i;
+        oUl.appendChild(oLi);
+      }
+
+      oDiv.appendChild(oUl);
+    }
+  }
+
+  function clickEvent(aNavLi, aContUl, arr) {
+    for (var i = 0; i < aNavLi.length; i++) {
+      aNavLi[i].index = i;
+
+      aNavLi[i].onclick = function() {
+        aNavLi[oldNavIndex].className = '';
+        this.className = 'selected';
+
+        aContUl[oldNavIndex].getElementsByTagName('li')[oldTabIndex].className = '';
+        aContUl[oldNavIndex].className = '';
+        aContUl[this.index].className = 'show';
+        aContUl[this.index].getElementsByTagName('li')[0].className = 'active';
+
+        oldNavIndex = this.index;
+        oldTabIndex = 0;
+      };
+    }
+
+    for (var j = 0; j < aContUl.length; j++) {
+      var aLi = aContUl[j].getElementsByTagName('li');
+
+      for (var k = 0; k < aLi.length; k++) {
+        aLi[k].index = k;
+
+        aLi[k].onclick = function () {
+          aContUl[oldNavIndex].getElementsByTagName('li')[oldTabIndex].className = '';
+          this.className = 'active';
+          oldTabIndex = this.index;
+
+          oImg.src = arr[oldNavIndex].content[oldTabIndex] + '.jpg';
+        }
+      }
+    }
+  }
+
+  function initBox() {
+    aNavList[0].className = 'selected';
+    aContentsUl[0].className = 'show';
+    aContentsUl[0].getElementsByTagName('li')[0].className = 'active';
+    oImg.src = aData[oldNavIndex].content[oldTabIndex] + '.jpg';
+  }
+
+  createNav(oNav, aData);
+  createContents(oContents, aData);
+  clickEvent(aNavList, aContentsUl, aData);
+  initBox();
+}
+</script>
+</head>
+<body>
+<div id="box">
+  <ul id="nav">
+  </ul>
+  <div id="contents">
+  <img />
+  </div>
+</div>
+</body>
+</html>
