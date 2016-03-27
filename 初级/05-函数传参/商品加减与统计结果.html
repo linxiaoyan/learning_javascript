@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>商品加减与统计结果</title>
+
+<style>
+div {width:350px; height:200px;}
+input {width:20px; height:20px; text-align:center;}
+li {position:relative; margin-bottom:5px;}
+.number {display: inline-block; width:25px; font-weight:bold; text-align: center;}
+.unitPrice {display:inline-block; width:110px; padding-left:10px;}
+.subTotal {display:inline-block; width:100px;}
+</style>
+<script>
+window.onload = function () {
+  var oTotalDiv = document.getElementById('totalDiv');
+  var oPriceUl = document.getElementById('priceList');
+  var aPriceList = oPriceUl.getElementsByTagName('li');
+  var oP = document.getElementsByTagName('p')[0];
+  var aPrice = [12.5, 10.5, 8.5, 8, 14.5];
+
+  function createTotalList(arr, oUl, oP, oDiv) {
+    for　(var i = 0; i < arr.length; i++) {
+      var oLi = document.createElement('li');
+
+      oLi.innerHTML = '<input type="button" value="-"/><span class="number">0</span><input type="button" value="+"/>' +
+                      '<span class="unitPrice">单价：<em>' + arr[i] + '元</em></span><span class="subTotal">小计：<span>0</span></span>';
+
+      oUl.appendChild(oLi);
+    }
+
+    oP.innerHTML = '商品合计共：0件，共花费了：0元<br/>其中最贵的商品单价是：0元';
+
+    oDiv.appendChild(oUl);
+    oDiv.appendChild(oP);
+  }
+
+  function fnCount(li) {
+    var aBtn = li.getElementsByTagName ('input');
+    var aSpan = li.getElementsByTagName('span');
+    var oEm = li.getElementsByTagName ('em')[0];
+    var oNumber = aSpan[0];
+    var oSubTotal = aSpan[3];
+    var n = oNumber.innerHTML;
+    var price = parseFloat(oEm.innerHTML);
+
+    aBtn[0].onclick = function () {
+      n = n > 0 ? --n : 0;
+      oNumber.innerHTML = n;
+      oSubTotal.innerHTML = n * price;
+
+      fnTotal();
+    };
+
+    aBtn[1].onclick = function () {
+      n++;
+      oNumber.innerHTML = n;
+      oSubTotal.innerHTML = n * price;
+
+      fnTotal();
+    };
+  }
+
+  function fnTotal() {
+    var totalNum = 0;
+    var total = 0;
+    var maxExp = 0;
+
+    for (var i = 0; i < aPriceList.length; i++) {
+      var aSpan = aPriceList[i].getElementsByTagName('span');
+      var oNumber = aSpan[0];
+      var oUnitPrice = aSpan[1];
+      var oSubTotal = aSpan[3];
+
+      totalNum += parseInt(oNumber.innerHTML);
+      total += parseFloat(oSubTotal.innerHTML);
+
+      if (Number(oNumber.innerHTML)) {
+        var price = parseFloat(oUnitPrice.getElementsByTagName('em')[0].innerHTML);
+
+        maxExp = maxExp > price ? maxExp : price;
+      }
+    }
+
+    oP.innerHTML = "商品合计共：" + totalNum + "件，共花费了：" + total + "元" + "<br />" +
+            "其中最贵的商品单价是：" + maxExp + "元。"
+  }
+
+  createTotalList(aPrice, oPriceUl, oP, oTotalDiv);
+
+  for (var i = 0; i < aPriceList.length; i++) {
+    fnCount(aPriceList[i]);
+  }
+};
+</script>
+</head>
+
+<body>
+<div id="totalDiv">
+  <ul id="priceList"></ul>
+  <p></p>
+</div>
+</body>
+</html>

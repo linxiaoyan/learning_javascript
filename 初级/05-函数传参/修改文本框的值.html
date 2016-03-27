@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>修改文本框的值</title>
+<style>
+body, div, ul, li, h2 {margin:0; padding:0;}
+div {width:500px;}
+h2 {line-height:30px; font-size:16px; font-weight:bold; vertical-align:middle; text-indent:20px; color:#fff; background:#6ba542;}
+li {border-bottom:1px solid #eee; line-height:40px; text-decoration:none;}
+li p {display:inline-block; padding-right:10px; line-height:40px; font-size:16px; text-indent:20px; color:#808080;}
+li span {padding:0 2px; margin-right:5px; font-size:16px; font-weight:bold; color:#68a542; cursor:pointer;}
+li img {width:16px; height:16px; margin-left:10px; cursor:pointer;}
+li input {margin:0 10px; line-height:22px; vertical-align:middle; font-size:16px;}
+.hide {display:none;}
+</style>
+<script>
+window.onload = function() {
+  var oBox = document.getElementById('box');
+  var aData = ['点击图标修改这里', '点击图标修改这里', '点击图标修改这里'];
+
+  function createBox(oDiv, arr) {
+    var oUl = document.createElement('ul');
+
+    for (var i = 0; i < arr.length; i++) {
+      var oLi = document.createElement('li');
+      var oP = document.createElement('p');
+      var oImg = document.createElement('img');
+      var oInput = document.createElement('input');
+      var oSpanSave = document.createElement('span');
+      var oSpanCancel = document.createElement('span');
+
+      oP.innerHTML = arr[i];
+      oImg.src = 'pen.png';
+      oInput.setAttribute('type', 'text');
+      oSpanSave.innerHTML = '保存';
+      oSpanCancel.innerHTML = '取消';
+
+      oLi.appendChild(oP);
+      oLi.appendChild(oInput);
+      oLi.appendChild(oImg);
+      oLi.appendChild(oSpanSave);
+      oLi.appendChild(oSpanCancel);
+
+      oUl.appendChild(oLi);
+    }
+
+    oDiv.appendChild(oUl);
+  }
+
+  function edit(oLi) {
+    var oImg = oLi.getElementsByTagName('img')[0];
+    var oP = oLi.getElementsByTagName('p')[0];
+    var oInput = oLi.getElementsByTagName('input')[0];
+    var oSave = oLi.getElementsByTagName('span')[0];
+    var oCancel = oLi.getElementsByTagName('span')[1];
+
+    oImg.onclick = function () {
+      oP.className = this.className = 'hide';
+      oInput.className = oSave.className = oCancel.className = '';
+    };
+
+    oSave.onclick = function() {
+      oP.innerHTML = oInput.value;
+      oP.className = oImg.className = '';
+      oInput.className = oSave.className = oCancel.className = 'hide';
+    };
+
+    oCancel.onclick = function() {
+      oInput.value = oP.innerHTML;
+      oP.className = oImg.className = '';
+      oInput.className = oSave.className = oCancel.className = 'hide';
+    };
+  }
+
+  function editEvent(oDiv) {
+    var aLi = oDiv.getElementsByTagName('li');
+    for (var i = 0; i < aLi.length; i++) {
+      edit(aLi[i]);
+    }
+  }
+
+  function init(oDiv) {
+    var aP = oDiv.getElementsByTagName('p');
+    var aInput = oDiv.getElementsByTagName('input');
+    var aSpan = oDiv.getElementsByTagName('span');
+
+    for (var i = 0; i < aInput.length; i++) {
+      aInput[i].value = aP[i].innerHTML;
+      aInput[i].className = 'hide';
+    }
+
+    for (var i = 0; i < aSpan.length; i++) {
+      aSpan[i].className = 'hide';
+    }
+  }
+
+  createBox(oBox, aData);
+  editEvent(oBox);
+  init(oBox);
+}
+</script>
+</head>
+<body>
+<div id="box">
+  <h2>分类名称</h2>
+</div>
+</body>
+</html>
