@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>按钮控制商品图片上下滚动</title>
+<style>
+body, p, h2, h3, ul {margin:0; padding:0;}
+ul {list-style:none;}
+a {text-decoration:none; color:#fff;}
+
+#adBox {width:192px; margin:20px auto;}
+#adBox .title {width:182px; height:16px; padding:5px; border-top-left-radius:8px; border-top-right-radius:8px; background:#294a73;}
+#adBox .title h2 {float:left; margin-left:5px; font-size:16px; color:#fff;}
+#adBox .title a {float:right; margin-top:2px; font-size:12px;}
+
+#container {position:relative; width:190px; height:450px; padding:20px 0; border:1px solid #eee; background:#fff; overflow:hidden;}
+#container h3 {font-size:14px; line-height:28px;}
+#container ul {position:relative; top:0; padding:0 10px;}
+#container li {position:relative; padding-bottom:15px; border-bottom:1px solid #a4a4a4;}
+#container img {position:absolute; max-width:80px; max-height:60px; bottom:10px; right:0;}
+#container p {width:80px; padding-top:10px; font-size:12px;}
+#container .time {padding-top:10px; color:gray;}
+
+#up, #down {position:absolute; left:0; width:100%; height:20px; cursor:pointer; z-index:1;}
+#up {top:0; background:url('../image/arrowUp.png') no-repeat center #efefe7;}
+#down {bottom:0; background:url('../image/arrowDown.png') no-repeat center #efefe7;}
+</style>
+<script>
+window.onload = function() {
+  var oUp = document.getElementById('up');
+  var oDown = document.getElementById('down');
+  var oUl = document.getElementsByTagName('ul')[0];
+  var oContainer = document.getElementById('container');
+  var timer = null;
+  var step = 10;
+  var offset = oUl.offsetHeight - oContainer.offsetHeight + 40;
+
+  oUp.onmouseover = oDown.onmouseover = function() {
+    this.style.backgroundColor = '#b3efe9';
+  };
+
+  oUp.onmouseout = oDown.onmouseout  = function() {
+    this.style.backgroundColor = '#efefe7';
+  };
+
+  function getStyle(obj, attr){
+    return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj)[attr];
+  }
+
+  oUp.onmousedown = function() {
+    clearInterval(timer);
+
+    timer = setInterval(function() {
+      if(parseInt(getStyle(oUl, 'top')) > -offset) {
+        oUl.style.top = parseInt(getStyle(oUl, 'top')) - step + 'px';
+      } else {
+        oUl.style.top = -offset + 'px';
+      }
+    }, 100);
+  };
+
+  oDown.onmousedown = function() {
+    clearInterval(timer);
+
+    timer = setInterval(function() {
+      if (parseInt(getStyle(oUl, 'top')) < 0){
+        oUl.style.top = parseInt(getStyle(oUl, 'top')) + step + 'px';
+      } else {
+        oUl.style.top = '0px';
+      }
+    }, 100);
+  };
+
+  oUp.onmouseup = oDown.onmouseup = function() {
+    clearInterval(timer);
+  };
+}
+</script>
+</head>
+<body>
+<div id="adBox">
+  <div class="title">
+    <h2>Apple</h2>
+    <a href="#">>>更多</a>
+  </div>
+  <div id="container">
+    <div id="up"></div>
+    <ul>
+      <li>
+        <h3>标题一</h3>
+        <p>Mac翻新产品<br/>iPod翻新产品</p>
+        <p class="time">12:35</p>
+        <img src="../image/ad1.png" alt="">
+      </li>
+      <li>
+        <p>RMB5,780起<br/>最低降了30%</p>
+        <p class="time">21:29</p>
+        <img src="../image/ad2.png" alt="">
+      </li>
+      <li>
+        <h3>标题三</h3>
+        <p>Mac完全解析</p>
+        <p class="time">22:38</p>
+        <img src="../image/ad3.png" alt="">
+      </li>
+      <li>
+        <h3>标题四</h3>
+        <p>无线网络基础</p>
+        <p class="time">12:00</p>
+        <img src="../image/ad4.png" alt="">
+      </li>
+      <li>
+        <p>从PC到Mac：<br/>基础知识</p>
+        <p class="time">12:02</p>
+        <img src="../image/ad5.png" alt="">
+      </li>
+      <li>
+        <h3>标题六</h3>
+        <p>转移到Mac</p>
+        <p class="time">15:30</p>
+        <img src="../image/ad6.png" alt="">
+      </li>
+      <li>
+        <p>各种Mac机</p>
+        <p class="time">3:23</p>
+        <img src="../image/ad7.png" alt="">
+      </li>
+      <li>
+        <h3>标题八</h3>
+        <p>RMB348起<br/>最多降低了43%</p>
+        <p class="time">15:48</p>
+        <img src="../image/ad8.png" alt="">
+      </li>
+    </ul>
+    <div id="down"></div>
+  </div>
+</div>
+</body>
+</html>
